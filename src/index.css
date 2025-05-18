@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-Outfit: 'Outfit', sans-serif;
+
+  /* Colors */
+  --color-primary-10: #fe7c0af7;
+  --color-primary-15: #45196C;
+  --color-primary-20: #190C5B;
+  --color-primary-25: #140C3B;
+  --color-primary-30: #190c5b99;
+  --color-primary-40: #140B3F;
+  --color-primary-45: #FF7C06;
+  --color-primary-50: #ffffff1a;
+  --color-primary-55: #FF7B07;
+  --color-primary-60: #3d299c66;
+  --color-primary-65: #322B57;
+  --color-primary-70: #271F4E;
+  --color-primary-80: #322A57;
+
+  /* Neutral */
+  --color-neutral-10: #0B052B;
+  --color-neutral-15: #0B0527;
+  --color-neutral-20: #151313;
+  --color-neutral-25: #ffffff80;
+  --color-neutral-30: #d4d4d41a;
+  --color-neutral-35: #BDBDBD;
+  --color-neutral-40: #B5B5B5;
+  --color-neutral-45: #fbfbfbcc;
+  --color-neutral-50: #777;
+  --color-neutral-55: #ffffffcc;
+  --color-neutral-60: #C4C3C3;
+  --color-neutral-65: #F8F8F8;
+  --color-neutral-70: #adadadde;
+  --color-neutral-75: #E6E6E6;
+  --color-neutral-80: #F5F5F5;
+  --color-neutral-85: #AEAEAE;
+  --color-neutral-90: #C2C2C2;
+  --color-neutral-95: #D3D3D3;
+  --color-neutral-100: #DDD;
+  --color-neutral-105: #D9D9D9;
+  --color-neutral-110: #ADADAD;
+  --color-neutral-115: #dddddda6;
+  --color-neutral-120: #D5D5D5;
+  --color-neutral-125: #E4E1E1;
+  --color-neutral-130: #919191;
+
+  /* Secondary */
+  --color-secondary-10: #6EBC94;
+
+  /* Shadows */
+  --shadow-custom: 0px 0px 50px 0px rgba(0, 0, 0, 0.10);
+  --shadow-custom-joinus: 0px 0px 56px 24px rgba(255, 255, 255, 0.10);
+  --shadow-custom-hero: 0px 4px 250px 16px #A276FA;
+  --shadow-custom-button: 0px -2px 2px 0px rgba(255, 255, 255, 0.05) inset, 0px 12px 45px 0px rgba(137, 81, 246, 0.35);
+
+  /* Gradients */
+  --bg-gradient-primary: linear-gradient(180deg, #8C52FF 0%, #A276FA 100%);
+  --bg-gradient-dark: linear-gradient(180deg, rgba(124, 67, 215, 0.00) 0%, rgba(124, 67, 215, 0.05) 23.44%, rgba(124, 67, 215, 0.05) 100%);
+}
+
+
+/* Custom scrollbar style */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #dddddda6 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #dddddda6;
+  border-radius: 6px;
+}
