@@ -1,4 +1,5 @@
 import React from "react";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 interface Column {
   header: string | JSX.Element;
@@ -10,8 +11,6 @@ interface Column {
   cellRenderer?: (row: any) => JSX.Element;
   icon1?: string;
   icon2?: string;
-  onIcon1Click?: () => void;
-  onIcon2Click?: () => void;
 }
 
 interface TableProps {
@@ -33,8 +32,8 @@ interface TableProps {
   bg_i2?: string;
   bg_i3?: string;
   onActionClick?: any;
-  editToggleModel?: (id?: string) => void;
-  handleDelete?: (id: string) => void;
+  handleReject?: (id?: string) => void;
+handleApprove?: (id: string) => void;
   LogToggleModel?: (id: string, state?: string) => void;
   handleViewAction?: () => void;
 }
@@ -87,7 +86,7 @@ const Table: React.FC<TableProps> = ({
                   return (
                     <tr
                       key={rowIndex}
-                      className="rounded-lg border-secondary-60 border  bg-transparent transition-all min-h-10 "
+                      className="border-secondary-60 bg-transparent transition-all min-h-10 text-center align-middle "
                     >
                       {columns?.map((col, colIndex) => {
                         return (
@@ -105,40 +104,58 @@ const Table: React.FC<TableProps> = ({
                             ) : col.accessor === "status" ? (
                               <span
                                 className={`${
-                                  ["ACTIVE", "APPROVE"].includes(
+                                  ["ACTIVE"].includes(
                                     row?.status?.toUpperCase()
                                   )
                                     ? "bg-secondary-20 px-6"
                                     : "bg-secondary-30 px-5"
-                                } p-2 rounded-full text-white text-sm`}
+                                } p-2 rounded-full text-white text-sm flex flex-row`}
                               >
                                 {row?.status}
                               </span>
                             ) : col.accessor === "actionStatus" ? (
-                              <span
-                                className={`${ ["ACTIVE", "APPROVE"].includes(
-                                        row?.status?.toUpperCase()
-                                      )
-                                    ? "bg-secondary-20 px-6"
-                                    : "bg-secondary-30 px-5"
-                                } p-2 rounded-full text-white text-sm flex items-center gap-2`}
-                              >
-                                {/* Show icon if both APPROVE and REJECT are present */}
-                                {row?.status
-                                  ?.toUpperCase()
-                                  .includes("APPROVE") &&(
-                                    // <FaExclamationTriangle className="text-white" />
-                                    <p>kj</p>
-                                  )}
-                                  {
-                                  row?.status
-                                    ?.toUpperCase()
-                                    .includes("REJECT") && (
-                                    // <FaExclamationTriangle className="text-white" />
-                                    <p>kjxvn</p>
-                                  )}
-                                {row?.status}
-                              </span>
+                              <div className="flex flex-row gap-2 justify-center" >
+                                {(row?.actionStatus?.toUpperCase() || "")
+                                  .split(",")
+                                  .map((status, index) => {
+                                    const trimmedStatus = status.trim();
+
+                                    if (trimmedStatus === "APPROVE") {
+                                      return (
+                                        <span
+                                       onClick={() => handleApprove?.(row?.id)}
+                                          key={index}
+                                          className="bg-secondary-20   hover:bg-secondary-20/80 px-4 py-2 rounded-full text-white text-sm flex items-center gap-1"
+                                        >
+                                          <FaCheckCircle />
+                                          {trimmedStatus}
+                                        </span>
+                                      );
+                                    }
+
+                                    if (trimmedStatus === "REJECT") {
+                                      return (
+                                        <span
+                                         onClick={() => handleReject?.(row?.id)}
+                                          key={index}
+                                          className="bg-secondary-30 hover:bg-secondary-30/80 px-4 py-2 rounded-full text-white text-sm flex items-center gap-1  "
+                                        >
+                                          <FaTimesCircle />
+                                          {trimmedStatus}
+                                        </span>
+                                      );
+                                    }
+
+                                    return (
+                                      <span
+                                        key={index}
+                                        className="bg-secondary-30 px-4 py-2 rounded-full text-white text-sm"
+                                      >
+                                        {trimmedStatus}
+                                      </span>
+                                    );
+                                  })}
+                              </div>
                             ) : (
                               row[col.accessor]
                             )}
@@ -146,7 +163,6 @@ const Table: React.FC<TableProps> = ({
                         );
                       })}
 
-                      
                       <td></td>
                     </tr>
                   );
