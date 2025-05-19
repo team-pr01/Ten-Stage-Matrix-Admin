@@ -1,4 +1,3 @@
-
 import React from "react";
 
 interface Column {
@@ -36,11 +35,9 @@ interface TableProps {
   onActionClick?: any;
   editToggleModel?: (id?: string) => void;
   handleDelete?: (id: string) => void;
-  LogToggleModel?: (id:string ,state?:string ) => void;
-  handleViewAction?: () => void
+  LogToggleModel?: (id: string, state?: string) => void;
+  handleViewAction?: () => void;
 }
-
-
 
 const Table: React.FC<TableProps> = ({
   data,
@@ -48,11 +45,9 @@ const Table: React.FC<TableProps> = ({
   tableWidth = "full",
   icons,
   tableHeight = "400px",
- 
- 
+
   // handleViewAction,
 }) => {
-  
   // const handleView=(()=>{
   //  if(handleViewAction){
   //   handleViewAction()
@@ -63,61 +58,46 @@ const Table: React.FC<TableProps> = ({
     <div
       className={` w-full overflow-x-scroll custom-scrollbar my-5 scrollbar-hide`}
     >
-      <div className="w-full rounded-[24px] overflow-hidden bg-secondary-60 p-6 mr-6 shadow-tableShadow">
-           
+      <div className="w-full rounded-[24px] overflow-hidden  p-6 mr-6 shadow-tableShadow">
         <div
           className={` overflow-x-auto  `}
           style={{ maxHeight: tableHeight, minWidth: tableWidth }}
         >
           <table className="min-w-full  text-left border-separate border-spacing-y-1">
-            <thead className="sticky top-0 bg-secondary-60 min-h-10">
-              <tr className="">
+            <thead className="sticky top-0 bg-primary-40 min-h-10">
+              <tr>
                 {columns.map((col, index) => (
                   <th
                     key={index}
-                    className="pl-3 py-3 font-normal text-[14px] leading-[20px] text-neutral-85 whitespace-nowrap  text-ellipsis"
+                    className="px-3 py-3 font-normal text-lg font-Outfit text-white whitespace-nowrap text-center"
                     style={{ minWidth: col.width }}
                   >
-                    <div className="flex items-center justify-between font-normal text-[14px] leading-[20px] text-neutral-85 whitespace-nowrap">
+<div className="absolute inset-0 bg-neutral-30 opacity-10 pointer-events-none z-0" />
+                    <div className="flex justify-center items-center relative z-10">
                       {col.header}
-                      <div
-                        className={`flex ${
-                          col.icon1 && col.icon2
-                            ? "flex-col items-center w-auto"
-                            : ""
-                        }`}
-                      >
-                      </div>
                     </div>
                   </th>
                 ))}
-                {icons && (
-                  <th
-                    style={{ minWidth: "160px" }}
-                    className="px-4 py-2 font-normal text-[14px] leading-[20px] text-neutral-85"
-                  >
-                    <div>Action</div>
-                  </th>
-                )}
               </tr>
             </thead>
-            <tbody className="bg-secondary-60 ">
+
+            <tbody className="bg-transparent ">
               {data?.length > 0 ? (
                 data?.map((row, rowIndex) => {
                   return (
                     <tr
                       key={rowIndex}
-                      className="rounded-lg border-secondary-60 border  bg-white transition-all min-h-10 "
+                      className="rounded-lg border-secondary-60 border  bg-transparent transition-all min-h-10 "
                     >
                       {columns?.map((col, colIndex) => {
                         return (
                           <td
                             key={colIndex}
-                            className={`pr-4 pl-3 py-4 rounded-lg text-[14px] ${
+                            className={`pr-4 pl-3 py-4 text-lg text-white text-center ${
                               typeof col.cellClassName === "function"
                                 ? col.cellClassName(row)
                                 : col.cellClassName || ""
-                            }${colIndex === 0 ? "text-[#4186F3]" : ""} `}
+                            } `}
                             style={{ width: col.width }}
                           >
                             {col.cellRenderer ? (
@@ -126,11 +106,11 @@ const Table: React.FC<TableProps> = ({
                               <span
                                 className={`${
                                   row?.status?.toUpperCase() === "ACTIVE"
-                                    ? " text-neutral-90 bg-sucess-10"
-                                    : "text-red-600 bg-red-100"
-                                } px-2 py-1 rounded-xl`}
+                                    ? "bg-secondary-20 px-6 "
+                                    : "bg-secondary-30 px-5 "
+                                } p-2 rounded-full text-white   text-sm`}
                               >
-                                {row[col.accessor]?.toUpperCase()}
+                                {row[col.accessor]}
                               </span>
                             ) : (
                               row[col.accessor]
@@ -138,8 +118,8 @@ const Table: React.FC<TableProps> = ({
                           </td>
                         );
                       })}
-                    
-                     {/* {icons &&( <td>
+
+                      {/* {icons &&( <td>
                         <div className="flex gap-4 pl-2">
                           
                           <button
@@ -203,8 +183,7 @@ const Table: React.FC<TableProps> = ({
 
                         </div>
                       </td>)} */}
-                      <td>
-                      </td>
+                      <td></td>
                     </tr>
                   );
                 })

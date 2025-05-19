@@ -49,6 +49,8 @@
 
   /* Secondary */
   --color-secondary-10: #6EBC94;
+  --color-secondary-20:#16da1694;
+  --color-secondary-30:#e7111194;
 
   /* Shadows */
   --shadow-custom: 0px 0px 50px 0px rgba(0, 0, 0, 0.10);
