@@ -1,237 +1,76 @@
-import React from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-
-interface Column {
-  header: string | JSX.Element;
-  accessor: string;
-  width?: string;
-  navigate?: boolean;
-  type?: string;
-  cellClassName?: string | ((row: any) => string);
-  cellRenderer?: (row: any) => JSX.Element;
-  icon1?: string;
-  icon2?: string;
-}
+type TableRow = { [key: string]: string | number };
 
 interface TableProps {
-  data: Array<Record<string, any>>;
-  columns: Column[];
-  tableName?: string;
-  showViewAll?: boolean;
-  showDropDown?: boolean;
-  enablePagination?: boolean;
-  rowsPerPage?: number;
-  tableHeight?: string;
-  tableWidth?: string;
-  icons?: {
-    i1?: string;
-    i2?: string;
-    i3?: string;
-  };
-  bg_i1?: string;
-  bg_i2?: string;
-  bg_i3?: string;
-  onActionClick?: any;
-  handleReject?: (id?: string) => void;
-handleApprove?: (id: string) => void;
-  LogToggleModel?: (id: string, state?: string) => void;
-  handleViewAction?: () => void;
+  headers: string[];
+  data: TableRow[];
+  onActionClick?: (row: TableRow) => void;
 }
 
-const Table: React.FC<TableProps> = ({
-  data,
-  columns,
-  tableWidth = "full",
-  icons,
-  tableHeight = "400px",
-
-  // handleViewAction,
-}) => {
-  // const handleView=(()=>{
-  //  if(handleViewAction){
-  //   handleViewAction()
-  //  }
-  // })
-
+export const Table: React.FC<TableProps> = ({ headers, data, onActionClick }) => {
   return (
-    <div
-      className={` w-full overflow-x-scroll custom-scrollbar my-5 scrollbar-hide`}
-    >
-      <div className="w-full rounded-[24px] overflow-hidden  p-6 mr-6 shadow-tableShadow">
-        <div
-          className={` overflow-x-auto  `}
-          style={{ maxHeight: tableHeight, minWidth: tableWidth }}
-        >
-          <table className="min-w-full  text-left border-separate border-spacing-y-1">
-            <thead className="sticky top-0 bg-primary-40 min-h-10">
-              <tr>
-                {columns.map((col, index) => (
-                  <th
-                    key={index}
-                    className="px-3 py-3 font-normal text-lg font-Outfit text-white whitespace-nowrap text-center"
-                    style={{ minWidth: col.width }}
-                  >
-                    <div className="absolute inset-0 bg-neutral-30 opacity-10 pointer-events-none z-0" />
-                    <div className="flex justify-center items-center relative z-10">
-                      {col.header}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
+    <div className="text-white rounded-lg shadow-md font-Outfit">
+      <div className="overflow-x-auto">
+        <table className="w-full text-left">
+          <thead>
+            <tr className="bg-neutral-30 text-sm">
+              {headers.map((header, idx) => (
+                <th key={idx} className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">{header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, idx) => (
+              <tr
+                key={idx}
+                className="border-t border-gray-700 hover:bg-[#1F1F3D] transition"
+              >
+                {headers.map((header, hIdx) => {
+                  const key = Object.keys(row)[hIdx];
+                  const content = row[key];
 
-            <tbody className="bg-transparent ">
-              {data?.length > 0 ? (
-                data?.map((row, rowIndex) => {
+                  if (key === 'status') {
+                    return (
+                      <td key={hIdx} className="px-4 py-3">
+                        <div
+                          className={`px-3 py-2 text-sm rounded-full font-medium text-center ${
+                            content === 'Active'
+                              ? 'bg-green-600 text-white'
+                              : 'bg-red-600 text-white'
+                          }`}
+                        >
+                          {content}
+                        </div>
+                      </td>
+                    );
+                  }
+
+                  if (key === 'action') {
+                    return (
+                      <td key={hIdx} className="px-4 py-3">
+                        <button
+                          onClick={() => onActionClick?.(row)}
+                          className="text-blue-400 hover:underline"
+                        >
+                          View
+                        </button>
+                      </td>
+                    );
+                  }
+
                   return (
-                    <tr
-                      key={rowIndex}
-                      className="border-secondary-60 bg-transparent transition-all min-h-10 text-center align-middle "
-                    >
-                      {columns?.map((col, colIndex) => {
-                        return (
-                          <td
-                            key={colIndex}
-                            className={`pr-4 pl-3 py-4 text-lg text-white text-center ${
-                              typeof col.cellClassName === "function"
-                                ? col.cellClassName(row)
-                                : col.cellClassName || ""
-                            } `}
-                            style={{ width: col.width }}
-                          >
-                            {col.cellRenderer ? (
-                              col.cellRenderer(row) // Use custom cellRenderer if defined
-                            ) : col.accessor === "status" ? (
-                              <span
-                                className={`${
-                                  ["ACTIVE"].includes(
-                                    row?.status?.toUpperCase()
-                                  )
-                                    ? "bg-secondary-20 px-6"
-                                    : "bg-secondary-30 px-5"
-                                } p-2 rounded-full text-white text-sm flex flex-row`}
-                              >
-                                {row?.status}
-                              </span>
-                            ) : col.accessor === "actionStatus" ? (
-                              <div className="flex flex-row gap-2 justify-center" >
-                                {(row?.actionStatus?.toUpperCase() || "")
-                                  .split(",")
-                                  .map((status, index) => {
-                                    const trimmedStatus = status.trim();
-
-                                    if (trimmedStatus === "APPROVE") {
-                                      return (
-                                        <span
-                                       onClick={() => handleApprove?.(row?.id)}
-                                          key={index}
-                                          className="bg-secondary-20   hover:bg-secondary-20/80 px-4 py-2 rounded-full text-white text-sm flex items-center gap-1"
-                                        >
-                                          <FaCheckCircle />
-                                          {trimmedStatus}
-                                        </span>
-                                      );
-                                    }
-
-                                    if (trimmedStatus === "REJECT") {
-                                      return (
-                                        <span
-                                         onClick={() => handleReject?.(row?.id)}
-                                          key={index}
-                                          className="bg-secondary-30 hover:bg-secondary-30/80 px-4 py-2 rounded-full text-white text-sm flex items-center gap-1  "
-                                        >
-                                          <FaTimesCircle />
-                                          {trimmedStatus}
-                                        </span>
-                                      );
-                                    }
-
-                                    return (
-                                      <span
-                                        key={index}
-                                        className="bg-secondary-30 px-4 py-2 rounded-full text-white text-sm"
-                                      >
-                                        {trimmedStatus}
-                                      </span>
-                                    );
-                                  })}
-                              </div>
-                            ) : (
-                              row[col.accessor]
-                            )}
-                          </td>
-                        );
-                      })}
-
-                      <td></td>
-                    </tr>
+                    <td key={hIdx} className="px-4 py-3 whitespace-nowrap">
+                      {content}
+                    </td>
                   );
-                })
-              ) : (
-                <tr>
-                  <td
-                    colSpan={columns.length + 1}
-                    className="text-center text-lg text-gray-500"
-                  >
-                    No data found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {data.length === 0 && (
+          <p className="text-center text-gray-400 py-4">No data found.</p>
+        )}
       </div>
-      {/* Pagination Controls */}
-      {/* {enablePagination && (
-        <div
-          className={`flex justify-center ${
-            currentPage < totalPages ? "" : ""
-          } md:justify-end items-center mt-4`}
-        >
-          <button
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className="text-black mx-3 my-2 disabled:opacity-50 flex items-center"
-          >
-            <img src={ICONS.leftArrowBlack} alt="" className="ml-2 w-5 h-5" />
-            Previous
-          </button>
-
-          {currentPage > 2 && <span className="mx-2">...</span>}
-
-          {[currentPage - 1, currentPage, currentPage + 1].map(
-            (page, index) => {
-              if (page < 1 || page > totalPages) return null;
-              return (
-                <button
-                  key={index}
-                  onClick={() => setCurrentPage(page)}
-                  className={`text-black w-10 h-10 ${
-                    page === currentPage
-                      ? "border-2 rounded-lg border-secondary-80"
-                      : ""
-                  }`}
-                >
-                  {page}
-                </button>
-              );
-            }
-          )}
-
-          {currentPage < totalPages - 1 && <span className="mx-2">...</span>}
-
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className="text-black mx-3 my-2 disabled:opacity-50 flex items-center"
-          >
-            Next{" "}
-            <img src={ICONS.rightArrowBlack} alt="" className="ml-2 w-5 h-5" />
-          </button>
-        </div>
-      )} */}
     </div>
   );
 };
-
-export default Table;

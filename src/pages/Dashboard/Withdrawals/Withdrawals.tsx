@@ -1,6 +1,4 @@
-import React from 'react'
-import Heading from '../../../components/Reusable/Heading'
-import Table from '../../../components/Reusable/Table'
+import Heading from '../../../components/Reusable/Heading';
 import { ICONS } from '../../../assets';
 
 const Withdrawals = () => {
@@ -217,7 +215,7 @@ const data2 = [
   return (
     <div className="font-Outfit">
       <Heading
-        iconSrc={ICONS.Withdrawals}
+        iconSrc={ICONS.withdrawals}
         title="Withdrawals"
         subtitle="Review and approve/reject withdrawal requests"
         Showbtn={false}
@@ -225,28 +223,28 @@ const data2 = [
       />
 
       <div className="mb-4">
-        <Table
+        {/* <Table
           data={data1}
           columns={columns1} 
           enablePagination={false}
           // handleApprove={handleApprove(id)}
           // handleReject={handleReject(id)}
         
-        />
+        /> */}
       </div>
       <Heading
-         iconSrc={ICONS.Withdrawals}
+         iconSrc={ICONS.withdrawals}
         title="Withdrawals History Log "
         Showbtn={false}
         // rightContent={<button className="text-white bg-blue-500 px-4 py-2 rounded">status</button>}
       />
 
       <div className="">
-        <Table
+        {/* <Table
           data={data2}
           columns={columns2}
           enablePagination={false}
-         />
+         /> */}
       </div>
     </div>
   )

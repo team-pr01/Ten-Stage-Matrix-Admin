@@ -1,10 +1,12 @@
 import logo from "./images/logo.png";
-import Withdrawals from "./icons/withdrawals.svg"
+import withdrawals from "./icons/withdrawals.svg"
+import userManagement from "./icons/user-management.svg"
 
 export const IMAGES = {
   logo
 };
 
 export const ICONS = {
-Withdrawals
+withdrawals,
+userManagement,
 }
