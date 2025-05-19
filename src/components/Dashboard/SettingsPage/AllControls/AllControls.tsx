@@ -8,7 +8,7 @@ const AllControls = () => {
       title: "USERS",
       subtitle: "Account Management",
       description: "Configure Commission Rates For Each Stage.",
-      path: "/account-management",
+      path: "/dashboard/user-management",
     },
     {
       icon: ICONS.charges,

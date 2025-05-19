@@ -15,6 +15,9 @@ import system from "./icons/system.png";
 import limit from "./icons/limit.png";
 import reDonation from "./icons/re-donation.png";
 import currentStage from "./icons/current-stage.png";
+import search from "./icons/search.svg";
+import filter from "./icons/filter.svg";
+import avatar from "./icons/avatar.svg";
 
 export const IMAGES = {
   logo
@@ -37,4 +40,7 @@ system,
 limit,
 reDonation,
 currentStage,
+search,
+filter,
+avatar,
 }

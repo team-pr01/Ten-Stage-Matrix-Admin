@@ -7,6 +7,7 @@ import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import StateManagement from "../pages/Dashboard/StateManagement/StateManagement";
 import Withdrawals from "../pages/Dashboard/Withdrawals/Withdrawals";
 import Settings from "../pages/Dashboard/Settings/Settings";
+import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManagement";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: "setting",
         element: <Settings/>,
+      },
+      {
+        path: "user-management",
+        element: <UserManagement/>,
       },
     ],
   },
