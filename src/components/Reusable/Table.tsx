@@ -38,6 +38,7 @@ export const Table: React.FC<TableProps> = ({
                 {headers.map((header, hIdx) => {
                   const key = Object.keys(row)[hIdx];
                   const content = row[key];
+                  console.log(header);
 
                   if (key === "status") {
                     return (

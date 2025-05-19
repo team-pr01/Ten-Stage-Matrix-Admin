@@ -15,7 +15,7 @@ const AllControls = () => {
       title: "Charges",
       subtitle: "Withdrawal & Transfer",
       description: "Configure Commission Rates For Each Stage.",
-      path: "/withdrawal-transfer",
+      path: "/dashboard/charges-overview",
     },
     {
       icon: ICONS.usdt,

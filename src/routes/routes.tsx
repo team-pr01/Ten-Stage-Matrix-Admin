@@ -8,6 +8,7 @@ import StateManagement from "../pages/Dashboard/StateManagement/StateManagement"
 import Withdrawals from "../pages/Dashboard/Withdrawals/Withdrawals";
 import Settings from "../pages/Dashboard/Settings/Settings";
 import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManagement";
+import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/ChargesOverview";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: "user-management",
         element: <UserManagement/>,
+      },
+      {
+        path: "charges-overview",
+        element: <ChargesOverview/>,
       },
     ],
   },
