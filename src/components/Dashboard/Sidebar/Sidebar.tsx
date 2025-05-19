@@ -9,7 +9,7 @@ const Sidebar = () => {
   {
     icon: <FaUsersCog />,
     label: "User management",
-    path: "/dashboard/user-management",
+    path: "/dashboard",
   },
   {
     icon: <FaUsers />,

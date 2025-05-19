@@ -72,7 +72,7 @@ const Table: React.FC<TableProps> = ({
                     className="px-3 py-3 font-normal text-lg font-Outfit text-white whitespace-nowrap text-center"
                     style={{ minWidth: col.width }}
                   >
-<div className="absolute inset-0 bg-neutral-30 opacity-10 pointer-events-none z-0" />
+                    <div className="absolute inset-0 bg-neutral-30 opacity-10 pointer-events-none z-0" />
                     <div className="flex justify-center items-center relative z-10">
                       {col.header}
                     </div>
@@ -105,12 +105,39 @@ const Table: React.FC<TableProps> = ({
                             ) : col.accessor === "status" ? (
                               <span
                                 className={`${
-                                  row?.status?.toUpperCase() === "ACTIVE"
-                                    ? "bg-secondary-20 px-6 "
-                                    : "bg-secondary-30 px-5 "
-                                } p-2 rounded-full text-white   text-sm`}
+                                  ["ACTIVE", "APPROVE"].includes(
+                                    row?.status?.toUpperCase()
+                                  )
+                                    ? "bg-secondary-20 px-6"
+                                    : "bg-secondary-30 px-5"
+                                } p-2 rounded-full text-white text-sm`}
                               >
-                                {row[col.accessor]}
+                                {row?.status}
+                              </span>
+                            ) : col.accessor === "actionStatus" ? (
+                              <span
+                                className={`${ ["ACTIVE", "APPROVE"].includes(
+                                        row?.status?.toUpperCase()
+                                      )
+                                    ? "bg-secondary-20 px-6"
+                                    : "bg-secondary-30 px-5"
+                                } p-2 rounded-full text-white text-sm flex items-center gap-2`}
+                              >
+                                {/* Show icon if both APPROVE and REJECT are present */}
+                                {row?.status
+                                  ?.toUpperCase()
+                                  .includes("APPROVE") &&(
+                                    // <FaExclamationTriangle className="text-white" />
+                                    <p>kj</p>
+                                  )}
+                                  {
+                                  row?.status
+                                    ?.toUpperCase()
+                                    .includes("REJECT") && (
+                                    // <FaExclamationTriangle className="text-white" />
+                                    <p>kjxvn</p>
+                                  )}
+                                {row?.status}
                               </span>
                             ) : (
                               row[col.accessor]
@@ -119,70 +146,7 @@ const Table: React.FC<TableProps> = ({
                         );
                       })}
 
-                      {/* {icons &&( <td>
-                        <div className="flex gap-4 pl-2">
-                          
-                          <button
-                            key="i2"
-                            onClick={() => onEditClick(row.id)}
-                            className={`rounded-full h-6 w-6 flex items-center justify-center  ${bg_i2}  `}
-                          >
-                            <img
-                              src={icons?.i2}
-                              alt="Edit"
-                              className="h-4 w-4"
-                            />
-                          </button>
-                          <button
-                            key="i3"
-                            onClick={() => onDeleteClick(row.id)}
-                            className={`rounded-full h-6 w-6 flex items-center justify-center  ${bg_i3}  `}
-                          >
-                            <img
-                              src={icons?.i3}
-                              alt="Edit"
-                              className="h-4 w-4"
-                            />
-                          </button>
-                          <button
-                            key="i1"
-                            onClick={() => onTickClick(row?.id ,rowIndex)}
-                            className={`rounded-full h-6 w-6 flex items-center justify-center  ${bg_i1}  `}
-                          >
-                            <img
-                              src={icons?.i1}
-                              alt="Edit"
-                              className="h-4 w-4"
-                            />
-                          </button>
-                          {showDropDown && (
-                          <div className="relative">
-                            <button
-                              type="button"
-                              className="flex gap-2 justify-center items-center py-2 pr-4 pl-2 border border-secondary-145 rounded-xl text-[16px]"
-                              onClick={() => handleToggle(rowIndex)}
-                            >
-                              <span className="w-[186px]">{selectedOptions[rowIndex]}</span>
-                              <img src={ICONS.invoicedropdown} alt="dropdown" />
-                            </button>
-                            {openDropdownIndex === rowIndex && (
-                              <div className="absolute mt-2 w-full bg-white border border-secondary-145 rounded-xl shadow-lg z-10">
-                                {options.map((option, index) => (
-                                  <button
-                                    key={index}
-                                    className="block w-full text-left px-4 py-2 text-[16px] font-normal hover:bg-secondary-60 rounded-xl"
-                                    onClick={() => handleOptionSelect(rowIndex, option)}
-                                  >
-                                    {option}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        </div>
-                      </td>)} */}
+                      
                       <td></td>
                     </tr>
                   );
