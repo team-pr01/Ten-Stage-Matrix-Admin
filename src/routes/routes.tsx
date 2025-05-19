@@ -6,6 +6,7 @@ import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import StateManagement from "../pages/Dashboard/StateManagement/StateManagement";
 import Withdrawals from "../pages/Dashboard/Withdrawals/Withdrawals";
+import Settings from "../pages/Dashboard/Settings/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "setting",
-        element: <StateManagement/>,
+        element: <Settings/>,
       },
     ],
   },

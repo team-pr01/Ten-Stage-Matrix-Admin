@@ -115,7 +115,6 @@ const Withdrawals = () => {
         iconSrc={ICONS.withdrawals}
         title="Withdrawals"
         subtitle="Review and approve/reject withdrawal requests"
-        // rightContent={<button className="text-white bg-blue-500 px-4 py-2 rounded">status</button>}
       />
 
       <div className="mt-8">
