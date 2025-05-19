@@ -50,7 +50,6 @@ const DashboardHome = () => {
         iconSrc={ICONS.userManagement}
         title="User management "
         subtitle="Mange all platform users and referrals"
-        Showbtn={true}
       />
 
       <div className="flex justify-end items-center gap-4">

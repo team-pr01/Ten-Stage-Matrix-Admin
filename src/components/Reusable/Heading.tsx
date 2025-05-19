@@ -5,7 +5,6 @@ interface HeadingProps {
   title: string;
   subtitle?: string;
   className?: string;
-  Showbtn?: boolean;
 }
 
 const Heading: React.FC<HeadingProps> = ({
