@@ -98,7 +98,6 @@ const DashboardHome = () => {
             "Action",
           ]}
           data={filteredData}
-          onActionClick={(row) => console.log(row)}
         />
       </div>
     </div>

@@ -3,10 +3,16 @@ type TableRow = { [key: string]: string | number };
 interface TableProps {
   headers: string[];
   data: TableRow[];
-  onActionClick?: (row: TableRow) => void;
+  onApprove?: (row: TableRow) => void;
+  onReject?: (row: TableRow) => void;
 }
 
-export const Table: React.FC<TableProps> = ({ headers, data, onActionClick }) => {
+export const Table: React.FC<TableProps> = ({
+  headers,
+  data,
+  onApprove,
+  onReject,
+}) => {
   return (
     <div className="text-white rounded-lg shadow-md font-Outfit">
       <div className="overflow-x-auto">
@@ -14,7 +20,12 @@ export const Table: React.FC<TableProps> = ({ headers, data, onActionClick }) =>
           <thead>
             <tr className="bg-neutral-30 text-sm">
               {headers.map((header, idx) => (
-                <th key={idx} className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">{header}</th>
+                <th
+                  key={idx}
+                  className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal"
+                >
+                  {header}
+                </th>
               ))}
             </tr>
           </thead>
@@ -28,30 +39,43 @@ export const Table: React.FC<TableProps> = ({ headers, data, onActionClick }) =>
                   const key = Object.keys(row)[hIdx];
                   const content = row[key];
 
-                  if (key === 'status') {
+                  if (key === "status") {
                     return (
                       <td key={hIdx} className="px-4 py-3">
                         <div
-                          className={`px-3 py-2 text-sm rounded-full font-medium text-center ${
-                            content === 'Active'
-                              ? 'bg-green-600 text-white'
-                              : 'bg-red-600 text-white'
+                          className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit ${
+                            content === "Approved"
+                              ? "bg-green-600 text-white"
+                              : "bg-red-600 text-white"
                           }`}
                         >
+                          {
+                            content === "Approved" ? "✓" : "✕"
+                          }
+                          {" "}
                           {content}
                         </div>
                       </td>
                     );
                   }
 
-                  if (key === 'action') {
+                  if (key === "action") {
                     return (
-                      <td key={hIdx} className="px-4 py-3">
+                      <td
+                        key={hIdx}
+                        className="px-4 py-3 whitespace-nowrap flex items-center gap-2"
+                      >
                         <button
-                          onClick={() => onActionClick?.(row)}
-                          className="text-blue-400 hover:underline"
+                          onClick={onApprove ? () => onApprove(row) : undefined}
+                          className="bg-green-600 hover:bg-green-700 text-white text-sm px-3 py-1 rounded-full"
                         >
-                          View
+                          ✓ Approve
+                        </button>
+                        <button
+                          onClick={onReject ? () => onReject(row) : undefined}
+                          className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded-full"
+                        >
+                          ✕ Reject
                         </button>
                       </td>
                     );
