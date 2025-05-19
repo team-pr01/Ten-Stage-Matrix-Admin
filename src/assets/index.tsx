@@ -14,6 +14,7 @@ import commission from "./icons/commission.png";
 import system from "./icons/system.png";
 import limit from "./icons/limit.png";
 import reDonation from "./icons/re-donation.png";
+import currentStage from "./icons/current-stage.png";
 
 export const IMAGES = {
   logo
@@ -35,4 +36,5 @@ commission,
 system,
 limit,
 reDonation,
+currentStage,
 }
