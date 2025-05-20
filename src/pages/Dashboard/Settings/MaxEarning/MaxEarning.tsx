@@ -37,24 +37,26 @@ const MaxEarning = () => {
             </button>
           ))}
         </div>
-        <hr className="border border-neutral-115 w-full h-[1px] absolute top-[37.5px]" />
+        <hr className="border border-neutral-145 w-full h-[1px] absolute top-[37.5px]" />
       </div>
 
-      {activeTab === "All Stages" && <StatusGrid />}
+      {activeTab === "All Stages" && <StatusGrid /> }
 
       {activeTab === "Active" && (
         <>
           <StatusGrid statusType="Active" />
+
         </>
       )}
 
       {activeTab === "Inactive" && (
         <>
           <StatusGrid statusType="InActive" />
+
         </>
       )}
 
-      <div className="mt-[42px] flex flex-col gap-[18px]">
+      <div className="mt-[54px] flex flex-col gap-[18px]">
         <h1 className="text-white font-medium text-[26px]">
           Update Earning Cap
         </h1>

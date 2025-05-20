@@ -8,6 +8,7 @@ export default function StatusGrid({ statusType = "In Active" }) {
   const statusList = Array(10).fill(statusType); // 10 times
 
   return (
+    <div>
     <div className="flex flex-row overflow-auto gap-4 mt-6">
       {statusList.map((status, index) => (
         <div
@@ -17,7 +18,7 @@ export default function StatusGrid({ statusType = "In Active" }) {
           <StatusBadge status={status} />
         </div>
       ))}
-    </div>
+      
+    </div><hr className="border border-neutral-145 w-full h-[1px]" /></div>
   );
 }
-
