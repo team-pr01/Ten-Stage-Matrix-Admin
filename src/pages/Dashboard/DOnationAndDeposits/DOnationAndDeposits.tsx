@@ -81,7 +81,7 @@ const DOnationAndDeposits = () => {
       phone: "+8801607-30419",
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
-      date: "2025-05-1",
+      date: "2025-05-01",
     },
   ];
 
@@ -115,9 +115,8 @@ const DOnationAndDeposits = () => {
               type="date"
               value={selectedDonationDate}
               onChange={(e) => setSelectedDonationDate(e.target.value)}
-              className="text-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-10"
+              className="text-white [&::-webkit-datetime-edit]:text-white [&::-webkit-calendar-picker-indicator]:invert rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-70"
             />
-           
           </div>
         </div>
 
@@ -153,12 +152,14 @@ const DOnationAndDeposits = () => {
               Remove Filter
             </button>
             {/* Date Filter */}
-            <input
-              type="date"
-              value={selectedDepositDate}
-              onChange={(e) => setSelectedDepositDate(e.target.value)}
-              className="text-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-10"
-            />
+           <input
+  type="date"
+  placeholder="select date"
+  value={selectedDepositDate}
+  onChange={(e) => setSelectedDepositDate(e.target.value)}
+  className="text-white [&::-webkit-datetime-edit]:text-white [&::-webkit-calendar-picker-indicator]:invert rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-70"
+/>
+
             
           </div>
         </div>
