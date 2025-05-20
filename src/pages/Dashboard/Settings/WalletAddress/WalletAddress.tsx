@@ -17,7 +17,7 @@ const WalletAddress = () => {
           <p className="font-medium text-lg mt-[13px]">Active</p>
           <h3 className="text-[30px] font-medium mt-[6px]">BEP-20 Address</h3>
           <p className="text-lg text-neutral-140 mt-[13px]">
-            TQ#v....8hjhjahuhuehruhasuehruewtygruhsfuhszr8748795ry
+            TQ#v....8hjhjahuhuehr
           </p>
         </div>
         <button

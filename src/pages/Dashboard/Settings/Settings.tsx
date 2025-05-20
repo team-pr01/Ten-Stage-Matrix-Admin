@@ -1,7 +1,6 @@
 import Heading from "../../../components/Reusable/Heading";
 import { ICONS } from "../../../assets";
 import AllControls from "../../../components/Dashboard/SettingsPage/AllControls/AllControls";
-import { Link } from "react-router-dom";
 
 const Settings = () => {
   return (
@@ -27,12 +26,11 @@ const Settings = () => {
             Platform is running normally.
           </p>
         </div>
-        <Link
-          to={"/"}
-          className="bg-primary-10 text-white px-10 py-2 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit mt-[17px]"
+        <button
+          className="bg-primary-10 text-white px-10 py-2 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit mt-[17px] cursor-pointer"
         >
           Pause
-        </Link>
+        </button>
       </div>
     </div>
   );
