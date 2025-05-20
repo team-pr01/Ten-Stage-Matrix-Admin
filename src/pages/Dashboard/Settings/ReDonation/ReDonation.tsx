@@ -34,6 +34,8 @@ const ReDonation = () => {
           </Link>
         </div>
       </div>
+
+      {/* Form */}
       <div className="mt-[42px] flex flex-col gap-[18px]">
         <h1 className="text-white font-medium text-[26px]">
           Re-Donation Amount
@@ -54,6 +56,8 @@ const ReDonation = () => {
           </div>
         </div>
       </div>
+
+      
       <div className="mt-[26px] flex flex-col gap-[18px]">
         <h1 className="text-white font-medium text-[26px]">
           Re-Donation Stages
