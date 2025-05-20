@@ -55,11 +55,11 @@ const AllControls = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-Outfit mt-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 font-Outfit mt-5">
       {allControls.map((control, idx) => (
         <div
           key={idx}
-          className="rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 px-6 py-8 shadow-lg text-white flex items-center gap-[33px]"
+          className="rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 px-6 py-8 shadow-lg text-white flex flex-col lg:flex-row items-start lg:items-center gap-[33px]"
         >
           {/* Icon and Button */}
           <div className="flex flex-col gap-[25px] items-center">
@@ -78,9 +78,9 @@ const AllControls = () => {
 
           {/* Text Content */}
           <div>
-            <p className="font-medium text-lg">{control.title}</p>
-            <h3 className="text-[34px] font-medium">{control.subtitle}</h3>
-            <p className="text-sm text-neutral-135">{control.description}</p>
+            <p className="font-medium text-base md:text-lg">{control.title}</p>
+            <h3 className="text-2xl md:text-[34px] font-medium">{control.subtitle}</h3>
+            <p className="text-sm text-neutral-135 mt-2 md:mt-0">{control.description}</p>
           </div>
         </div>
       ))}
