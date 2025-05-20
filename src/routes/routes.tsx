@@ -9,6 +9,7 @@ import Withdrawals from "../pages/Dashboard/Withdrawals/Withdrawals";
 import Settings from "../pages/Dashboard/Settings/Settings";
 import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManagement";
 import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/ChargesOverview";
+import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddress";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: "charges-overview",
         element: <ChargesOverview/>,
+      },
+      {
+        path: "wallet-address",
+        element: <WalletAddress/>,
       },
     ],
   },

@@ -18,6 +18,9 @@ import currentStage from "./icons/current-stage.png";
 import search from "./icons/search.svg";
 import filter from "./icons/filter.svg";
 import avatar from "./icons/avatar.svg";
+import wallet from "./icons/wallet.svg";
+import wifi from "./icons/wifi.svg";
+import activeReferral from "./icons/active-referrals.png"
 
 export const IMAGES = {
   logo
@@ -43,4 +46,7 @@ currentStage,
 search,
 filter,
 avatar,
+activeReferral,
+wallet,
+wifi
 }
