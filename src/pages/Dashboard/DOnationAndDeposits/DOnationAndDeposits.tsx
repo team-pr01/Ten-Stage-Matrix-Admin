@@ -105,7 +105,7 @@ const DOnationAndDeposits = () => {
 
           {/* Date Filter */}
           <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
-             <button
+            <button
               onClick={() => setSelectedDonationDate("")}
               className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[170px] cursor-pointer"
             >
@@ -115,7 +115,11 @@ const DOnationAndDeposits = () => {
               type="date"
               value={selectedDonationDate}
               onChange={(e) => setSelectedDonationDate(e.target.value)}
-              className="text-white [&::-webkit-datetime-edit]:text-white [&::-webkit-calendar-picker-indicator]:invert rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-70"
+              className="w-full md:w-fit px-5 py-3 rounded-full bg-primary-10 text-white focus:outline-none 
+    [&::-webkit-calendar-picker-indicator]:invert 
+    [&::-webkit-datetime-edit]:text-white 
+    [&::-moz-placeholder]:text-white 
+    placeholder-white"
             />
           </div>
         </div>
@@ -152,15 +156,16 @@ const DOnationAndDeposits = () => {
               Remove Filter
             </button>
             {/* Date Filter */}
-           <input
-  type="date"
-  placeholder="select date"
-  value={selectedDepositDate}
-  onChange={(e) => setSelectedDepositDate(e.target.value)}
-  className="text-white [&::-webkit-datetime-edit]:text-white [&::-webkit-calendar-picker-indicator]:invert rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-70"
-/>
-
-            
+            <input
+              type="date"
+              value={selectedDepositDate}
+              onChange={(e) => setSelectedDepositDate(e.target.value)}
+              className="w-full md:w-fit px-5 py-3 rounded-full bg-primary-10 text-white focus:outline-none 
+    [&::-webkit-calendar-picker-indicator]:invert 
+    [&::-webkit-datetime-edit]:text-white 
+    [&::-moz-placeholder]:text-white 
+    placeholder-white"
+            />
           </div>
         </div>
 
