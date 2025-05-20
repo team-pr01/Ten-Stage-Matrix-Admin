@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Table } from "../../../components/Reusable/Table";
 import Heading from "../../../components/Reusable/Heading";
 import { ICONS } from "../../../assets";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+
 
 const DOnationAndDeposits = () => {
-  const [selectedDonationDate, setSelectedDonationDate] = useState("");
-  const [selectedDepositDate, setSelectedDepositDate] = useState("");
+  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(null);
+  const [selectedDepositDate, setSelectedDepositDate] = useState<Date | null>(null);;
 
   const data = [
     {
@@ -85,12 +89,20 @@ const DOnationAndDeposits = () => {
     },
   ];
 
-  const filteredDonationData = selectedDonationDate
-    ? data.filter((item) => item.date === selectedDonationDate)
-    : data;
+  const formattedDonationDate = selectedDonationDate
+  ? format(selectedDonationDate, "yyyy-MM-dd")
+  : "";
 
-  const filteredDepositData = selectedDepositDate
-    ? data2.filter((item) => item.date === selectedDepositDate)
+const filteredDonationData = formattedDonationDate
+  ? data.filter((item) => item.date === formattedDonationDate)
+  : data;
+
+   const formattedDepositDate = selectedDepositDate
+  ? format(selectedDepositDate, "yyyy-MM-dd")
+  : "";
+
+  const filteredDepositData = formattedDepositDate
+    ? data2.filter((item) => item.date === formattedDepositDate)
     : data2;
 
   return (
@@ -106,20 +118,17 @@ const DOnationAndDeposits = () => {
           {/* Date Filter */}
           <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
             <button
-              onClick={() => setSelectedDonationDate("")}
-              className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[170px] cursor-pointer"
+              onClick={() => setSelectedDonationDate(null)}
+              className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[210px] cursor-pointer"
             >
               Remove Filter
             </button>
-            <input
-              type="date"
-              value={selectedDonationDate}
-              onChange={(e) => setSelectedDonationDate(e.target.value)}
-              className="w-full md:w-fit px-5 py-3 rounded-full bg-primary-10 text-white focus:outline-none 
-    [&::-webkit-calendar-picker-indicator]:invert 
-    [&::-webkit-datetime-edit]:text-white 
-    [&::-moz-placeholder]:text-white 
-    placeholder-white"
+            <DatePicker
+              selected={selectedDonationDate}
+              onChange={(date) => setSelectedDonationDate(date)}
+              placeholderText="Select a date"
+              className="w-full px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none"
+              calendarClassName="!bg-white !text-black"
             />
           </div>
         </div>
@@ -150,21 +159,18 @@ const DOnationAndDeposits = () => {
 
           <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
             <button
-              onClick={() => setSelectedDepositDate("")}
-              className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[170px] cursor-pointer"
+              onClick={() => setSelectedDepositDate(null)}
+              className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[210px] cursor-pointer"
             >
               Remove Filter
             </button>
             {/* Date Filter */}
-            <input
-              type="date"
-              value={selectedDepositDate}
-              onChange={(e) => setSelectedDepositDate(e.target.value)}
-              className="w-full md:w-fit px-5 py-3 rounded-full bg-primary-10 text-white focus:outline-none 
-    [&::-webkit-calendar-picker-indicator]:invert 
-    [&::-webkit-datetime-edit]:text-white 
-    [&::-moz-placeholder]:text-white 
-    placeholder-white"
+            <DatePicker
+              selected={selectedDepositDate}
+              onChange={(date) => setSelectedDepositDate(date)}
+              placeholderText="Select a date"
+              className="w-full px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none"
+              calendarClassName="!bg-white !text-black"
             />
           </div>
         </div>
