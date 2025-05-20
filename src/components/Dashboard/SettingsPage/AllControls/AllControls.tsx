@@ -29,7 +29,7 @@ const AllControls = () => {
       title: "Commissions",
       subtitle: "Stage Settings",
       description: "Configure Commission Rates For Each Stage.",
-      path: "/stage-settings",
+      path: "/dashboard/stage-settings",
     },
     {
       icon: ICONS.system,

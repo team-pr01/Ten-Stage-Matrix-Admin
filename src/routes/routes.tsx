@@ -10,6 +10,7 @@ import Settings from "../pages/Dashboard/Settings/Settings";
 import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManagement";
 import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/ChargesOverview";
 import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddress";
+import StageCommission from './../pages/Dashboard/Settings/StageCommission/StageCommission';
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: "wallet-address",
         element: <WalletAddress/>,
+      },
+      {
+        path: "stage-settings",
+        element: <StageCommission/>,
       },
     ],
   },

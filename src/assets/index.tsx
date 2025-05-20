@@ -20,7 +20,9 @@ import filter from "./icons/filter.svg";
 import avatar from "./icons/avatar.svg";
 import wallet from "./icons/wallet.svg";
 import wifi from "./icons/wifi.svg";
+import growth from "./icons/growth.svg";
 import activeReferral from "./icons/active-referrals.png"
+
 
 export const IMAGES = {
   logo
@@ -48,5 +50,6 @@ filter,
 avatar,
 activeReferral,
 wallet,
-wifi
+wifi,
+growth
 }
