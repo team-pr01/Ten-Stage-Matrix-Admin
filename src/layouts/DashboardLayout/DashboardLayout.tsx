@@ -17,7 +17,7 @@ const DashboardLayout = () => {
       </div>
       <div className="flex w-full">
         <Sidebar />
-        <div className="w-full">
+        <div className="w-full min-h-screen">
           <DashboardHeader />
           <div className="px-5 py-[30px]">
             <Outlet />
