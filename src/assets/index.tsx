@@ -21,6 +21,7 @@ import avatar from "./icons/avatar.svg";
 import wallet from "./icons/wallet.svg";
 import wifi from "./icons/wifi.svg";
 import growth from "./icons/growth.svg";
+import condition from "./icons/condition.svg";
 import activeReferral from "./icons/active-referrals.png"
 
 
@@ -51,5 +52,6 @@ avatar,
 activeReferral,
 wallet,
 wifi,
-growth
+growth,
+condition
 }

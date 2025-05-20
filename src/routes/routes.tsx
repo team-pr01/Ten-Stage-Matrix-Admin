@@ -11,6 +11,7 @@ import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManag
 import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/ChargesOverview";
 import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddress";
 import StageCommission from './../pages/Dashboard/Settings/StageCommission/StageCommission';
+import ReDonation from "../pages/Dashboard/Settings/ReDonation/ReDonation";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
       {
         path: "stage-settings",
         element: <StageCommission/>,
+      },
+      {
+        path: "re-donation-rules",
+        element: <ReDonation/>,
       },
     ],
   },

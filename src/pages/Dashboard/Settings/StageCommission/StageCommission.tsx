@@ -5,7 +5,7 @@ import StageCommissionSettings from '../../../../components/Dashboard/SettingsPa
 const StageCommission = () => {
   return (
      <div className="font-Outfit">
-      <h1 className="text-white font-medium text-[26px]">
+      <h1 className="text-white font-medium text-[26px] mb-5">
         Edit Stage Commissions
       </h1>
       

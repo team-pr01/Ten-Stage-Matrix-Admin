@@ -50,7 +50,7 @@ const AllControls = () => {
       title: "Re-Donation",
       subtitle: "Rules",
       description: "Update Minimum Re-Donation Per Stage.",
-      path: "/re-donation-rules",
+      path: "/dashboard/re-donation-rules",
     },
   ];
 
