@@ -44,7 +44,7 @@ export const Table: React.FC<TableProps> = ({
                     return (
                       <td key={hIdx} className="px-4 py-3">
                         <div
-                          className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit ${
+                          className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap ${
                             content === "Approved"
                               ? "bg-green-600 text-white"
                               : "bg-red-600 text-white"
@@ -68,13 +68,13 @@ export const Table: React.FC<TableProps> = ({
                       >
                         <button
                           onClick={onApprove ? () => onApprove(row) : undefined}
-                          className="bg-green-600 hover:bg-green-700 text-white text-sm px-3 py-1 rounded-full"
+                          className="bg-green-600 hover:bg-green-700 text-white text-sm px-3 py-1 rounded-full text-nowrap"
                         >
                           ✓ Approve
                         </button>
                         <button
                           onClick={onReject ? () => onReject(row) : undefined}
-                          className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded-full"
+                          className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded-full text-nowrap"
                         >
                           ✕ Reject
                         </button>
@@ -83,7 +83,7 @@ export const Table: React.FC<TableProps> = ({
                   }
 
                   return (
-                    <td key={hIdx} className="px-4 py-3 whitespace-nowrap">
+                    <td key={hIdx} className="px-4 py-3 whitespace-nowrap text-nowrap">
                       {content}
                     </td>
                   );
