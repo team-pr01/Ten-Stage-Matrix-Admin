@@ -4,7 +4,8 @@ import Heading from "../../../components/Reusable/Heading";
 import { ICONS } from "../../../assets";
 
 const DOnationAndDeposits = () => {
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDonationDate, setSelectedDonationDate] = useState("");
+  const [selectedDepositDate, setSelectedDepositDate] = useState("");
 
   const data = [
     {
@@ -14,7 +15,25 @@ const DOnationAndDeposits = () => {
       phone: "+8801607-30419",
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
-      date: "2025-05-20",
+      date: "2025-05-17",
+    },
+    {
+      id: 2,
+      wallet: "0xA1B2C3...90BE",
+      email: "example@gmail.com",
+      phone: "+8801607-30419",
+      privateKey: "08qw45243...",
+      referral: "REF123hjd1234",
+      date: "2025-05-18",
+    },
+    {
+      id: 1,
+      wallet: "0xA1B2C3...90BE",
+      email: "example@gmail.com",
+      phone: "+8801607-30419",
+      privateKey: "08qw45243...",
+      referral: "REF123hjd1234",
+      date: "2025-05-19",
     },
     {
       id: 2,
@@ -27,79 +46,137 @@ const DOnationAndDeposits = () => {
     },
   ];
 
-  const filteredData = selectedDate
-    ? data.filter((item) => item.date === selectedDate)
+  const data2 = [
+    {
+      id: 1,
+      wallet: "0xA1B2C3...90BE",
+      email: "example@gmail.com",
+      phone: "+8801607-30419",
+      privateKey: "08qw45243...",
+      referral: "REF123hjd1234",
+      date: "2025-05-14",
+    },
+    {
+      id: 2,
+      wallet: "0xA1B2C3...90BE",
+      email: "example@gmail.com",
+      phone: "+8801607-30419",
+      privateKey: "08qw45243...",
+      referral: "REF123hjd1234",
+      date: "2025-05-21",
+    },
+    {
+      id: 1,
+      wallet: "0xA1B2C3...90BE",
+      email: "example@gmail.com",
+      phone: "+8801607-30419",
+      privateKey: "08qw45243...",
+      referral: "REF123hjd1234",
+      date: "2025-05-30",
+    },
+    {
+      id: 2,
+      wallet: "0xA1B2C3...90BE",
+      email: "example@gmail.com",
+      phone: "+8801607-30419",
+      privateKey: "08qw45243...",
+      referral: "REF123hjd1234",
+      date: "2025-05-1",
+    },
+  ];
+
+  const filteredDonationData = selectedDonationDate
+    ? data.filter((item) => item.date === selectedDonationDate)
     : data;
 
+  const filteredDepositData = selectedDepositDate
+    ? data2.filter((item) => item.date === selectedDepositDate)
+    : data2;
+
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-16 font-Outfit">
       <div className="flex flex-col gap-8">
-        <div className="flex items-center justify-between">
-        <Heading
-          iconSrc={ICONS.userManagement}
-          title="Donation Reports"
-          subtitle="Manage all donation reports"
-        />
+        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-0 justify-between">
+          <Heading
+            iconSrc={ICONS.userManagement}
+            title="Donation Reports"
+            subtitle="Manage all donation reports"
+          />
 
-        {/* Date Filter */}
-        <div>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="text-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-10"
+          {/* Date Filter */}
+          <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
+             <button
+              onClick={() => setSelectedDonationDate("")}
+              className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[170px] cursor-pointer"
+            >
+              Remove Filter
+            </button>
+            <input
+              type="date"
+              value={selectedDonationDate}
+              onChange={(e) => setSelectedDonationDate(e.target.value)}
+              className="text-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-10"
+            />
+           
+          </div>
+        </div>
+
+        <div className="">
+          <Table
+            headers={[
+              "#",
+              "Wallet Address",
+              "Email",
+              "Phone",
+              "Private Key",
+              "Referral ID",
+              "Date",
+            ]}
+            data={filteredDonationData}
           />
         </div>
       </div>
 
-      <div className="">
-        <Table
-          headers={[
-            "#",
-            "Wallet Address",
-            "Email",
-            "Phone",
-            "Private Key",
-            "Referral ID",
-            "Date",
-          ]}
-          data={filteredData}
-        />
-      </div>
-      </div>
       <div className="flex flex-col gap-5">
-        <div className="flex items-center justify-between">
-        <Heading
-          iconSrc={ICONS.userManagement}
-          title="Deposit Reports"
-          subtitle="Manage all deposit reports"
-        />
+        <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-0 justify-between">
+          <Heading
+            iconSrc={ICONS.userManagement}
+            title="Deposit Reports"
+            subtitle="Manage all deposit reports"
+          />
 
-        {/* Date Filter */}
-        <div>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="text-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-10"
+          <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
+            <button
+              onClick={() => setSelectedDepositDate("")}
+              className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[170px] cursor-pointer"
+            >
+              Remove Filter
+            </button>
+            {/* Date Filter */}
+            <input
+              type="date"
+              value={selectedDepositDate}
+              onChange={(e) => setSelectedDepositDate(e.target.value)}
+              className="text-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit bg-primary-10"
+            />
+            
+          </div>
+        </div>
+
+        <div className="">
+          <Table
+            headers={[
+              "#",
+              "Wallet Address",
+              "Email",
+              "Phone",
+              "Private Key",
+              "Referral ID",
+              "Date",
+            ]}
+            data={filteredDepositData}
           />
         </div>
-      </div>
-
-      <div className="">
-        <Table
-          headers={[
-            "#",
-            "Wallet Address",
-            "Email",
-            "Phone",
-            "Private Key",
-            "Referral ID",
-            "Date",
-          ]}
-          data={filteredData}
-        />
-      </div>
       </div>
     </div>
   );
