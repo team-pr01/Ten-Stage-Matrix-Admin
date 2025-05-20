@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ICONS } from "../../../../assets";
 import { useState } from "react";
-import StatusBridge from "../../../../components/Dashboard/SettingsPage/MaxLimit/StatusBridge";
 import StatusGrid from "../../../../components/Dashboard/SettingsPage/MaxLimit/StatusBridge";
 
 const MaxEarning = () => {
