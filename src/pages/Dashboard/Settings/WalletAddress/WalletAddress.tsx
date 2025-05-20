@@ -77,7 +77,7 @@ const WalletAddress = () => {
                 Save
               </button>
               <Link
-                to={"/"}
+                to={"/dashboard"}
                 className="bg-primary-70 text-white px-10 py-2 rounded-full text-sm hover:bg-primary-70/60 transition duration-300 w-fit "
               >
                 Cancel

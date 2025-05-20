@@ -1,4 +1,6 @@
 import logo from "./images/logo.png";
+import dummyAvatar from "./images/dummy-avatar.svg"
+
 import withdrawals from "./icons/withdrawals.svg"
 import userManagement from "./icons/user-management.svg"
 import stateManagement from "./icons/state-management.svg"
@@ -27,7 +29,8 @@ import activeReferral from "./icons/active-referrals.png"
 
 
 export const IMAGES = {
-  logo
+  logo,
+  dummyAvatar,
 };
 
 export const ICONS = {
