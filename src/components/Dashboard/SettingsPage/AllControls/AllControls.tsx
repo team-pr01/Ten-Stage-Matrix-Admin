@@ -36,14 +36,14 @@ const AllControls = () => {
       title: "System",
       subtitle: "System Control",
       description: "Pause Or Resume The Platform",
-      path: "/system-control",
+      path: "/dashboard/system-control",
     },
     {
       icon: ICONS.limit,
       title: "Limits",
       subtitle: "Max Earning",
       description: "Set Earning Caps Per Stage.",
-      path: "/max-earning",
+      path: "/dashboard/max-earning",
     },
     {
       icon: ICONS.reDonation,

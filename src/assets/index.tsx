@@ -22,6 +22,7 @@ import wallet from "./icons/wallet.svg";
 import wifi from "./icons/wifi.svg";
 import growth from "./icons/growth.svg";
 import condition from "./icons/condition.svg";
+import downArrow from "./icons/down-arrow.svg";
 import activeReferral from "./icons/active-referrals.png"
 
 
@@ -53,5 +54,6 @@ activeReferral,
 wallet,
 wifi,
 growth,
-condition
+condition,
+downArrow
 }

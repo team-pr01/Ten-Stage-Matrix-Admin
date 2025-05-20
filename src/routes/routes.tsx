@@ -12,6 +12,7 @@ import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/Charges
 import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddress";
 import StageCommission from './../pages/Dashboard/Settings/StageCommission/StageCommission';
 import ReDonation from "../pages/Dashboard/Settings/ReDonation/ReDonation";
+import MaxEarning from "../pages/Dashboard/Settings/MaxEarning/MaxEarning";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,14 @@ export const router = createBrowserRouter([
       {
         path: "re-donation-rules",
         element: <ReDonation/>,
+      },
+      {
+        path: "system-control",
+        element: <ReDonation/>,
+      },
+      {
+        path: "max-earning",
+        element: <MaxEarning/>,
       },
     ],
   },
