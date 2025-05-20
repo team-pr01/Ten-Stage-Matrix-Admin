@@ -95,7 +95,6 @@ const DashboardHome = () => {
             "Referral ID",
             "Stage",
             "Status",
-            "Action",
           ]}
           data={filteredData}
         />

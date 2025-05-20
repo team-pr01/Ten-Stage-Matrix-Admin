@@ -47,7 +47,7 @@ const DashboardHamburgerMenu: React.FC = () => {
 
       {/* Side Menu */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 py-5 px-6 bg-primary-70 w-[300px] overflow-y-auto h-screen transition-all duration-300 transform flex flex-col justify-between ${
+        className={`fixed inset-y-0 right-0 z-50 py-5 px-6 bg-primary-70 w-[300px] overflow-y-auto h-screen transition-all duration-300 transform flex flex-col gap-5 justify-between ${
           isHamburgerOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -74,15 +74,6 @@ const DashboardHamburgerMenu: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-5">
-           {/* User profile */}
-      <div className="flex items-center gap-2">
-        <img src={IMAGES.dummyAvatar} alt="" className="size-11 rounded-full" />
-        <div>
-          <h1 className="text-white font-medium text-lg">Thomas Shelvi</h1>
-        <p className="text-neutral-50 text-sm mt-[2px]">Actor</p>
-        </div>
-      </div>
-
           <button className="text-white font-medium bg-primary-10 px-5 py-3 rounded-md">
             Connect wallet
           </button>

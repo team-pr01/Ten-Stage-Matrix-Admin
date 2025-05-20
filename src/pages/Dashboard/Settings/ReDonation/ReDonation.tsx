@@ -36,7 +36,7 @@ const ReDonation = () => {
       </div>
       <div className="mt-[42px] flex flex-col gap-[18px]">
         <h1 className="text-white font-medium text-[26px]">
-          Re-Donation Percentage
+          Re-Donation Amount
         </h1>
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2 w-full">
@@ -49,40 +49,41 @@ const ReDonation = () => {
                 placeholder="Enter Percentage"
                 className={`w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85`}
               />
-              <p className="size-6 absolute right-3 text-white" >
-               
-               
-               %
-                
-              </p>
+              <p className="size-6 absolute right-3 text-white">%</p>
             </div>
           </div>
-
         </div>
       </div>
       <div className="mt-[26px] flex flex-col gap-[18px]">
         <h1 className="text-white font-medium text-[26px]">
-          Re-Donation Trigger Condition
+          Re-Donation Stages
         </h1>
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="" className="text-neutral-85">
-             Trigger Condition
-            </label>
-            <div className="flex items-center justify-between relative">
-              <input
-                type="text"
-                placeholder="e.g.On max earnings"
-                className={`w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85`}
-              />
-              <img
-                src={ICONS.condition}
-                alt=""
-                className="size-6 absolute right-3"
-              />
-            </div>
-          </div>
 
+        {/* Dropdown of stages */}
+        <div className="flex flex-col gap-2 w-full">
+          <label htmlFor="stage" className="text-neutral-85">
+            Trigger Condition
+          </label>
+          <div className="flex items-center justify-between relative">
+            <select
+              id="stage"
+              className="w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 bg-transparent appearance-none"
+            >
+              <option value="" disabled selected>
+                Select Stage
+              </option>
+              {[...Array(11)].map((_, i) => (
+                <option key={i + 1} value={`Stage ${i + 1}`}>
+                  Stage {i + 1}
+                </option>
+              ))}
+            </select>
+            <img
+              src={ICONS.condition}
+              alt=""
+              className="size-6 absolute right-3 pointer-events-none"
+            />
+          </div>
         </div>
       </div>
     </div>

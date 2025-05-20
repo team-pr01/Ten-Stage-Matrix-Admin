@@ -13,6 +13,7 @@ import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddre
 import StageCommission from './../pages/Dashboard/Settings/StageCommission/StageCommission';
 import ReDonation from "../pages/Dashboard/Settings/ReDonation/ReDonation";
 import MaxEarning from "../pages/Dashboard/Settings/MaxEarning/MaxEarning";
+import DOnationAndDeposits from "../pages/Dashboard/DOnationAndDeposits/DOnationAndDeposits";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "withdrawals",
         element: <Withdrawals/>,
+      },
+      {
+        path: "donation-deposits",
+        element: <DOnationAndDeposits/>,
       },
       // {
       //   path: "newsfeed",
