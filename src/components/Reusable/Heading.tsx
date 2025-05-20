@@ -21,15 +21,15 @@ const Heading: React.FC<HeadingProps> = ({
             <img
               src={iconSrc}
               alt="heading icon"
-              className="w-10 h-10 object-contain"
+              className="size-10 object-contain"
             />
           )}
-            <h1 className="font-Outfit text-2xl leading-[1] text-white font-medium">
+            <h1 className="font-Outfit text-lg md:text-2xl leading-[1] text-white font-medium">
               {title}
             </h1>
         </div>
         {subtitle && (
-          <p className="font-Outfit text-base leading-[1] text-white font-normal">
+          <p className="font-Outfit text-sm md:text-base leading-[1] text-white font-normal">
             {subtitle}
           </p>
         )}

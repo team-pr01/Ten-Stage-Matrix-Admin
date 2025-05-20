@@ -45,26 +45,26 @@ const DashboardHome = () => {
 
   return (
     <div className="font-Outfit">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col lg:flex-row gap-7 lg:gap-0 items-start lg:items-center justify-between">
         <Heading
         iconSrc={ICONS.userManagement}
         title="User management "
         subtitle="Mange all platform users and referrals"
       />
 
-      <div className="flex justify-end items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-end items-center gap-4 w-full md:w-fit">
         <input
           type="text"
           placeholder="Search wallet or referral ID"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="text-white border border-white rounded-full px-5 py-3 focus:outline-none"
+          className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit"
         />
 
         <select
           value={selectedStage}
           onChange={(e) => setSelectedStage(e.target.value)}
-          className="bg-primary-40 text-white border border-white rounded-full px-5 py-3"
+          className="bg-primary-40 text-white border border-white rounded-full px-5 py-3 w-full md:w-fit"
         >
           <option>All Stages</option>
           {uniqueStages.map((stage) => (
@@ -75,7 +75,7 @@ const DashboardHome = () => {
         <select
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(e.target.value)}
-          className="bg-primary-40 text-white border border-white rounded-full px-5 py-3"
+          className="bg-primary-40 text-white border border-white rounded-full px-5 py-3 w-full md:w-fit"
         >
           <option>All</option>
           <option>Active</option>
