@@ -116,7 +116,7 @@ const filteredDonationData = formattedDonationDate
           />
 
           {/* Date Filter */}
-          <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
+          <div className="flex flex-col-reverse md:flex-row items-start md:items-center gap-5 w-full lg:w-fit">
             <button
               onClick={() => setSelectedDonationDate(null)}
               className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[210px] cursor-pointer"
@@ -127,7 +127,7 @@ const filteredDonationData = formattedDonationDate
               selected={selectedDonationDate}
               onChange={(date) => setSelectedDonationDate(date)}
               placeholderText="Select a date"
-              className="w-full px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none"
+              className="px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none w-full md:w-fit"
               calendarClassName="!bg-white !text-black"
             />
           </div>
@@ -157,7 +157,7 @@ const filteredDonationData = formattedDonationDate
             subtitle="Manage all deposit reports"
           />
 
-          <div className="flex flex-col-reverse md:flex-row items-center gap-5 w-full lg:w-fit">
+          <div className="flex flex-col-reverse md:flex-row items-start md:items-center gap-5 w-full lg:w-fit">
             <button
               onClick={() => setSelectedDepositDate(null)}
               className="px-8 py-3 bg-primary-70 text-white rounded-full w-full md:w-[210px] cursor-pointer"
@@ -169,7 +169,7 @@ const filteredDonationData = formattedDonationDate
               selected={selectedDepositDate}
               onChange={(date) => setSelectedDepositDate(date)}
               placeholderText="Select a date"
-              className="w-full px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none"
+              className="px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none w-full md:w-fit"
               calendarClassName="!bg-white !text-black"
             />
           </div>
