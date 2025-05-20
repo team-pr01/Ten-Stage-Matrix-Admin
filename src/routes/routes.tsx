@@ -47,10 +47,10 @@ export const router = createBrowserRouter([
         path: "withdrawals",
         element: <Withdrawals/>,
       },
-      {
-        path: "newsfeed",
-        element: <StateManagement/>,
-      },
+      // {
+      //   path: "newsfeed",
+      //   element: <StateManagement/>,
+      // },
       {
         path: "setting",
         element: <Settings/>,

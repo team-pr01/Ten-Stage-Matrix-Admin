@@ -27,7 +27,7 @@ const Stages = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 font-Outfit">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 font-Outfit">
       {stages?.map(({ stage, users, totalDonated, progress }) => {
         const progressPercent = (progress / 10) * 100;
 
@@ -48,7 +48,7 @@ const Stages = () => {
               <p className="font-medium">${totalDonated.toLocaleString()}</p>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col 2xl:flex-row items-start 2xl:items-center gap-2 2xl:gap-0 justify-between">
               <div className="w-full max-w-[172px] h-2 bg-gray-300 rounded-full">
                 <div
                   className="h-2 bg-primary-10 rounded-full"
@@ -56,7 +56,7 @@ const Stages = () => {
                 />
               </div>
 
-              <p className="text-sm text-white/80 ml-2">
+              <p className="text-sm text-white/80 ml-0 2xl:ml-2">
                 {progress}/10 to next Cycles
               </p>
             </div>

@@ -36,11 +36,11 @@ const StateManagement = () => {
           title=" Earnings & Donations Tracking "
           subtitle="Track total donations and payouts"
         />
-        <div className="flex items-center gap-12 flex-wrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 flex-wrap">
           {data?.map((item) => (
             <div
               key={item.title}
-              className={`rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 flex flex-col items-center justify-center px-[100px] py-[30px]`}
+              className={`rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 flex flex-col items-center justify-center px-[100px] py-[30px] w-full`}
             >
               <img src={item?.icon} alt="" className="size-[90px]" />
               <h2 className="text-white text-2xl font-medium capitalize mt-6 text-center">
