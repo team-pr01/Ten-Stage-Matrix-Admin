@@ -6,10 +6,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 
-
 const DOnationAndDeposits = () => {
-  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(null);
-  const [selectedDepositDate, setSelectedDepositDate] = useState<Date | null>(null);;
+  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
+    null
+  );
+  const [selectedDepositDate, setSelectedDepositDate] = useState<Date | null>(
+    null
+  );
 
   const data = [
     {
@@ -20,6 +23,8 @@ const DOnationAndDeposits = () => {
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
       date: "2025-05-17",
+      amount: "$100",
+      totalAmount: "$100",
     },
     {
       id: 2,
@@ -29,6 +34,8 @@ const DOnationAndDeposits = () => {
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
       date: "2025-05-18",
+      amount: "$150",
+      totalAmount: "$150",
     },
     {
       id: 1,
@@ -38,6 +45,8 @@ const DOnationAndDeposits = () => {
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
       date: "2025-05-19",
+      amount: "$120",
+      totalAmount: "$120",
     },
     {
       id: 2,
@@ -47,6 +56,8 @@ const DOnationAndDeposits = () => {
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
       date: "2025-05-20",
+      amount: "$190",
+      totalAmount: "$190",
     },
   ];
 
@@ -59,6 +70,8 @@ const DOnationAndDeposits = () => {
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
       date: "2025-05-14",
+      amount: "$150",
+      totalAmount: "$150",
     },
     {
       id: 2,
@@ -68,42 +81,36 @@ const DOnationAndDeposits = () => {
       privateKey: "08qw45243...",
       referral: "REF123hjd1234",
       date: "2025-05-21",
-    },
-    {
-      id: 1,
-      wallet: "0xA1B2C3...90BE",
-      email: "example@gmail.com",
-      phone: "+8801607-30419",
-      privateKey: "08qw45243...",
-      referral: "REF123hjd1234",
-      date: "2025-05-30",
-    },
-    {
-      id: 2,
-      wallet: "0xA1B2C3...90BE",
-      email: "example@gmail.com",
-      phone: "+8801607-30419",
-      privateKey: "08qw45243...",
-      referral: "REF123hjd1234",
-      date: "2025-05-01",
+      amount: "$150",
+      totalAmount: "$150",
     },
   ];
 
   const formattedDonationDate = selectedDonationDate
-  ? format(selectedDonationDate, "yyyy-MM-dd")
-  : "";
+    ? format(selectedDonationDate, "yyyy-MM-dd")
+    : "";
 
-const filteredDonationData = formattedDonationDate
-  ? data.filter((item) => item.date === formattedDonationDate)
-  : data;
+  const filteredDonationData = formattedDonationDate
+    ? data.filter((item) => item.date === formattedDonationDate)
+    : data;
 
-   const formattedDepositDate = selectedDepositDate
-  ? format(selectedDepositDate, "yyyy-MM-dd")
-  : "";
+  const formattedDepositDate = selectedDepositDate
+    ? format(selectedDepositDate, "yyyy-MM-dd")
+    : "";
 
   const filteredDepositData = formattedDepositDate
     ? data2.filter((item) => item.date === formattedDepositDate)
     : data2;
+
+    const totalDonations = filteredDonationData.reduce((acc, item) => {
+      const amount = parseFloat(item.amount.replace(/[^0-9.-]+/g, ""));
+      return acc + amount;
+    }, 0);
+
+    const totalDeposits = filteredDepositData.reduce((acc, item) => {
+      const amount = parseFloat(item.amount.replace(/[^0-9.-]+/g, ""));
+      return acc + amount;
+    }, 0);
 
   return (
     <div className="flex flex-col gap-16 font-Outfit">
@@ -127,7 +134,7 @@ const filteredDonationData = formattedDonationDate
               selected={selectedDonationDate}
               onChange={(date) => setSelectedDonationDate(date)}
               placeholderText="Select a date"
-              className="px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none w-full md:w-fit"
+              className="px-5 py-3 rounded-full text-white bg-primary-70 focus:outline-none w-full md:w-fit"
               calendarClassName="!bg-white !text-black"
             />
           </div>
@@ -143,9 +150,14 @@ const filteredDonationData = formattedDonationDate
               "Private Key",
               "Referral ID",
               "Date",
+              "Amount",
+              "Total Amount",
             ]}
             data={filteredDonationData}
           />
+          <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
+            Total Amount : ${totalDonations}
+          </div>
         </div>
       </div>
 
@@ -169,7 +181,7 @@ const filteredDonationData = formattedDonationDate
               selected={selectedDepositDate}
               onChange={(date) => setSelectedDepositDate(date)}
               placeholderText="Select a date"
-              className="px-5 py-3 rounded-full text-white bg-primary-10 focus:outline-none w-full md:w-fit"
+              className="px-5 py-3 rounded-full text-white bg-primary-70 focus:outline-none w-full md:w-fit"
               calendarClassName="!bg-white !text-black"
             />
           </div>
@@ -185,9 +197,14 @@ const filteredDonationData = formattedDonationDate
               "Private Key",
               "Referral ID",
               "Date",
+              "Amount",
+              "Total Amount",
             ]}
             data={filteredDepositData}
           />
+          <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
+            Total Amount : ${totalDeposits}
+          </div>
         </div>
       </div>
     </div>
