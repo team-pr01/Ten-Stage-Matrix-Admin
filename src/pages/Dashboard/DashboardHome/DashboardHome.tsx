@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ICONS } from "../../../assets";
 import Heading from "../../../components/Reusable/Heading";
 import { Table } from "../../../components/Reusable/Table";
-import { useGetAllUsersQuery } from "../../../redux/Features/User/userApi";
+import { useGetAllUsersQuery } from "../../../redux/Features/User/adminApi";
 
 const DashboardHome = () => {
   const [searchTerm, setSearchTerm] = useState("");

@@ -3,29 +3,20 @@ import { baseApi } from "../../API/baseApi";
 
 const withdrawApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getAllReels: builder.query({
-    //   query: () => {
-    //     return {
-    //       url: `/reels`,
-    //       method: "GET",
-    //       credentials: "include",
-    //     };
-    //   },
-    //   providesTags: ["deposit"],
-    // }),
+    getAllWithdrawals: builder.query({
+      query: () => {
+        return {
+          url: `/admin/withdrawals`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ["user"],
+    }),
 
-    // getSingleReel: builder.query({
-    //   query: (id) => ({
-    //     url: `/reels/${id}`,
-    //     method: "GET",
-    //     credentials: "include",
-    //   }),
-    //   providesTags: ["deposit"],
-    // }),
-
-    makeDeposit: builder.mutation<any, any>({
-      query: (data) => ({
-        url: `/transactions/deposit`,
+    approveWithdraw: builder.mutation<any, any>({
+      query: ({data, id}) => ({
+        url: `/admin/withdrawals/${id}/approve`,
         method: "POST",
         body: data,
         credentials: "include",
@@ -33,27 +24,20 @@ const withdrawApi = baseApi.injectEndpoints({
       invalidatesTags: ["deposit"],
     }),
 
-    // deleteReel: builder.mutation<any, string>({
-    //   query: (id) => ({
-    //     url: `/reels/${id}`,
-    //     method: "DELETE",
-    //     credentials: "include",
-    //   }),
-    //   invalidatesTags: ["deposit"],
-    // }),
-
-    // updateReel: builder.mutation<any, any>({
-    //   query: ({id, data}) => ({
-    //     url: `/reels/${id}`,
-    //     method: "PUT",
-    //     body : data,
-    //     credentials: "include",
-    //   }),
-    //   invalidatesTags: ["deposit"],
-    // }),
+    rejectWithdraw: builder.mutation<any, any>({
+      query: ({data, id}) => ({
+        url: `/admin/withdrawals/${id}/reject`,
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["deposit"],
+    }),
   }),
 });
 
 export const {
-  useMakeDepositMutation,
+  useGetAllWithdrawalsQuery,
+  useApproveWithdrawMutation,
+  useRejectWithdrawMutation,
 } = withdrawApi;

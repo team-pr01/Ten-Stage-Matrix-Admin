@@ -5,8 +5,12 @@ import { ICONS } from "../../../assets";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
+import DepositDataTable from "./DepositDataTable";
+import { useGetAllDepositsQuery } from "../../../redux/Features/User/adminApi";
 
 const DOnationAndDeposits = () => {
+  const { data: deposits, isLoading } = useGetAllDepositsQuery({});
+  console.log(deposits);
   const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
     null
   );
@@ -102,15 +106,14 @@ const DOnationAndDeposits = () => {
     ? data2.filter((item) => item.date === formattedDepositDate)
     : data2;
 
-    const totalDonations = filteredDonationData.reduce((acc, item) => {
-      const amount = parseFloat(item.amount.replace(/[^0-9.-]+/g, ""));
-      return acc + amount;
-    }, 0);
+  const totalDonations = filteredDonationData.reduce((acc, item) => {
+    const amount = parseFloat(item.amount.replace(/[^0-9.-]+/g, ""));
+    return acc + amount;
+  }, 0);
 
-    const totalDeposits = filteredDepositData.reduce((acc, item) => {
-      const amount = parseFloat(item.amount.replace(/[^0-9.-]+/g, ""));
-      return acc + amount;
-    }, 0);
+  const totalDeposits = deposits?.data?.deposits?.reduce((sum, item) => {
+    return sum + (item.amount || 0);
+  }, 0);
 
   return (
     <div className="flex flex-col gap-16 font-Outfit">
@@ -188,19 +191,9 @@ const DOnationAndDeposits = () => {
         </div>
 
         <div className="">
-          <Table
-            headers={[
-              "#",
-              "Wallet Address",
-              "Email",
-              "Phone",
-              "Private Key",
-              "Referral ID",
-              "Date",
-              "Amount",
-              "Total Amount",
-            ]}
-            data={filteredDepositData}
+          <DepositDataTable
+            data={deposits?.data?.deposits}
+            isLoading={isLoading}
           />
           <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
             Total Amount : ${totalDeposits}

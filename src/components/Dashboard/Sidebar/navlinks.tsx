@@ -1,5 +1,5 @@
 import { FaUsersCog, FaUsers, FaHandHoldingUsd, FaMoneyBillWave } from "react-icons/fa";
-import { MdFeed, MdSettings } from "react-icons/md";
+import {  MdSettings } from "react-icons/md";
 import { PiHandDepositFill } from "react-icons/pi";
 
 export const dashboardSidebarLinks = [
@@ -28,11 +28,11 @@ export const dashboardSidebarLinks = [
     label: "Donation & Deposits",
     path: "/dashboard/donation-deposits",
   },
-  {
-    icon: <MdFeed />,
-    label: "Newsfeed",
-    path: "/dashboard/newsfeed",
-  },
+  // {
+  //   icon: <MdFeed />,
+  //   label: "Newsfeed",
+  //   path: "/dashboard/newsfeed",
+  // },
   {
     icon: <MdSettings />,
     label: "Setting",
