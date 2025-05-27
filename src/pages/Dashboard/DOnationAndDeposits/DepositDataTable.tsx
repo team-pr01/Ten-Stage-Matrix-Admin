@@ -2,7 +2,7 @@
 import Loader from "../../../components/Loader/Loader";
 import { formatDate } from "../../../utile/formatDate";
 
-const DepositDataTable = ({data, isLoading}) => {
+const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {
    
     const headers = [
     "#",

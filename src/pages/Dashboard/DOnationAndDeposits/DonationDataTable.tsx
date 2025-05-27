@@ -1,63 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+
 import Loader from "../../../components/Loader/Loader";
-import {
-  useApproveWithdrawMutation,
-  useGetAllWithdrawalsQuery,
-  useRejectWithdrawMutation,
-} from "../../../redux/Features/Withdraw/withdrawApi";
 import { formatDate } from "../../../utile/formatDate";
 
-export const WithdrawDataTable = () => {
-  const { data, isLoading } = useGetAllWithdrawalsQuery({});
-  const [approveWithdraw] = useApproveWithdrawMutation();
-  const [rejectWithdraw] = useRejectWithdrawMutation();
-
-  const [approvingId, setApprovingId] = useState<string | null>(null);
-  const [rejectingId, setRejectingId] = useState<string | null>(null);
-
-  const handleApproveWithdraw = async (id: string) => {
-    try {
-      setApprovingId(id);
-      const data = {
-        admin_note: "Withdrawal approved after verification",
-      };
-      await approveWithdraw({ data, id });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setApprovingId(null);
-    }
-  };
-
-  const handleRejectWithdraw = async (id: string) => {
-    try {
-      setRejectingId(id);
-      const data = {
-        admin_note: "Withdrawal rejected due to invalid wallet address",
-      };
-      await rejectWithdraw({ data, id });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setRejectingId(null);
-    }
-  };
-
-  const headers = [
+const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {
+    const headers = [
     "#",
     "Name",
     "Email",
     "Stage",
     "Wallet Address",
-    "Withdrawal Address",
+    "TRX Id",
     "Amount",
-    "Requested Date",
+    "Deposit Date",
     "Status",
-    "Actions",
   ];
-  return (
-    <div className="text-white rounded-lg shadow-md font-Outfit">
+    return (
+        <div className="text-white rounded-lg shadow-md font-Outfit">
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
@@ -84,7 +43,7 @@ export const WithdrawDataTable = () => {
             </tbody>
           ) : (
             <tbody>
-              {data?.data?.withdrawals?.length < 1 ? (
+              {data?.length < 1 ? (
                 <tr>
                   <td
                     colSpan={headers.length}
@@ -94,7 +53,7 @@ export const WithdrawDataTable = () => {
                   </td>
                 </tr>
               ) : (
-                data?.data?.withdrawals?.map((item: any, index: number) => (
+                data?.map((item: any, index: number) => (
                   <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
@@ -110,7 +69,7 @@ export const WithdrawDataTable = () => {
                       {item?.wallet_address}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.withdrawal_address}
+                      {item?.trx_id}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       ${item?.amount}
@@ -145,32 +104,6 @@ export const WithdrawDataTable = () => {
                         }
                       </div>
                     </td>
-
-                    <td className="space-x-3">
-                      <button
-                        onClick={() => handleRejectWithdraw(item?._id)}
-                        disabled={rejectingId === item?._id}
-                        className="px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-red-500 text-white cursor-pointer disabled:opacity-60"
-                      >
-                        {rejectingId === item?._id ? (
-                          <Loader size="size-5" />
-                        ) : (
-                          "Reject"
-                        )}
-                      </button>
-
-                      <button
-                        onClick={() => handleApproveWithdraw(item?._id)}
-                        disabled={approvingId === item?._id}
-                        className="px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-green-500 text-white cursor-pointer disabled:opacity-60"
-                      >
-                        {approvingId === item?._id ? (
-                          <Loader size="size-5" />
-                        ) : (
-                          "Approve"
-                        )}
-                      </button>
-                    </td>
                   </tr>
                 ))
               )}
@@ -179,5 +112,7 @@ export const WithdrawDataTable = () => {
         </table>
       </div>
     </div>
-  );
+    );
 };
+
+export default DonationDataTable;

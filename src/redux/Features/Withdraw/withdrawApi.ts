@@ -11,7 +11,7 @@ const withdrawApi = baseApi.injectEndpoints({
           credentials: "include",
         };
       },
-      providesTags: ["user"],
+      providesTags: ["withdraw"],
     }),
 
     approveWithdraw: builder.mutation<any, any>({
@@ -21,7 +21,7 @@ const withdrawApi = baseApi.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: ["deposit"],
+      invalidatesTags: ["withdraw"],
     }),
 
     rejectWithdraw: builder.mutation<any, any>({
@@ -31,7 +31,7 @@ const withdrawApi = baseApi.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-      invalidatesTags: ["deposit"],
+      invalidatesTags: ["withdraw"],
     }),
   }),
 });
