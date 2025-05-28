@@ -31,13 +31,13 @@ const AllControls = () => {
       description: "Configure Commission Rates For Each Stage.",
       path: "/dashboard/stage-settings",
     },
-    {
-      icon: ICONS.system,
-      title: "System",
-      subtitle: "System Control",
-      description: "Pause Or Resume The Platform",
-      path: "/dashboard/system-control",
-    },
+    // {
+    //   icon: ICONS.system,
+    //   title: "System",
+    //   subtitle: "System Control",
+    //   description: "Pause Or Resume The Platform",
+    //   path: "/dashboard/system-control",
+    // },
     // {
     //   icon: ICONS.limit,
     //   title: "Limits",

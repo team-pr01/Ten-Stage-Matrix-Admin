@@ -23,6 +23,17 @@ const stageApi = baseApi.injectEndpoints({
       providesTags: ["stage"],
     }),
 
+    getStageStats: builder.query({
+      query: () => {
+        return {
+          url: `/stages/stats`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ["stage"],
+    }),
+
     // makeDeposit: builder.mutation<any, any>({
     //   query: (data) => ({
     //     url: `/transactions/deposit`,
@@ -57,5 +68,6 @@ const stageApi = baseApi.injectEndpoints({
 export const {
   useGetAllStagesQuery,
   useGetSingleStageQuery,
+  useGetStageStatsQuery,
   useUpdateStageMutation,
 } = stageApi;

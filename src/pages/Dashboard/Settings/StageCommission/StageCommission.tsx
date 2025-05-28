@@ -21,7 +21,6 @@ const StageCommission = () => {
   const [stageNumber, setStageNumber] = useState(0);
   const [updateStage, { isLoading }] = useUpdateStageMutation();
   const { data } = useGetSingleStageQuery(stageNumber);
-  console.log(data);
   const { register, handleSubmit, setValue } = useForm<StageFormValues>();
 
   useEffect(() => {
