@@ -3,20 +3,20 @@ import { ICONS } from "../../../../assets";
 
 const AllControls = () => {
   const allControls = [
-    {
-      icon: ICONS.user,
-      title: "USERS",
-      subtitle: "Account Management",
-      description: "Configure Commission Rates For Each Stage.",
-      path: "/dashboard/user-management",
-    },
-    {
-      icon: ICONS.charges,
-      title: "Charges",
-      subtitle: "Withdrawal & Transfer",
-      description: "Configure Commission Rates For Each Stage.",
-      path: "/dashboard/charges-overview",
-    },
+    // {
+    //   icon: ICONS.user,
+    //   title: "USERS",
+    //   subtitle: "Account Management",
+    //   description: "Configure Commission Rates For Each Stage.",
+    //   path: "/dashboard/user-management",
+    // },
+    // {
+    //   icon: ICONS.charges,
+    //   title: "Charges",
+    //   subtitle: "Withdrawal & Transfer",
+    //   description: "Configure Commission Rates For Each Stage.",
+    //   path: "/dashboard/charges-overview",
+    // },
     {
       icon: ICONS.usdt,
       title: "USDT",
@@ -38,13 +38,13 @@ const AllControls = () => {
       description: "Pause Or Resume The Platform",
       path: "/dashboard/system-control",
     },
-    {
-      icon: ICONS.limit,
-      title: "Limits",
-      subtitle: "Max Earning",
-      description: "Set Earning Caps Per Stage.",
-      path: "/dashboard/max-earning",
-    },
+    // {
+    //   icon: ICONS.limit,
+    //   title: "Limits",
+    //   subtitle: "Max Earning",
+    //   description: "Set Earning Caps Per Stage.",
+    //   path: "/dashboard/max-earning",
+    // },
     {
       icon: ICONS.reDonation,
       title: "Re-Donation",

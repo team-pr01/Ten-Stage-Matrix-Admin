@@ -10,7 +10,7 @@ import {
   useGetAllDepositsQuery,
   useGetAllDonationsQuery,
 } from "../../../redux/Features/User/adminApi";
-import DonationDataTable from "./DonationdataTable";
+import DonationDataTable from "./DonationDataTable";
 
 const DOnationAndDeposits = () => {
   const {
@@ -23,7 +23,7 @@ const DOnationAndDeposits = () => {
     isLoading: isDonationLoading,
     isFetching: isDonationFetching,
   } = useGetAllDonationsQuery({});
-  console.log(donations);
+
   const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
     null
   );

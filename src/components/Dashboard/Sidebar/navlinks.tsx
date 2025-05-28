@@ -1,4 +1,4 @@
-import { FaUsersCog, FaUsers, FaHandHoldingUsd, FaMoneyBillWave } from "react-icons/fa";
+import { FaUsersCog, FaUsers, FaMoneyBillWave } from "react-icons/fa";
 import {  MdSettings } from "react-icons/md";
 import { PiHandDepositFill } from "react-icons/pi";
 
@@ -13,11 +13,11 @@ export const dashboardSidebarLinks = [
     label: "Stage Management",
     path: "/dashboard/stage-management",
   },
-  {
-    icon: <FaHandHoldingUsd />,
-    label: "Earnings & Donations TR",
-    path: "/dashboard/earnings-donations",
-  },
+  // {
+  //   icon: <FaHandHoldingUsd />,
+  //   label: "Earnings & Donations TR",
+  //   path: "/dashboard/earnings-donations",
+  // },
   {
     icon: <FaMoneyBillWave />,
     label: "Withdrawals",

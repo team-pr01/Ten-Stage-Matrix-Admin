@@ -1,89 +1,62 @@
-import { BiEdit } from "react-icons/bi";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AiOutlineEdit } from "react-icons/ai";
+import { useGetAllStagesQuery } from "../../../../redux/Features/Stage/stageApi";
+import Loader from "../../../Loader/Loader";
 
-const StageCommissionSettings = () => {
-   const recentTransactions = [
-      {
-        
-        
-        stages: "% Stage 01",
-        progress: "5%",
-        
-      },
-      {
-        
-        
-        stages: "% Stage 02",
-        progress: "5%",
-        
-      },
-      {
-        
-        
-        stages: "% Stage 03",
-        progress: "5%",
-        
-      },
-      {
-        
-        
-        stages: "% Stage 04",
-        progress: "5%",
-        
-      },
-      {
-        
-        
-        stages: "% Stage 05",
-        progress: "5%",
-        
-      },
-      {
-        
-        
-        stages: "% Stage 01",
-        progress: "5%",
-        
-      },
-    ];
-  
-    // const [isEdit, setIsEdit] = useState("");
-    // const [isOn, setIsOn] = useState(false);
-    return (
-      <div className="rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 flex flex-col py-7 px-[34px] mt-11">
-        <h1 className="text-2xl font-medium text-white">Commission Settings</h1>
-        <div className="mt-6 overflow-x-auto">
-          <table className="min-w-[600px] w-full text-white">
-            <tbody>
-              {recentTransactions.map((transaction, index) => (
-                <tr key={index} className="border-b border-neutral-110">
-                 
-                  {/* Type */}
-                  <td className="py-3 whitespace-nowrap">{transaction?.stages}</td>
-  
-                  {/* Amount */}
-                  <td className="py-3 whitespace-nowrap">
-                    {transaction?.progress}
-                  </td>
-                  
-  
-                  {/* Info Icon */}
-                  <td className="py-3 flex flex-row items-end gap-3 whitespace-nowrap  ">
-                   
-                      <BiEdit
-                        onClick={() =>
-                          console.log(transaction.stages)
-                        }
-                        className="text-neutral-90 size-5 cursor-pointer"
-                      />
-                    
-                  </td>
-                </tr>
-              ))}
+const StageCommissionSettings = ({setId, setStageNumber} : {setId: any, setStageNumber: any}) => {
+  const { data: stages, isLoading } = useGetAllStagesQuery({});
+  return (
+    <div className="mt-11 rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 py-7 px-[34px]">
+      <h1 className="text-2xl font-medium text-white mb-6">Commission Settings</h1>
+      
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[600px] text-left text-white">
+          <thead>
+            <tr className="border-b border-neutral-110">
+              <th className="py-3 px-4 whitespace-nowrap">Stage</th>
+              <th className="py-3 px-4 whitespace-nowrap">Donation Required</th>
+              <th className="py-3 px-4 whitespace-nowrap">Commission Percentage</th>
+              <th className="py-3 px-4 whitespace-nowrap">Edit Stage</th>
+            </tr>
+          </thead>
+          {
+            isLoading ?
+           <tbody>
+              <tr>
+                <td colSpan={10} className="py-10">
+                  <div className="flex justify-center items-center">
+                    <Loader size="size-10" />
+                  </div>
+                </td>
+              </tr>
             </tbody>
-          </table>
-        </div>
+            :
+          <tbody>
+            {stages?.map((stage: any, index: number) => (
+              <tr key={index} className="border-b border-neutral-110">
+                <td  className="py-3 px-4 whitespace-nowrap">
+                  Stage {stage?.stage_number}
+                </td>
+                <td className="py-3 px-4 whitespace-nowrap">
+                  ${stage?.donation_requirement}
+                </td>
+                <td className="py-3 px-4 whitespace-nowrap">
+                  {stage?.commission_percentage}%
+                </td>
+                <td className="py-3 px-4 whitespace-nowrap">
+                  <AiOutlineEdit onClick={() => {
+                    setStageNumber(stage?.stage_number);
+                    setId(stage?._id);
+                  }} className="text-2xl cursor-pointer text-white" />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          }
+        </table>
       </div>
-    );
-}
+    </div>
+  );
+};
 
-export default StageCommissionSettings
+export default StageCommissionSettings;

@@ -10,7 +10,6 @@ const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) 
     "Email",
     "Stage",
     "Wallet Address",
-    "TRX Id",
     "Amount",
     "Deposit Date",
     "Status",
@@ -66,41 +65,27 @@ const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) 
                       {item?.stage_number}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.wallet_address}
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.trx_id}
+                      {item?.user_id?.wallet_address}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       ${item?.amount}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {formatDate(item.createdAt as string)}
+                      {formatDate(item.created_at as string)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <div
                         className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize ${
-                          item.status === 1
+                          item.status === "completed"
                             ? "bg-green-600 text-white"
-                            : item.status === 2
-                            ? "bg-yellow-600 text-white"
-                            : item.status === 3
-                            ? "bg-red-600 text-white"
-                            : "bg-blue-500 text-white"
+                            :  "bg-red-600 text-white"
                         }`}
                       >
-                        {item.status === 1
-                          ? "✓"
-                          : item?.status === 3
-                          ? "✕"
-                          : ""}
+                        {item.status === "completed"
+                          ? "✓" : "✕"
+                        }
                         {
-                          {
-                            1: "Approved",
-                            2: "Pending",
-                            3: "Rejected",
-                            4: "processing",
-                          }[item.status as 1 | 2 | 3 | 4]
+                          item?.status
                         }
                       </div>
                     </td>

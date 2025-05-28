@@ -91,6 +91,13 @@ export const Table: React.FC<TableProps> = ({
                         {item.status === "active" ? "✓" : "✕"} {item.status}
                       </div>
                     </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                      >
+                         {item.status !== "banned" ? "Ban User" : "Withdraw Ban"}
+                      </div>
+                    </td>
                   </tr>
                 ))
               )}

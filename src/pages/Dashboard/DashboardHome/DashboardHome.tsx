@@ -76,6 +76,7 @@ const DashboardHome = () => {
             "Referral Code",
             "Stage",
             "Status",
+            "Action",
           ]}
           data={allUsers?.data?.users}
           isLoading={isLoading || isFetching}
