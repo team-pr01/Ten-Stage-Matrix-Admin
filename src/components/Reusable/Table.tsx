@@ -1,3 +1,4 @@
+import { useChangeUserStatusMutation } from "../../redux/Features/User/adminApi";
 import { formatDate } from "../../utile/formatDate";
 import Loader from "../Loader/Loader";
 
@@ -15,9 +16,20 @@ export const Table: React.FC<TableProps> = ({
   headers,
   data,
   isLoading,
-  // onApprove,
-  // onReject,
 }) => {
+  const [changeUserStatus] = useChangeUserStatusMutation();
+  const handleChangeUserStatus = async (status:string, id:string) => {
+    try{
+      const payload = {
+        user_id : id,
+        status,
+      }
+      const response = await changeUserStatus(payload).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="text-white rounded-lg shadow-md font-Outfit">
       <div className="overflow-x-auto">
@@ -83,21 +95,44 @@ export const Table: React.FC<TableProps> = ({
                     <td className="px-4 py-3 whitespace-nowrap">
                       <div
                         className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize ${
-                          item.status === "active"
+                          item.user_account_status === "active"
                             ? "bg-green-600 text-white"
                             : "bg-red-600 text-white"
                         }`}
                       >
-                        {item.status === "active" ? "✓" : "✕"} {item.status}
+                        {item.user_account_status === "active" ? "✓" : "✕"} {item.user_account_status}
                       </div>
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
+                    {
+                      item?.user_account_status === "suspended" ?
+                      <td onClick={() => handleChangeUserStatus("active", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
                       <div
                         className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
                       >
-                         {item.status !== "banned" ? "Ban User" : "Withdraw Ban"}
+                         Withdraw Suspension
                       </div>
                     </td>
+                    :
+                    item?.user_account_status === "active"
+                    ?
+                    <td onClick={() => handleChangeUserStatus("suspended", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                      >
+                         Suspend User
+                      </div>
+                    </td>
+                    :
+                    item?.user_account_status === "inactive" &&
+                    <td onClick={() => handleChangeUserStatus("active", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-green-600 text-white`}
+                      >
+                         Active User
+                      </div>
+                    </td>
+
+                    }
                   </tr>
                 ))
               )}

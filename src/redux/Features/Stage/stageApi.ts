@@ -6,7 +6,7 @@ const stageApi = baseApi.injectEndpoints({
     getAllStages: builder.query({
       query: () => {
         return {
-          url: `/stages`,
+          url: `/admin/stages`,
           method: "GET",
           credentials: "include",
         };
@@ -16,7 +16,7 @@ const stageApi = baseApi.injectEndpoints({
 
     getSingleStage: builder.query({
       query: (id) => ({
-        url: `/stages/${id}`,
+        url: `/admin/stages/${id}`,
         method: "GET",
         credentials: "include",
       }),
@@ -26,7 +26,7 @@ const stageApi = baseApi.injectEndpoints({
     getStageStats: builder.query({
       query: () => {
         return {
-          url: `/stages/stats`,
+          url: `/admin/stages/stats`,
           method: "GET",
           credentials: "include",
         };
@@ -34,28 +34,9 @@ const stageApi = baseApi.injectEndpoints({
       providesTags: ["stage"],
     }),
 
-    // makeDeposit: builder.mutation<any, any>({
-    //   query: (data) => ({
-    //     url: `/transactions/deposit`,
-    //     method: "POST",
-    //     body: data,
-    //     credentials: "include",
-    //   }),
-    //   invalidatesTags: ["deposit"],
-    // }),
-
-    // deleteReel: builder.mutation<any, string>({
-    //   query: (id) => ({
-    //     url: `/reels/${id}`,
-    //     method: "DELETE",
-    //     credentials: "include",
-    //   }),
-    //   invalidatesTags: ["deposit"],
-    // }),
-
     updateStage: builder.mutation<any, any>({
       query: ({id, data}) => ({
-        url: `/stages/${id}`,
+        url: `/admin/stages/${id}`,
         method: "PUT",
         body : data,
         credentials: "include",

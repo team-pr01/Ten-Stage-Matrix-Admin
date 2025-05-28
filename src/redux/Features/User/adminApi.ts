@@ -12,7 +12,7 @@ const adminApi = baseApi.injectEndpoints({
         if (search) params.append("search", search);
 
         return {
-          url: `/admin/users?${params.toString()}`,
+          url: `/admin/users?${params.toString()}&limit=${20}`,
           method: "GET",
           credentials: "include",
         };
@@ -42,8 +42,49 @@ const adminApi = baseApi.injectEndpoints({
       providesTags: ["user"],
     }),
 
+    getSettingDetails: builder.query({
+      query: () => {
+        return {
+          url: `/admin/settings`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ["user"],
+    }),
+
+    changeUserStatus: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/users/status`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    updateAdminWalletAddress: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/settings`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    pauseSystem: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/settings`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
     
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery,} = adminApi;
+export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetSettingDetailsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation,} = adminApi;

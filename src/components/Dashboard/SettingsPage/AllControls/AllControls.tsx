@@ -45,13 +45,13 @@ const AllControls = () => {
     //   description: "Set Earning Caps Per Stage.",
     //   path: "/dashboard/max-earning",
     // },
-    {
-      icon: ICONS.reDonation,
-      title: "Re-Donation",
-      subtitle: "Rules",
-      description: "Update Minimum Re-Donation Per Stage.",
-      path: "/dashboard/re-donation-rules",
-    },
+    // {
+    //   icon: ICONS.reDonation,
+    //   title: "Re-Donation",
+    //   subtitle: "Rules",
+    //   description: "Update Minimum Re-Donation Per Stage.",
+    //   path: "/dashboard/re-donation-rules",
+    // },
   ];
 
   return (

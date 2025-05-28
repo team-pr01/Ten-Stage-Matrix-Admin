@@ -1,8 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Heading from "../../../components/Reusable/Heading";
 import { ICONS } from "../../../assets";
 import AllControls from "../../../components/Dashboard/SettingsPage/AllControls/AllControls";
+import { useGetSettingDetailsQuery, usePauseSystemMutation } from "../../../redux/Features/User/adminApi";
+import Loader from "../../../components/Loader/Loader";
 
 const Settings = () => {
+  const {data} = useGetSettingDetailsQuery({});
+  const [pauseSystem, {isLoading}] = usePauseSystemMutation();
+
+  const handlePauseSystem = async () => {
+    try {
+      const payload = {
+        maintenance_mode : {
+          enabled : data?.data?.maintenance_mode?.enabled ? false : true
+        }
+      };
+      const response = await pauseSystem(payload).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="font-Outfit">
       <Heading
@@ -20,16 +39,17 @@ const Settings = () => {
 
         {/* Text Content */}
         <div>
-          <p className="font-medium text-lg mt-[13px]">Current stage</p>
-          <h3 className="text-[34px] font-medium mt-[6px]">System Active</h3>
+          <p className="font-medium text-lg mt-[13px]">Current status</p>
+          <h3 className="text-[34px] font-medium mt-[6px]">System {data?.data?.maintenance_mode?.enabled ? "Paused" : "Active"}</h3>
           <p className="text-sm text-neutral-135 mt-[13px]">
             Platform is running normally.
           </p>
         </div>
         <button
+        onClick={handlePauseSystem}
           className="bg-primary-10 text-white px-10 py-2 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit mt-[17px] cursor-pointer"
         >
-          Pause
+          {isLoading ? <Loader size="size-6" /> : data?.data?.maintenance_mode?.enabled ? "Resume System" : "Pause System"}
         </button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 import { IMAGES } from "../../assets";
 import Cookies from "js-cookie";
@@ -10,7 +11,7 @@ import { Link } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 
 type TFormValues = {
-  email: string;
+  identifier: string;
   password: string;
 };
 const SignIn = () => {
@@ -26,7 +27,7 @@ const SignIn = () => {
   const handleSignin = async (data: TFormValues) => {
     try {
       const payload = {
-        email: data.email,
+        identifier: data.identifier,
         password: data.password,
       };
       const response = await login(payload).unwrap();
@@ -53,7 +54,8 @@ const SignIn = () => {
         toast.success(response?.message || "Login successful!");
         navigate("/dashboard");
       }
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error?.data?.error || error?.message || "An error occurred");
       console.log(error);
     }
   };
@@ -68,22 +70,22 @@ const SignIn = () => {
           </Link>
           <h1 className="text-neutral-80 text-xl mt-[17px]">Sign in</h1>
           <p className="text-neutral-85 mt-[10px] max-w-[434px]">
-            Access the TEN STAGE MATRIX Using your username and passcode
+            Access the TEN STAGE MATRIX using your private key and passcode
           </p>
 
           <form onSubmit={handleSubmit(handleSignin)} className="mt-[42px]">
             <div className="flex flex-col gap-2">
               <label htmlFor="" className="text-neutral-85">
-                Email
+                Private Key
               </label>
               <input
                 type="text"
-                placeholder="Enter your email"
-                {...register("email", {
-                  required: "Email is required",
+                placeholder="Enter your private key"
+                {...register("identifier", {
+                  required: "Private key is required",
                 })}
                 className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
-                  errors?.email ? "border-red-500" : "border-neutral-90"
+                  errors?.identifier ? "border-red-500" : "border-neutral-90"
                 }`}
               />
               {typeof errors === "object" && "message" in errors && (
@@ -95,13 +97,13 @@ const SignIn = () => {
 
             <div className="flex flex-col gap-2 mt-[17px]">
               <label htmlFor="" className="text-neutral-85">
-                Password
+                Passcode
               </label>
               <input
                 type="password"
-                placeholder="Enter your Password"
+                placeholder="Enter your passcode"
                 {...register("password", {
-                  required: "Password is required",
+                  required: "Passcode is required",
                 })}
                 className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
                   errors?.password ? "border-red-500" : "border-neutral-90"
