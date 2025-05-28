@@ -1,23 +1,28 @@
 import { ICONS } from "../../../assets";
 import Stages from "../../../components/Dashboard/StagesManagementPage/Stages/Stages";
 import Heading from "../../../components/Reusable/Heading";
+import { useGetAllDonationsQuery, useGetAllUsersQuery } from "../../../redux/Features/User/adminApi";
 
 const StateManagement = () => {
+  const { data: allUsers } = useGetAllUsersQuery({});
+  const {data:donations} = useGetAllDonationsQuery({});
+  console.log(donations);
+
   const data = [
     {
       icon: ICONS.totalDonation,
       title: "Total donation",
-      value: "$50,869",
+      value: `$${donations?.data?.donations?.total_donations || 0}`,
     },
     {
       icon: ICONS.totalPayment,
-      title: "Total Payments",
-      value: "$50,869",
+      title: "Total Deposit",
+      value: `$${donations?.data?.transactions?.deposits || 0}`,
     },
     {
       icon: ICONS.totalUser,
       title: "Total Users",
-      value: "182",
+      value: `${allUsers?.data?.users?.length || 0}`,
     },
   ];
   return (

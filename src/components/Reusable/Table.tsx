@@ -1,8 +1,13 @@
+import { useChangeUserStatusMutation } from "../../redux/Features/User/adminApi";
+import { formatDate } from "../../utile/formatDate";
+import Loader from "../Loader/Loader";
+
 type TableRow = { [key: string]: string | number };
 
 interface TableProps {
   headers: string[];
   data: TableRow[];
+  isLoading?: boolean;
   onApprove?: (row: TableRow) => void;
   onReject?: (row: TableRow) => void;
 }
@@ -10,9 +15,21 @@ interface TableProps {
 export const Table: React.FC<TableProps> = ({
   headers,
   data,
-  onApprove,
-  onReject,
+  isLoading,
 }) => {
+  const [changeUserStatus] = useChangeUserStatusMutation();
+  const handleChangeUserStatus = async (status:string, id:string) => {
+    try{
+      const payload = {
+        user_id : id,
+        status,
+      }
+      const response = await changeUserStatus(payload).unwrap();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="text-white rounded-lg shadow-md font-Outfit">
       <div className="overflow-x-auto">
@@ -29,72 +46,99 @@ export const Table: React.FC<TableProps> = ({
               ))}
             </tr>
           </thead>
-          <tbody>
-            {data.map((row, idx) => (
-              <tr
-                key={idx}
-                className="border-t border-gray-700 hover:bg-[#1F1F3D] transition"
-              >
-                {headers.map((header, hIdx) => {
-                  const key = Object.keys(row)[hIdx];
-                  const content = row[key];
-                  console.log(header);
-
-                  if (key === "status") {
-                    return (
-                      <td key={hIdx} className="px-4 py-3">
-                        <div
-                          className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap ${
-                            content === "Approved"
-                              ? "bg-green-600 text-white"
-                              : "bg-red-600 text-white"
-                          }`}
-                        >
-                          {
-                            content === "Approved" ? "✓" : "✕"
-                          }
-                          {" "}
-                          {content}
-                        </div>
-                      </td>
-                    );
-                  }
-
-                  if (key === "action") {
-                    return (
-                      <td
-                        key={hIdx}
-                        className="px-4 py-3 whitespace-nowrap flex items-center gap-2"
-                      >
-                        <button
-                          onClick={onApprove ? () => onApprove(row) : undefined}
-                          className="bg-green-600 hover:bg-green-700 text-white text-sm px-3 py-1 rounded-full text-nowrap"
-                        >
-                          ✓ Approve
-                        </button>
-                        <button
-                          onClick={onReject ? () => onReject(row) : undefined}
-                          className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded-full text-nowrap"
-                        >
-                          ✕ Reject
-                        </button>
-                      </td>
-                    );
-                  }
-
-                  return (
-                    <td key={hIdx} className="px-4 py-3 whitespace-nowrap text-nowrap">
-                      {content}
-                    </td>
-                  );
-                })}
+          {isLoading ? (
+            <tbody>
+              <tr>
+                <td colSpan={headers.length} className="py-10">
+                  <div className="flex justify-center items-center">
+                    <Loader size="size-10" />
+                  </div>
+                </td>
               </tr>
-            ))}
-          </tbody>
+            </tbody>
+          ) : (
+            <tbody>
+              {data?.length < 1 ? (
+                <tr>
+                  <td
+                    colSpan={headers.length}
+                    className="text-center text-gray-400 py-4"
+                  >
+                    No data found.
+                  </td>
+                </tr>
+              ) : (
+                data?.map((item, index) => (
+                  <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
+                    <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
+                    <td className="px-4 py-3 whitespace-nowrap capitalize">
+                      {item.name}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {item.email}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {formatDate(item.createdAt as string)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      ${item.total_earn}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {item.total_referrals}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {item.referral_code}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {item.stage}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize ${
+                          item.user_account_status === "active"
+                            ? "bg-green-600 text-white"
+                            : "bg-red-600 text-white"
+                        }`}
+                      >
+                        {item.user_account_status === "active" ? "✓" : "✕"} {item.user_account_status}
+                      </div>
+                    </td>
+                    {
+                      item?.user_account_status === "suspended" ?
+                      <td onClick={() => handleChangeUserStatus("active", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                      >
+                         Withdraw Suspension
+                      </div>
+                    </td>
+                    :
+                    item?.user_account_status === "active"
+                    ?
+                    <td onClick={() => handleChangeUserStatus("suspended", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                      >
+                         Suspend User
+                      </div>
+                    </td>
+                    :
+                    item?.user_account_status === "inactive" &&
+                    <td onClick={() => handleChangeUserStatus("active", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
+                      <div
+                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-green-600 text-white`}
+                      >
+                         Active User
+                      </div>
+                    </td>
+
+                    }
+                  </tr>
+                ))
+              )}
+            </tbody>
+          )}
         </table>
-        {data.length === 0 && (
-          <p className="text-center text-gray-400 py-4">No data found.</p>
-        )}
       </div>
     </div>
   );

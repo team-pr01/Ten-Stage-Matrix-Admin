@@ -10,10 +10,11 @@ import Settings from "../pages/Dashboard/Settings/Settings";
 import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManagement";
 import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/ChargesOverview";
 import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddress";
-import StageCommission from './../pages/Dashboard/Settings/StageCommission/StageCommission';
+import StageCommission from "./../pages/Dashboard/Settings/StageCommission/StageCommission";
 import ReDonation from "../pages/Dashboard/Settings/ReDonation/ReDonation";
 import MaxEarning from "../pages/Dashboard/Settings/MaxEarning/MaxEarning";
 import DOnationAndDeposits from "../pages/Dashboard/DOnationAndDeposits/DOnationAndDeposits";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFound />,
     children: [
       {
@@ -38,19 +43,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "stage-management",
-        element: <StateManagement/>,
+        element: <StateManagement />,
       },
       {
         path: "earnings-donations",
-        element: <StateManagement/>,
+        element: <StateManagement />,
       },
       {
         path: "withdrawals",
-        element: <Withdrawals/>,
+        element: <Withdrawals />,
       },
       {
         path: "donation-deposits",
-        element: <DOnationAndDeposits/>,
+        element: <DOnationAndDeposits />,
       },
       // {
       //   path: "newsfeed",
@@ -58,35 +63,35 @@ export const router = createBrowserRouter([
       // },
       {
         path: "setting",
-        element: <Settings/>,
+        element: <Settings />,
       },
       {
         path: "user-management",
-        element: <UserManagement/>,
+        element: <UserManagement />,
       },
       {
         path: "charges-overview",
-        element: <ChargesOverview/>,
+        element: <ChargesOverview />,
       },
       {
         path: "wallet-address",
-        element: <WalletAddress/>,
+        element: <WalletAddress />,
       },
       {
         path: "stage-settings",
-        element: <StageCommission/>,
+        element: <StageCommission />,
       },
       {
         path: "re-donation-rules",
-        element: <ReDonation/>,
+        element: <ReDonation />,
       },
       {
         path: "system-control",
-        element: <ReDonation/>,
+        element: <ReDonation />,
       },
       {
         path: "max-earning",
-        element: <MaxEarning/>,
+        element: <MaxEarning />,
       },
     ],
   },

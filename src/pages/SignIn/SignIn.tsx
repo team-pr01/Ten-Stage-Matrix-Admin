@@ -1,20 +1,66 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 import { IMAGES } from "../../assets";
+import Cookies from "js-cookie";
+import { useLoginMutation } from "../../redux/Features/Auth/authApi";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/Features/Auth/authSlice";
+import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
 
 type TFormValues = {
-  privateKey: string;
+  identifier: string;
   password: string;
 };
 const SignIn = () => {
+ const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TFormValues>();
 
-  const handleSignup = (data: TFormValues) => {
-    console.log(data);
+  const handleSignin = async (data: TFormValues) => {
+    try {
+      const payload = {
+        identifier: data.identifier,
+        password: data.password,
+      };
+      const response = await login(payload).unwrap();
+      const user = response?.data?.admin;
+      const accessToken = response?.data?.token;
+      const userRole = response?.data?.admin?.role;
+      if (accessToken) {
+        Cookies.set("accessToken", accessToken, {
+          expires: 7,
+          secure:
+            typeof window !== "undefined" &&
+            window.location.protocol === "https:",
+          sameSite: "strict",
+        });
+        Cookies.set("role", userRole, {
+          expires: 7,
+          secure: window.location.protocol === "https:",
+          sameSite: "strict",
+        });
+      }
+
+      console.log(response);
+      console.log(accessToken);
+
+      if (response?.success) {
+        dispatch(setUser({ user, token: accessToken }));
+        toast.success(response?.message || "Login successful!");
+        navigate("/dashboard");
+      }
+    } catch (error: any) {
+      toast.error(error?.data?.error || error?.message || "An error occurred");
+      console.log(error);
+    }
   };
   return (
     <div className="font-Outfit relative h-screen">
@@ -27,22 +73,22 @@ const SignIn = () => {
           </Link>
           <h1 className="text-neutral-80 text-xl mt-[17px]">Sign in</h1>
           <p className="text-neutral-85 mt-[10px] max-w-[434px]">
-            Access the TEN STAGE MATRIX Using your username and passcode
+            Access the TEN STAGE MATRIX using your private key and passcode
           </p>
 
-          <form onSubmit={handleSubmit(handleSignup)} className="mt-[42px]">
+          <form onSubmit={handleSubmit(handleSignin)} className="mt-[42px]">
             <div className="flex flex-col gap-2">
               <label htmlFor="" className="text-neutral-85">
-                Privet Key
+                Private Key
               </label>
               <input
                 type="text"
                 placeholder="Enter your private key"
-                {...register("privateKey", {
-                  required: "Name is required",
+                {...register("identifier", {
+                  required: "Private key is required",
                 })}
                 className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
-                  errors?.privateKey ? "border-red-500" : "border-neutral-90"
+                  errors?.identifier ? "border-red-500" : "border-neutral-90"
                 }`}
               />
               {typeof errors === "object" && "message" in errors && (
@@ -57,10 +103,10 @@ const SignIn = () => {
                 Passcode
               </label>
               <input
-                type="text"
-                placeholder="Enter your Password"
+                type="password"
+                placeholder="Enter your passcode"
                 {...register("password", {
-                  required: "Name is required",
+                  required: "Passcode is required",
                 })}
                 className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
                   errors?.password ? "border-red-500" : "border-neutral-90"
@@ -77,7 +123,7 @@ const SignIn = () => {
               type="submit"
               className="p-2 w-full  h-12 rounded-lg border border-primary-10 bg-primary-10 text-white font-medium text-center cursor-pointer mt-6"
             >
-              Login
+              {isLoading ? <Loader size="size-6" /> : "Sign In"}
             </button>
           </form>
         </div>

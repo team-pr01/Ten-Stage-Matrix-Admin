@@ -1,116 +1,15 @@
 import Heading from "../../../components/Reusable/Heading";
 import { ICONS } from "../../../assets";
-import { Table } from "../../../components/Reusable/Table";
+import { WithdrawDataTable } from "./WithdrawDataTable";
+import { useGetAllWithdrawalsQuery } from "../../../redux/Features/Withdraw/withdrawApi";
 
 const Withdrawals = () => {
-  const data = [
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      action: "",
-    },
-  ];
-
-  const withdrawHistory = [
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      status: "Approved",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      status: "Rejected",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      status: "Approved",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      status: "Rejected",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      status: "Approved",
-    },
-    {
-      userWallet: "0xA1B2C3****90BE",
-      amount: "$400",
-      requestedDate: "2025/05/15",
-      time: "10:30 PM",
-      status: "Rejected",
-    },
-  ];
-
-  const handleApprove = () => {
-    console.log("object");
-  };
-
-  const handleReject = () => {
-    console.log("object");
-  };
+  const {data:withdrawals} = useGetAllWithdrawalsQuery({});
+  console.log(withdrawals);
 
   return (
     <div className="font-Outfit flex flex-col gap-20">
-      <div>
+      {/* <div>
         <Heading
         iconSrc={ICONS.withdrawals}
         title="Withdrawals"
@@ -131,7 +30,7 @@ const Withdrawals = () => {
           onReject={handleReject}
         />
       </div>
-      </div>
+      </div> */}
 
       <div>
         <Heading
@@ -141,16 +40,7 @@ const Withdrawals = () => {
       />
 
       <div className="mt-8">
-        <Table
-          headers={[
-            "User Wallet ",
-            "Amount",
-            "Requested  Date",
-            "Time",
-            "Status",
-          ]}
-          data={withdrawHistory}
-        />
+        <WithdrawDataTable/>
       </div>
       </div>
     </div>
