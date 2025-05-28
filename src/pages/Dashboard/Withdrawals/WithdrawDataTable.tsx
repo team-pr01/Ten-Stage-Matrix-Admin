@@ -243,7 +243,7 @@ export const WithdrawDataTable = () => {
                       </div>
                     </td>
 
-                    <td className="space-x-3">
+                    <td className="space-x-3 flex items-center mt-3">
                       <button
                         onClick={() => handleRejectWithdraw(item?._id)}
                         disabled={rejectingId === item?._id}
