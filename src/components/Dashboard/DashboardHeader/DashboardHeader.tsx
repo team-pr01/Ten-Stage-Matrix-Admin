@@ -14,6 +14,7 @@ declare global {
 const DashboardHeader = () => {
   const [account, setAccount] = useState<string | null>(null);
   const [web3, setWeb3] = useState<Web3 | null>(null);
+  
   console.log(web3);
 
   useEffect(() => {
