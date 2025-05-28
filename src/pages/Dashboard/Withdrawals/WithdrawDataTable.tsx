@@ -107,7 +107,14 @@ export const WithdrawDataTable = () => {
       // If transfer successful, proceed with withdrawal approval
       const data = {
         admin_note: "Withdrawal approved and USDT transferred successfully",
-        transactionHash: transaction.transactionHash
+        transactionHash: transaction.transactionHash,
+        amount,
+        wallet_address:withdrawalAddress,
+        network: "BSC",
+        payment_method: "metamask",
+        trx_id: transaction?.transactionHash,
+        type : "Deposit",
+        withdrawal_address: transaction?.to
       };
       
       await approveWithdraw({ data, id });

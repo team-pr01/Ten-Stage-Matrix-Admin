@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { MdOutlineNotificationsNone } from "react-icons/md";
 import { useState, useEffect } from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
@@ -13,6 +14,7 @@ declare global {
 const DashboardHeader = () => {
   const [account, setAccount] = useState<string | null>(null);
   const [web3, setWeb3] = useState<Web3 | null>(null);
+  console.log(web3);
 
   useEffect(() => {
     const init = async () => {
@@ -50,7 +52,9 @@ const DashboardHeader = () => {
           onClick={connectWallet}
           className="text-white font-medium bg-primary-10 px-5 py-3 rounded-md"
         >
-          {account ? `${account.slice(0, 6)}...${account.slice(-4)}` : "Connect wallet"}
+          {account
+            ? `${account.slice(0, 6)}...${account.slice(-4)}`
+            : "Connect wallet"}
         </button>
         <DashboardHamburgerMenu />
       </div>
