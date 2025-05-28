@@ -7,6 +7,20 @@ import {
   useRejectWithdrawMutation,
 } from "../../../redux/Features/Withdraw/withdrawApi";
 import { formatDate } from "../../../utile/formatDate";
+import { contractAbiUsdt } from "../../../utile/ContractABIUSDT";
+import Web3 from 'web3';
+import detectEthereumProvider from '@metamask/detect-provider';
+
+// USDT Contract Address (Ethereum Mainnet)
+const USDT_CONTRACT_ADDRESS = '0xdAC17F958D2ee523a2206206994597C13D831ec7';
+const DECIMAL_VALUE = 'ether'; // USDT has 18 decimals
+
+// Add ethereum to window type
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 
 export const WithdrawDataTable = () => {
   const { data, isLoading } = useGetAllWithdrawalsQuery({});
@@ -16,15 +30,91 @@ export const WithdrawDataTable = () => {
   const [approvingId, setApprovingId] = useState<string | null>(null);
   const [rejectingId, setRejectingId] = useState<string | null>(null);
 
-  const handleApproveWithdraw = async (id: string) => {
+  // Function to connect to MetaMask
+  const connectWallet = async () => {
+    try {
+      const provider = await detectEthereumProvider();
+      
+      if (!provider) {
+        alert('Please install MetaMask!');
+        return false;
+      }
+
+      // Request account access
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      return true;
+    } catch (error) {
+      console.error('Error connecting to MetaMask:', error);
+      return false;
+    }
+  };
+
+  // Function to handle USDT transfer
+  const handleUsdtTransfer = async (amount: string, toAddress: string) => {
+    try {
+      const web3 = new Web3(window.ethereum);
+      const accounts = await web3.eth.getAccounts();
+      
+      if (accounts.length === 0) {
+        alert('Please connect your MetaMask wallet first!');
+        return null;
+      }
+
+      // Get current gas price
+      const gasPrice = await web3.eth.getGasPrice();
+      const gasPriceInGwei = Web3.utils.fromWei(gasPrice, 'gwei');
+
+      // Create USDT contract instance
+      const usdtContract = new web3.eth.Contract(contractAbiUsdt(), USDT_CONTRACT_ADDRESS);
+      
+      // Convert amount to USDT decimals
+      const usdtAmount = Web3.utils.toWei(amount, DECIMAL_VALUE);
+
+      // Send USDT transaction
+      const transaction = await usdtContract.methods.transfer(
+        toAddress,
+        usdtAmount
+      ).send({
+        from: accounts[0],
+        gas: '100000',
+        gasPrice: Web3.utils.toWei(gasPriceInGwei, 'gwei')
+      });
+
+      return transaction;
+    } catch (error) {
+      console.error('Error processing USDT transfer:', error);
+      throw error;
+    }
+  };
+
+  const handleApproveWithdraw = async (id: string, amount: string, withdrawalAddress: string) => {
     try {
       setApprovingId(id);
+      
+      // Connect to MetaMask
+      const isConnected = await connectWallet();
+      if (!isConnected) {
+        throw new Error('Failed to connect to MetaMask');
+      }
+
+      // Process USDT transfer
+      const transaction = await handleUsdtTransfer(amount, withdrawalAddress);
+      
+      if (!transaction) {
+        throw new Error('USDT transfer failed');
+      }
+
+      // If transfer successful, proceed with withdrawal approval
       const data = {
-        admin_note: "Withdrawal approved after verification",
+        admin_note: "Withdrawal approved and USDT transferred successfully",
+        transactionHash: transaction.transactionHash
       };
+      
       await approveWithdraw({ data, id });
+      alert('Withdrawal approved and USDT transferred successfully!');
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert('Error processing withdrawal. Please try again.');
     } finally {
       setApprovingId(null);
     }
@@ -95,7 +185,7 @@ export const WithdrawDataTable = () => {
                 </tr>
               ) : (
                 data?.data?.withdrawals?.map((item: any, index: number) => (
-                  <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
+                  <tr key={item._id} className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
                       {item?.user_id?.name}
@@ -160,7 +250,7 @@ export const WithdrawDataTable = () => {
                       </button>
 
                       <button
-                        onClick={() => handleApproveWithdraw(item?._id)}
+                        onClick={() => handleApproveWithdraw(item?._id, item?.amount, item?.withdrawal_address)}
                         disabled={approvingId === item?._id}
                         className="px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-green-500 text-white cursor-pointer disabled:opacity-60"
                       >

@@ -31,9 +31,9 @@ const SignIn = () => {
         password: data.password,
       };
       const response = await login(payload).unwrap();
-      const user = response?.user;
-      const accessToken = response.token;
-      const userRole = response?.user?.role;
+      const user = response?.data?.admin;
+      const accessToken = response?.data?.token;
+      const userRole = response?.data?.admin?.role;
       if (accessToken) {
         Cookies.set("accessToken", accessToken, {
           expires: 7,
@@ -49,7 +49,10 @@ const SignIn = () => {
         });
       }
 
-      if (response?.message) {
+      console.log(response);
+      console.log(accessToken);
+
+      if (response?.success) {
         dispatch(setUser({ user, token: accessToken }));
         toast.success(response?.message || "Login successful!");
         navigate("/dashboard");
