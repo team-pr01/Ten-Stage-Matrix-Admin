@@ -23,7 +23,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-[330px] bg-neutral-30 border-r border-neutral-25/50 px-7 py-[19px] h-screen overflow-y-auto font-Outfit hidden xl:flex flex-col justify-between sticky top-0 left-0">
+    <div className="w-[280px] bg-neutral-30 border-r border-neutral-25/50 px-7 py-[19px] h-screen overflow-y-auto font-Outfit hidden xl:flex flex-col justify-between sticky top-0 left-0">
       <div className="flex flex-col gap-8">
         {/* Logo */}
         <Link to={"/"}>

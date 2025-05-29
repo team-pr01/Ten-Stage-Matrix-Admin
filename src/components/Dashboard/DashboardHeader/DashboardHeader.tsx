@@ -51,7 +51,7 @@ const DashboardHeader = () => {
         {/* <MdOutlineNotificationsNone className="text-neutral-25 text-3xl" /> */}
         <button
           onClick={connectWallet}
-          className="text-white font-medium bg-primary-10 px-5 py-3 rounded-md"
+          className="text-white font-medium bg-primary-10 px-5 py-3 rounded-md cursor-pointer"
         >
           {account
             ? `${account.slice(0, 6)}...${account.slice(-4)}`
