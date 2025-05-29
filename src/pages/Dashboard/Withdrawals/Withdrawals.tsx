@@ -1,11 +1,8 @@
 import Heading from "../../../components/Reusable/Heading";
 import { ICONS } from "../../../assets";
 import { WithdrawDataTable } from "./WithdrawDataTable";
-import { useGetAllWithdrawalsQuery } from "../../../redux/Features/Withdraw/withdrawApi";
 
 const Withdrawals = () => {
-  const {data:withdrawals} = useGetAllWithdrawalsQuery({});
-  console.log(withdrawals);
 
   return (
     <div className="font-Outfit flex flex-col gap-20">
