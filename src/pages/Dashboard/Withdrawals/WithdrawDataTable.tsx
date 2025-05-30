@@ -3,11 +3,11 @@ import { useState } from "react";
 import Loader from "../../../components/Loader/Loader";
 import {
   useApproveWithdrawMutation,
-  useGetAllWithdrawalsQuery,
   useRejectWithdrawMutation,
 } from "../../../redux/Features/Withdraw/withdrawApi";
 import { formatDate } from "../../../utile/formatDate";
 import { toast } from "sonner";
+
 // import { contractAbiUsdt } from "../../../utile/ContractABIUSDT";
 // import Web3 from 'web3';
 // import detectEthereumProvider from '@metamask/detect-provider';
@@ -23,8 +23,7 @@ declare global {
   }
 }
 
-export const WithdrawDataTable = () => {
-  const { data, isLoading } = useGetAllWithdrawalsQuery({});
+export const WithdrawDataTable = ({data, isLoading, totalWithdrawals} : {data : any, isLoading : boolean, totalWithdrawals : number}) => {
   const [approveWithdraw] = useApproveWithdrawMutation();
   const [rejectWithdraw] = useRejectWithdrawMutation();
 
@@ -144,6 +143,8 @@ export const WithdrawDataTable = () => {
     }
   };
 
+  
+
   const headers = [
     "#",
     "Name",
@@ -184,7 +185,7 @@ export const WithdrawDataTable = () => {
             </tbody>
           ) : (
             <tbody>
-              {data?.data?.withdrawals?.length < 1 ? (
+              {data?.length < 1 ? (
                 <tr>
                   <td
                     colSpan={headers.length}
@@ -194,7 +195,7 @@ export const WithdrawDataTable = () => {
                   </td>
                 </tr>
               ) : (
-                data?.data?.withdrawals?.map((item: any, index: number) => (
+                data?.map((item: any, index: number) => (
                   <tr key={item._id} className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
@@ -278,6 +279,9 @@ export const WithdrawDataTable = () => {
           )}
         </table>
       </div>
+      <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
+            Total Amount : ${totalWithdrawals}
+          </div>
     </div>
   );
 };
