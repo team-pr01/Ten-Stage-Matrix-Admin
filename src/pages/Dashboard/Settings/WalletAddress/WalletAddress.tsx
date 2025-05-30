@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ICONS } from "../../../../assets";
 import { Link } from "react-router-dom";
 import {
@@ -7,17 +7,32 @@ import {
 } from "../../../../redux/Features/User/adminApi";
 import { useForm } from "react-hook-form";
 import Loader from "../../../../components/Loader/Loader";
+import { toast } from "sonner";
 
 type TFormValues = {
   admin_wallet_address: string;
+  admin_wallet_private_key: string;
 };
 const WalletAddress = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<TFormValues>();
   const { data } = useGetSettingDetailsQuery({}); //for wallet address
+  console.log(data)
+
+  useEffect(() => {
+    setValue(
+      "admin_wallet_address",
+      data?.data?.admin_wallet_address || ""
+    );
+    setValue(
+      "admin_wallet_private_key",
+      data?.data?.admin_wallet_private_key || ""
+    );
+  }, [setValue, data]);
 
   const [updateAdminWalletAddress, { isLoading }] =
     useUpdateAdminWalletAddressMutation();
@@ -26,9 +41,12 @@ const WalletAddress = () => {
     try {
       const payload = {
         admin_wallet_address: data.admin_wallet_address,
+        admin_wallet_private_key: data.admin_wallet_private_key
       };
       const response = await updateAdminWalletAddress(payload).unwrap();
-      console.log(response);
+      if(response?.success) {
+        toast.success(response?.message);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +77,7 @@ const WalletAddress = () => {
       {isFormVisible && (
         <div className="mt-[42px] flex flex-col gap-[18px]">
           <h1 className="text-white font-medium text-[26px]">
-            Update USDT Address
+            Update Wallet Address
           </h1>
           <form
             onSubmit={handleSubmit(handleUpdateAdminWalletAddress)}
@@ -67,15 +85,37 @@ const WalletAddress = () => {
           >
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="" className="text-neutral-85">
-                USDT Address
+                Admin Wallet Address
               </label>
               <div className="flex items-center justify-between relative">
                 <input
                   type="text"
-                  placeholder="Enter your USDT address"
+                  placeholder="Enter your wallet address"
                   {...register("admin_wallet_address")}
                   className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
                     errors?.admin_wallet_address
+                      ? "border-red-500"
+                      : "border-neutral-90"
+                  }`}
+                />
+                <img
+                  src={ICONS.wallet}
+                  alt=""
+                  className="size-6 absolute right-3"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="" className="text-neutral-85">
+                Admin Wallet Private Key
+              </label>
+              <div className="flex items-center justify-between relative">
+                <input
+                  type="text"
+                  placeholder="Enter your wallet private key"
+                  {...register("admin_wallet_private_key")}
+                  className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
+                    errors?.admin_wallet_private_key
                       ? "border-red-500"
                       : "border-neutral-90"
                   }`}

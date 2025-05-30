@@ -15,10 +15,10 @@ const withdrawApi = baseApi.injectEndpoints({
     }),
 
     approveWithdraw: builder.mutation<any, any>({
-      query: ({data, id}) => ({
+      query: (id) => ({
         url: `/admin/withdrawals/${id}/approve`,
         method: "POST",
-        body: data,
+        body : {admin_note : ""},
         credentials: "include",
       }),
       invalidatesTags: ["withdraw"],
