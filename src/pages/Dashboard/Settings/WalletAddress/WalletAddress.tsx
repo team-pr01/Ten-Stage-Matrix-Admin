@@ -62,9 +62,9 @@ const WalletAddress = () => {
         {/* Text Content */}
         <div>
           <h3 className="text-[30px] font-medium mt-[6px]">Wallet Address</h3>
-          <p className="text-lg text-neutral-140 mt-[13px]">
+          {/* <p className="text-lg text-neutral-140 mt-[13px]">
             {data?.data?.admin_wallet_address || "Not Available"}
-          </p>
+          </p> */}
         </div>
         <button
           onClick={() => setIsFormVisible(!isFormVisible)}
