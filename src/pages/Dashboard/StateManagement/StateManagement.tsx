@@ -1,22 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICONS } from "../../../assets";
 import Stages from "../../../components/Dashboard/StagesManagementPage/Stages/Stages";
 import Heading from "../../../components/Reusable/Heading";
-import { useGetAllDonationsQuery, useGetAllUsersQuery } from "../../../redux/Features/User/adminApi";
+import {
+  useGetAllDepositsQuery,
+  useGetAllDonationsQuery,
+  useGetAllUsersQuery,
+  useGetAllWithdrawQuery,
+} from "../../../redux/Features/User/adminApi";
 
 const StateManagement = () => {
   const { data: allUsers } = useGetAllUsersQuery({});
-  const {data:donations} = useGetAllDonationsQuery({});
+  const { data: donations } = useGetAllDonationsQuery({});
+  const { data: withdrawals } = useGetAllWithdrawQuery({});
+  const { data: deposits } = useGetAllDepositsQuery({});
+
+  const totalDonations = donations?.data?.donations?.reduce(
+    (sum: number, item: any) => sum + (item?.amount || 0),
+    0
+  );
+  const totalWithdrawal = withdrawals?.data?.withdrawals?.reduce(
+    (sum: number, item: any) => sum + (item?.amount || 0),
+    0
+  );
+  const totalDeposits = deposits?.data?.deposits?.reduce(
+    (sum: number, item: any) => sum + (item?.amount || 0),
+    0
+  );
 
   const data = [
     {
       icon: ICONS.totalDonation,
       title: "Total donation",
-      value: `$${donations?.data?.donations?.total_donations || 0}`,
+      value: `$${totalDonations || 0}`,
     },
     {
       icon: ICONS.totalPayment,
       title: "Total Deposit",
-      value: `$${donations?.data?.transactions?.deposits || 0}`,
+      value: `$${totalDeposits || 0}`,
+    },
+    {
+      icon: ICONS.withdrawals,
+      title: "Total Withdraw",
+      value: `$${totalWithdrawal || 0}`,
     },
     {
       icon: ICONS.totalUser,
@@ -40,7 +66,7 @@ const StateManagement = () => {
           title=" Earnings & Donations Tracking "
           subtitle="Track total donations and payouts"
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 flex-wrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-12 flex-wrap">
           {data?.map((item) => (
             <div
               key={item.title}

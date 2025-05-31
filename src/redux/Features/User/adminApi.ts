@@ -12,7 +12,7 @@ const adminApi = baseApi.injectEndpoints({
         if (search) params.append("search", search);
 
         return {
-          url: `/admin/users?${params.toString()}&limit=${20}`,
+          url: `/admin/users?${params.toString()}`,
           method: "GET",
           credentials: "include",
         };
@@ -35,6 +35,17 @@ const adminApi = baseApi.injectEndpoints({
       query: () => {
         return {
           url: `/admin/deposits`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ["user"],
+    }),
+
+    getAllWithdraw: builder.query({
+      query: () => {
+        return {
+          url: `/admin/withdrawals`,
           method: "GET",
           credentials: "include",
         };
@@ -97,4 +108,4 @@ const adminApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetSettingDetailsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation, useUpdateSettingMutation} = adminApi;
+export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetAllWithdrawQuery, useGetSettingDetailsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation, useUpdateSettingMutation} = adminApi;

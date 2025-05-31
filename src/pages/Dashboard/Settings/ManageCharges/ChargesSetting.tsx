@@ -5,7 +5,6 @@ import { ICONS } from "../../../../assets";
 
 const ChargesSetting = ({setKey} : {setKey: any}) => {
   const { data, isLoading } = useGetSettingDetailsQuery({});
-  console.log(data);
   const charges = [
     {
       title: "Deposit Charge",
