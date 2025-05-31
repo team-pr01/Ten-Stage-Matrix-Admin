@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useGetSettingDetailsQuery, useUpdateSettingMutation } from "../../../../redux/Features/User/adminApi";
+import {
+  useGetSettingDetailsQuery,
+  useUpdateSettingMutation,
+} from "../../../../redux/Features/User/adminApi";
 import ChargesSetting from "./ChargesSetting";
 import Loader from "../../../../components/Loader/Loader";
 
@@ -16,19 +19,27 @@ const ManageCharges = () => {
   const [updateSetting, { isLoading }] = useUpdateSettingMutation();
   const { register, handleSubmit } = useForm<StageFormValues>();
 
-  const { data:charge } = useGetSettingDetailsQuery({});
+  const { data: charge } = useGetSettingDetailsQuery({});
 
   const handleUpdateCharges = async (data: StageFormValues) => {
     try {
       const payload = {
         charge_fee: {
-          withdrawal_charge: Number(data.withdrawal_charge) || charge?.data?.charge_fee?.withdrawal_charge,
-          transfer_charge: Number(data.transfer_charge) || charge?.data?.charge_fee?.transfer_charge,
-          deposit_charge: Number(data.deposit_charge) || charge?.data?.charge_fee?.deposit_charge,
+          withdrawal_charge: Number(
+            data.withdrawal_charge ??
+              charge?.data?.charge_fee?.withdrawal_charge
+          ),
+          transfer_charge: Number(
+            data.transfer_charge ?? charge?.data?.charge_fee?.transfer_charge
+          ),
+          deposit_charge: Number(
+            data.deposit_charge ?? charge?.data?.charge_fee?.deposit_charge
+          ),
         },
       };
+
       const response = await updateSetting(payload).unwrap();
-      console.log(response)
+      console.log(response);
       if (response?.message) {
         toast.success(response?.message);
         setKey("");

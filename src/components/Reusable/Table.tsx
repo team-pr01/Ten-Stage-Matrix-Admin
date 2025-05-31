@@ -86,6 +86,9 @@ export const Table: React.FC<TableProps> = ({
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item.total_referrals}
                     </td>
+                    <td className="px-4 py-3 whitespace-nowrap capitalize">
+                      {item.status}
+                    </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item.referral_code}
                     </td>

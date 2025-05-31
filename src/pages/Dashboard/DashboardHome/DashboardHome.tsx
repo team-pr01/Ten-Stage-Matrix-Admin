@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { ICONS } from "../../../assets";
 import Heading from "../../../components/Reusable/Heading";
@@ -19,7 +20,14 @@ const DashboardHome = () => {
     search: searchTerm,
   });
 
-  const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+  const sortedUsers = allUsers?.data?.users?.slice().sort((a:any, b:any) => {
+  return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+});
+
+console.log(sortedUsers);
+
 
   return (
     <div className="font-Outfit">
@@ -73,12 +81,13 @@ const DashboardHome = () => {
             "Joined date",
             "Total Earning",
             "Total Referrals",
+            "Status",
             "Referral Code",
             "Stage",
             "Status",
             "Action",
           ]}
-          data={allUsers?.data?.users}
+          data={sortedUsers}
           isLoading={isLoading || isFetching}
         />
       </div>
