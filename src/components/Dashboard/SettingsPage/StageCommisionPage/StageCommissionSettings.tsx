@@ -5,6 +5,7 @@ import Loader from "../../../Loader/Loader";
 
 const StageCommissionSettings = ({setId, setStageNumber} : {setId: any, setStageNumber: any}) => {
   const { data: stages, isLoading } = useGetAllStagesQuery({});
+  console.log(stages)
   return (
     <div className="mt-11 rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 py-7 px-[34px]">
       <h1 className="text-2xl font-medium text-white mb-6">Commission Settings</h1>
@@ -16,6 +17,7 @@ const StageCommissionSettings = ({setId, setStageNumber} : {setId: any, setStage
               <th className="py-3 px-4 whitespace-nowrap">Stage</th>
               <th className="py-3 px-4 whitespace-nowrap">Donation Required</th>
               <th className="py-3 px-4 whitespace-nowrap">Commission Percentage</th>
+              <th className="py-3 px-4 whitespace-nowrap">Earning Multiplier</th>
               <th className="py-3 px-4 whitespace-nowrap">Edit Stage</th>
             </tr>
           </thead>
@@ -42,6 +44,9 @@ const StageCommissionSettings = ({setId, setStageNumber} : {setId: any, setStage
                 </td>
                 <td className="py-3 px-4 whitespace-nowrap">
                   {stage?.commission_percentage}%
+                </td>
+                <td className="py-3 px-4 whitespace-nowrap">
+                  {stage?.earning_multiplier}
                 </td>
                 <td className="py-3 px-4 whitespace-nowrap">
                   <AiOutlineEdit onClick={() => {

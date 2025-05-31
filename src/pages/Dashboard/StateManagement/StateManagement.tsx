@@ -6,7 +6,6 @@ import { useGetAllDonationsQuery, useGetAllUsersQuery } from "../../../redux/Fea
 const StateManagement = () => {
   const { data: allUsers } = useGetAllUsersQuery({});
   const {data:donations} = useGetAllDonationsQuery({});
-  console.log(donations);
 
   const data = [
     {

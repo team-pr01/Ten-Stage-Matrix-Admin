@@ -15,6 +15,7 @@ import ReDonation from "../pages/Dashboard/Settings/ReDonation/ReDonation";
 import MaxEarning from "../pages/Dashboard/Settings/MaxEarning/MaxEarning";
 import DOnationAndDeposits from "../pages/Dashboard/DOnationAndDeposits/DOnationAndDeposits";
 import ProtectedRoute from "./ProtectedRoute";
+import ManageCharges from "../pages/Dashboard/Settings/ManageCharges/ManageCharges";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: "max-earning",
         element: <MaxEarning />,
+      },
+      {
+        path: "manage-charges",
+        element: <ManageCharges />,
       },
     ],
   },

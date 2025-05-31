@@ -83,8 +83,18 @@ const adminApi = baseApi.injectEndpoints({
       invalidatesTags: ["user"],
     }),
 
+    updateSetting: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/settings`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
     
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetSettingDetailsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation,} = adminApi;
+export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetSettingDetailsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation, useUpdateSettingMutation} = adminApi;

@@ -13,6 +13,7 @@ import { toast } from "sonner";
 type StageFormValues = {
   stage_number: string;
   commission_percentage: number;
+  earning_multiplier: number;
   donation_requirement: number;
 };
 
@@ -27,6 +28,7 @@ const StageCommission = () => {
     if (data) {
       setValue("stage_number", data?.data?.stage_number);
       setValue("commission_percentage", data?.data?.commission_percentage);
+      setValue("earning_multiplier", data?.data?.earning_multiplier);
       setValue("donation_requirement", data?.data?.donation_requirement);
     }
   }, [data, setValue]);
@@ -101,6 +103,23 @@ const StageCommission = () => {
                   type="number"
                   placeholder="08"
                   {...register("commission_percentage")}
+                  className="w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85"
+                />
+                <p className="absolute right-3 text-white">%</p>
+              </div>
+            </div>
+
+            {/* Earning Multiplier */}
+            <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="commission" className="text-neutral-85">
+                Earning Multiplier
+              </label>
+              <div className="flex items-center relative">
+                <input
+                  id="commission"
+                  type="number"
+                  placeholder="08"
+                  {...register("earning_multiplier")}
                   className="w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85"
                 />
                 <p className="absolute right-3 text-white">%</p>
