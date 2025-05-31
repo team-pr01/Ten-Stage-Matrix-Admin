@@ -47,10 +47,6 @@ export const router = createBrowserRouter([
         element: <StateManagement />,
       },
       {
-        path: "earnings-donations",
-        element: <StateManagement />,
-      },
-      {
         path: "withdrawals",
         element: <Withdrawals />,
       },

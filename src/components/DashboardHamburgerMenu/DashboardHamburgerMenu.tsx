@@ -73,14 +73,9 @@ const DashboardHamburgerMenu: React.FC = () => {
           ))}
         </div>
 
-        <div className="flex flex-col gap-5">
-          <button className="text-white font-medium bg-primary-10 px-5 py-3 rounded-md">
-            Connect wallet
-          </button>
           <button className="bg-primary-60 text-white font-medium px-5 py-3 rounded-md">
             Logout
           </button>
-        </div>
       </div>
     </div>
   );
