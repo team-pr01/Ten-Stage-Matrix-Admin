@@ -10,6 +10,8 @@ import { format } from "date-fns";
 const Withdrawals = () => {
   const { data, isLoading } = useGetAllWithdrawalsQuery({});
 
+  console.log(data);
+
   const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
     null
   );
@@ -19,11 +21,11 @@ const Withdrawals = () => {
     : "";
 
   const filteredWithdrawData = formattedWithdrawDate
-    ? data?.data?.withdrawals?.filter((item: any) => {
+    ? data?.data?.filter((item: any) => {
         const itemDate = format(new Date(item.createdAt), "yyyy-MM-dd");
         return itemDate === formattedWithdrawDate;
       })
-    : data?.data?.withdrawals;
+    : data?.data;
 
   // Calculate total donations
   const totalWithdrawals = filteredWithdrawData?.reduce(
@@ -34,29 +36,6 @@ const Withdrawals = () => {
   );
   return (
     <div className="font-Outfit flex flex-col gap-20">
-      {/* <div>
-        <Heading
-        iconSrc={ICONS.withdrawals}
-        title="Withdrawals"
-        subtitle="Review and approve/reject withdrawal requests"
-      />
-
-      <div className="mt-8">
-        <Table
-          headers={[
-            "User Wallet ",
-            "Amount",
-            "Requested  Date",
-            "Time",
-            "Action",
-          ]}
-          data={data}
-          onApprove={handleApprove}
-          onReject={handleReject}
-        />
-      </div>
-      </div> */}
-
       <div>
         <div className="flex flex-col lg:flex-row items-center gap-5 lg:gap-0 justify-between">
           <Heading
@@ -84,7 +63,11 @@ const Withdrawals = () => {
         </div>
 
         <div className="mt-8">
-          <WithdrawDataTable data={filteredWithdrawData} isLoading={isLoading} totalWithdrawals={totalWithdrawals} />
+          <WithdrawDataTable
+            data={filteredWithdrawData}
+            isLoading={isLoading}
+            totalWithdrawals={totalWithdrawals}
+          />
         </div>
       </div>
     </div>

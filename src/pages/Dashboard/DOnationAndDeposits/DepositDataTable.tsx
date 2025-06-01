@@ -3,6 +3,7 @@ import Loader from "../../../components/Loader/Loader";
 import { formatDate } from "../../../utile/formatDate";
 
 const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {
+  console.log(data);
    
     const headers = [
     "#",
@@ -17,7 +18,7 @@ const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) =
   ];
     return (
         <div className="text-white rounded-lg shadow-md font-Outfit">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto custom-scrollbar">
         <table className="w-full text-left">
           <thead>
             <tr className="bg-neutral-30 text-sm">

@@ -22,11 +22,9 @@ const DashboardHome = () => {
 
   const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
-  const sortedUsers = allUsers?.data?.users?.slice().sort((a:any, b:any) => {
+  const sortedUsers = allUsers?.data?.slice().sort((a:any, b:any) => {
   return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
 });
-
-console.log(sortedUsers);
 
 
   return (

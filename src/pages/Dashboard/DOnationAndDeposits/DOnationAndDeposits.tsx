@@ -24,23 +24,24 @@ const DOnationAndDeposits = () => {
     isFetching: isDonationFetching,
   } = useGetAllDonationsQuery({});
 
-  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
-    null
-  );
   const [selectedDepositDate, setSelectedDepositDate] = useState<Date | null>(
     null
   );
 
-  const formattedDonationDate = selectedDonationDate
-    ? format(selectedDonationDate, "yyyy-MM-dd")
-    : "";
+  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(null);
 
-  const filteredDonationData = formattedDonationDate
-    ? donations?.data?.donations?.filter((item: any) => {
-        const itemDate = format(new Date(item.createdAt), "yyyy-MM-dd");
-        return itemDate === formattedDonationDate;
-      })
-    : donations?.data?.donations;
+const formattedDonationDate = selectedDonationDate
+  ? format(selectedDonationDate, "yyyy-MM-dd")
+  : "";
+
+// Filter the data
+const filteredDonationData = donations?.data?.filter((item: any) => {
+  if (!formattedDonationDate) return true;
+
+  const itemDate = item.created_at.slice(0, 10); // Get YYYY-MM-DD
+  return itemDate === formattedDonationDate;
+});
+
 
   // Calculate total donations
   const totalDonations = filteredDonationData?.reduce(
@@ -55,11 +56,11 @@ const DOnationAndDeposits = () => {
     : "";
 
   const filteredDepositData = formattedDepositDate
-    ? deposits?.data?.deposits?.filter((item: any) => {
-        const itemDate = format(new Date(item.createdAt), "yyyy-MM-dd");
+    ? deposits?.data?.filter((item: any) => {
+        const itemDate = format(new Date(item.created_at), "yyyy-MM-dd");
         return itemDate === formattedDepositDate;
       })
-    : deposits?.data?.deposits;
+    : deposits?.data;
 
   // Calculate total deposits
   const totalDeposits = filteredDepositData?.reduce(
@@ -68,6 +69,8 @@ const DOnationAndDeposits = () => {
     },
     0
   );
+
+  console.log(donations);
 
   return (
     <div className="flex flex-col gap-16 font-Outfit">
@@ -99,7 +102,7 @@ const DOnationAndDeposits = () => {
 
         <div className="">
           <DonationDataTable
-            data={donations?.data?.donations}
+            data={filteredDonationData}
             isLoading={isDonationLoading || isDonationFetching}
           />
           <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
