@@ -16,6 +16,7 @@ import MaxEarning from "../pages/Dashboard/Settings/MaxEarning/MaxEarning";
 import DOnationAndDeposits from "../pages/Dashboard/DOnationAndDeposits/DOnationAndDeposits";
 import ProtectedRoute from "./ProtectedRoute";
 import ManageCharges from "../pages/Dashboard/Settings/ManageCharges/ManageCharges";
+import Limitations from "../components/Dashboard/SettingsPage/Limitations/Limitations";
 
 export const router = createBrowserRouter([
   {
@@ -47,10 +48,6 @@ export const router = createBrowserRouter([
         element: <StateManagement />,
       },
       {
-        path: "earnings-donations",
-        element: <StateManagement />,
-      },
-      {
         path: "withdrawals",
         element: <Withdrawals />,
       },
@@ -73,6 +70,10 @@ export const router = createBrowserRouter([
       {
         path: "charges-overview",
         element: <ChargesOverview />,
+      },
+      {
+        path: "limitations",
+        element: <Limitations />,
       },
       {
         path: "wallet-address",

@@ -32,7 +32,7 @@ export const Table: React.FC<TableProps> = ({
   }
   return (
     <div className="text-white rounded-lg shadow-md font-Outfit">
-      <div className="overflow-x-auto">
+      <div className="overflow-auto max-h-[700px] custom-scrollbar">
         <table className="w-full text-left">
           <thead>
             <tr className="bg-neutral-30 text-sm">
