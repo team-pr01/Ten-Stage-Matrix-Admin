@@ -38,13 +38,13 @@ const AllControls = () => {
       description: "Manage all charges",
       path: "/dashboard/manage-charges",
     },
-    // {
-    //   icon: ICONS.limit,
-    //   title: "Limits",
-    //   subtitle: "Max Earning",
-    //   description: "Set Earning Caps Per Stage.",
-    //   path: "/dashboard/max-earning",
-    // },
+    {
+      icon: ICONS.limit,
+      title: "Limits",
+      subtitle: "Max/Min Limitations",
+      description: "Set max/min limitations",
+      path: "/dashboard/limitations",
+    },
     // {
     //   icon: ICONS.reDonation,
     //   title: "Re-Donation",

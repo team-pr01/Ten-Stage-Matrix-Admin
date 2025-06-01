@@ -4,6 +4,7 @@ import Loader from "../../../components/Loader/Loader";
 import { formatDate } from "../../../utile/formatDate";
 
 const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {
+  console.log(data);
     const headers = [
     "#",
     "Name",
@@ -16,7 +17,7 @@ const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) 
   ];
     return (
         <div className="text-white rounded-lg shadow-md font-Outfit">
-      <div className="overflow-x-auto">
+      <div className="overflow-auto max-h-[700px] custom-scrollbar">
         <table className="w-full text-left">
           <thead>
             <tr className="bg-neutral-30 text-sm">
@@ -56,16 +57,16 @@ const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) 
                   <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
-                      {item?.user_id?.name}
+                      {item?.user_name}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.user_id?.email}
+                      {item?.user_email}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item?.stage_number}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.user_id?.wallet_address}
+                      {item?.user_id?.user_wallet}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       ${item?.amount}
