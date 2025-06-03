@@ -9,7 +9,6 @@ import Withdrawals from "../pages/Dashboard/Withdrawals/Withdrawals";
 import Settings from "../pages/Dashboard/Settings/Settings";
 import UserManagement from "../pages/Dashboard/Settings/UserManagement/UserManagement";
 import ChargesOverview from "../pages/Dashboard/Settings/ChargesOverview/ChargesOverview";
-import WalletAddress from "../pages/Dashboard/Settings/WalletAddress/WalletAddress";
 import StageCommission from "./../pages/Dashboard/Settings/StageCommission/StageCommission";
 import ReDonation from "../pages/Dashboard/Settings/ReDonation/ReDonation";
 import MaxEarning from "../pages/Dashboard/Settings/MaxEarning/MaxEarning";
@@ -17,6 +16,7 @@ import DOnationAndDeposits from "../pages/Dashboard/DOnationAndDeposits/DOnation
 import ProtectedRoute from "./ProtectedRoute";
 import ManageCharges from "../pages/Dashboard/Settings/ManageCharges/ManageCharges";
 import Limitations from "../components/Dashboard/SettingsPage/Limitations/Limitations";
+import WalletAddress from "../pages/Dashboard/WalletAddress/WalletAddress";
 
 export const router = createBrowserRouter([
   {
