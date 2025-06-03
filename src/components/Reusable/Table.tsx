@@ -72,38 +72,43 @@ export const Table: React.FC<TableProps> = ({
                   <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
-                      {item.name}
+                      {item?.name}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item.email}
+                      {item?.email}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {formatDate(item.createdAt as string)}
+                      {formatDate(item?.createdAt as string)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      ${item.total_earn}
+                      {typeof item?.total_earn === "number"
+                        ? `$${item.total_earn.toFixed(5)}`
+                        : `$${item?.total_earn ?? 0}`}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item.total_referrals}
+                      {item?.total_referrals}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
-                      {item.status}
+                      {item?.status}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item.referral_code}
+                      {item?.referral_code}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item.stage}
+                      {item?.user_pk}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {item?.stage}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <div
                         className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize ${
-                          item.user_account_status === "active"
+                          item?.user_account_status === "active"
                             ? "bg-green-600 text-white"
                             : "bg-red-600 text-white"
                         }`}
                       >
-                        {item.user_account_status === "active" ? "✓" : "✕"} {item.user_account_status}
+                        {item?.user_account_status === "active" ? "✓" : "✕"} {item.user_account_status}
                       </div>
                     </td>
                     {

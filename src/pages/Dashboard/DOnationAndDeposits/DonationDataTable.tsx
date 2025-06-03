@@ -4,13 +4,11 @@ import Loader from "../../../components/Loader/Loader";
 import { formatDate } from "../../../utile/formatDate";
 
 const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {
-  console.log(data);
     const headers = [
     "#",
     "Name",
     "Email",
     "Stage",
-    "Wallet Address",
     "Amount",
     "Deposit Date",
     "Status",
@@ -63,10 +61,7 @@ const DonationDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) 
                       {item?.user_email}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.stage_number}
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.user_id?.user_wallet}
+                      {item?.stage}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       ${item?.amount}

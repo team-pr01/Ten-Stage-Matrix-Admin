@@ -28,20 +28,21 @@ const DOnationAndDeposits = () => {
     null
   );
 
-  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(null);
+  const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
+    null
+  );
 
-const formattedDonationDate = selectedDonationDate
-  ? format(selectedDonationDate, "yyyy-MM-dd")
-  : "";
+  const formattedDonationDate = selectedDonationDate
+    ? format(selectedDonationDate, "yyyy-MM-dd")
+    : "";
 
-// Filter the data
-const filteredDonationData = donations?.data?.filter((item: any) => {
-  if (!formattedDonationDate) return true;
+  // Filter the data
+  const filteredDonationData = donations?.data?.filter((item: any) => {
+    if (!formattedDonationDate) return true;
 
-  const itemDate = item.created_at.slice(0, 10); // Get YYYY-MM-DD
-  return itemDate === formattedDonationDate;
-});
-
+    const itemDate = item.created_at.slice(0, 10); // Get YYYY-MM-DD
+    return itemDate === formattedDonationDate;
+  });
 
   // Calculate total donations
   const totalDonations = filteredDonationData?.reduce(
@@ -106,7 +107,7 @@ const filteredDonationData = donations?.data?.filter((item: any) => {
             isLoading={isDonationLoading || isDonationFetching}
           />
           <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
-            Total Amount : ${totalDonations}
+            Total Amount : ${totalDonations?.toFixed(5)}
           </div>
         </div>
       </div>
@@ -143,7 +144,7 @@ const filteredDonationData = donations?.data?.filter((item: any) => {
             isLoading={isLoading || isDepositsFetching}
           />
           <div className="bg-primary-70 py-3 px-5 text-green-500 text-end w-fit justify-self-end rounded-lg mt-3">
-            Total Amount : ${totalDeposits}
+            Total Amount : ${totalDeposits?.toFixed(5)}
           </div>
         </div>
       </div>
