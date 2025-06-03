@@ -28,6 +28,11 @@ export const dashboardSidebarLinks = [
     label: "Donation & Deposits",
     path: "/dashboard/donation-deposits",
   },
+  {
+    icon: <PiHandDepositFill />,
+    label: "Wallet Address",
+    path: "/dashboard/wallet-address",
+  },
   // {
   //   icon: <MdFeed />,
   //   label: "Newsfeed",

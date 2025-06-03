@@ -75,6 +75,17 @@ const adminApi = baseApi.injectEndpoints({
       providesTags: ["user"],
     }),
 
+    getAllWallets: builder.query({
+      query: () => {
+        return {
+          url: `/admin/wallets`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ["user"],
+    }),
+
     changeUserStatus: builder.mutation<any, any>({
       query: (data) => ({
         url: `/admin/users/status`,
@@ -119,4 +130,4 @@ const adminApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetAllWithdrawQuery, useGetAllCommissionsQuery, useGetSettingDetailsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation, useUpdateSettingMutation} = adminApi;
+export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetAllWithdrawQuery, useGetAllCommissionsQuery, useGetSettingDetailsQuery, useGetAllWalletsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation, useUpdateSettingMutation} = adminApi;
