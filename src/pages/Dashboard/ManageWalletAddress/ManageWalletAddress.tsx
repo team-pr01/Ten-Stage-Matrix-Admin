@@ -11,6 +11,7 @@ import { toast } from "sonner";
 
 type TFormValues = {
   admin_wallet_address: string;
+admin_wallet_private_key: string;
 };
 const ManageWalletAddress = () => {
   const {
@@ -28,6 +29,7 @@ const ManageWalletAddress = () => {
     try {
       const payload = {
         admin_wallet_address: data.admin_wallet_address,
+        admin_wallet_private_key: data.admin_wallet_private_key
       };
       const response = await updateAdminWalletAddress(payload).unwrap();
       if (response?.success) {
@@ -84,6 +86,28 @@ const ManageWalletAddress = () => {
                   {...register("admin_wallet_address")}
                   className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
                     errors?.admin_wallet_address
+                      ? "border-red-500"
+                      : "border-neutral-90"
+                  }`}
+                />
+                <img
+                  src={ICONS.wallet}
+                  alt=""
+                  className="size-6 absolute right-3"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="" className="text-neutral-85">
+                Private Key
+              </label>
+              <div className="flex items-center justify-between relative">
+                <input
+                  type="text"
+                  placeholder="Enter your private key"
+                  {...register("admin_wallet_private_key")}
+                  className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
+                    errors?.admin_wallet_private_key
                       ? "border-red-500"
                       : "border-neutral-90"
                   }`}
