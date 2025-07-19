@@ -13,6 +13,7 @@ import { toast } from "sonner";
 type StageFormValues = {
   stage_number: string;
   commission_percentage: number;
+  active_referrals: number;
   earning_multiplier: number;
   donation_requirement: number;
 };
@@ -28,6 +29,7 @@ const StageCommission = () => {
     if (data) {
       setValue("stage_number", data?.data?.stage_number);
       setValue("commission_percentage", data?.data?.commission_percentage);
+      setValue("active_referrals", data?.data?.active_referrals);
       setValue("earning_multiplier", data?.data?.earning_multiplier);
       setValue("donation_requirement", data?.data?.donation_requirement);
     }
@@ -103,6 +105,23 @@ const StageCommission = () => {
                   type="number"
                   placeholder="08"
                   {...register("commission_percentage")}
+                  className="w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85"
+                />
+                <p className="absolute right-3 text-white">%</p>
+              </div>
+            </div>
+
+            {/* Active Referrals */}
+            <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="active_referrals" className="text-neutral-85">
+                Active Referrals
+              </label>
+              <div className="flex items-center relative">
+                <input
+                  id="active_referrals"
+                  type="number"
+                  placeholder="Enter active referrals"
+                  {...register("active_referrals")}
                   className="w-full px-4 py-3 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85"
                 />
                 <p className="absolute right-3 text-white">%</p>
