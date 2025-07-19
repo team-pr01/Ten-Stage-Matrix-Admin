@@ -3,6 +3,7 @@ import { ICONS } from "../../../assets";
 import Heading from "../../../components/Reusable/Heading";
 import SendEmailToOne from "./SendEmailToOne";
 import SendBulkEmail from "./SendBulkEmail";
+import SendEmailToAll from "./SendEmailToAll";
 
 const SendEmail = () => {
   const methods = [
@@ -33,6 +34,7 @@ const SendEmail = () => {
 
       {selectedMethod === "Send to One User" && <SendEmailToOne />}
       {selectedMethod === "Send to Multiple Users" && <SendBulkEmail />}
+      {selectedMethod === "Send to All Users" && <SendEmailToAll />}
     </div>
   );
 };
