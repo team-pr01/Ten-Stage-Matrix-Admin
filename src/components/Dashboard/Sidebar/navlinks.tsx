@@ -1,4 +1,4 @@
-import { FaUsersCog, FaUsers, FaMoneyBillWave } from "react-icons/fa";
+import { FaUsersCog, FaUsers, FaMoneyBillWave, FaLevelUpAlt } from "react-icons/fa";
 import {  MdEmail, MdSettings } from "react-icons/md";
 import { PiHandDepositFill } from "react-icons/pi";
 
@@ -32,6 +32,11 @@ export const dashboardSidebarLinks = [
     icon: <PiHandDepositFill />,
     label: "Wallet Address",
     path: "/dashboard/wallet-address",
+  },
+  {
+    icon: <FaLevelUpAlt />,
+    label: "Levels",
+    path: "/dashboard/levels",
   },
   {
     icon: <MdEmail />,

@@ -86,6 +86,17 @@ const adminApi = baseApi.injectEndpoints({
       providesTags: ["user"],
     }),
 
+    getAllLevels: builder.query({
+      query: () => {
+        return {
+          url: `/admin/level-percentage`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
+      providesTags: ["user"],
+    }),
+
     sendEmailToOne: builder.mutation<any, any>({
       query: (data) => ({
         url: `/admin/email/send-email`,
@@ -110,6 +121,16 @@ const adminApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: `/admin/email/send-all-email`,
         method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    updateLevelPercentage: builder.mutation<any, any>({
+      query: ({ id, data }) => ({
+        url: `/admin/level-percentage/${id}`,
+        method: "PUT",
         body: data,
         credentials: "include",
       }),
@@ -166,9 +187,11 @@ export const {
   useGetAllCommissionsQuery,
   useGetSettingDetailsQuery,
   useGetAllWalletsQuery,
+  useGetAllLevelsQuery,
   useSendEmailToOneMutation,
   useSendBulkEmailMutation,
   useSendEmailToAllMutation,
+  useUpdateLevelPercentageMutation,
   useChangeUserStatusMutation,
   useUpdateAdminWalletAddressMutation,
   usePauseSystemMutation,

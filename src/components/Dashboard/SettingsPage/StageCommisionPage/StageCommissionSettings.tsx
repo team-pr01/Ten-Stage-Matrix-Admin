@@ -5,7 +5,6 @@ import Loader from "../../../Loader/Loader";
 
 const StageCommissionSettings = ({setId, setStageNumber} : {setId: any, setStageNumber: any}) => {
   const { data: stages, isLoading } = useGetAllStagesQuery({});
-  console.log(stages);
   return (
     <div className="mt-11 rounded-[15px] border-[3px] border-neutral-25/20 bg-neutral-30 py-7 px-[34px]">
       <h1 className="text-2xl font-medium text-white mb-6">Commission Settings</h1>

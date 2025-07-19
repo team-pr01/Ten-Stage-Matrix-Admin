@@ -19,6 +19,7 @@ import Limitations from "../components/Dashboard/SettingsPage/Limitations/Limita
 import WalletAddress from "../pages/Dashboard/WalletAddress/WalletAddress";
 import ManageWalletAddress from "../pages/Dashboard/ManageWalletAddress/ManageWalletAddress";
 import SendEmail from "../pages/Dashboard/SendEmail/SendEmail";
+import Levels from "../pages/Dashboard/Levels/Levels";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "donation-deposits",
         element: <DOnationAndDeposits />,
+      },
+      {
+        path: "levels",
+        element: <Levels/>,
       },
       {
         path: "send-email",
