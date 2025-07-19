@@ -2,9 +2,14 @@ import { useState } from "react";
 import { ICONS } from "../../../assets";
 import Heading from "../../../components/Reusable/Heading";
 import SendEmailToOne from "./SendEmailToOne";
+import SendBulkEmail from "./SendBulkEmail";
 
 const SendEmail = () => {
-  const methods = ["Send to One User", "Send to Multiple Users", "Send to All Users"];
+  const methods = [
+    "Send to One User",
+    "Send to Multiple Users",
+    "Send to All Users",
+  ];
   const [selectedMethod, setSelectedMethod] = useState("");
   return (
     <div>
@@ -18,14 +23,16 @@ const SendEmail = () => {
         {methods?.map((method, index) => (
           <button
             key={index}
-            className="rounded-[15px] border-[3px] border-white/20 bg-neutral-30 text-white px-6 py-5 w-full max-w-sm"
+            onClick={() => setSelectedMethod(method)}
+            className="rounded-[15px] border-[3px] border-white/20 bg-neutral-30 text-white px-6 py-5 w-full max-w-sm cursor-pointer"
           >
             <h2 className="text-xl">{method}</h2>
           </button>
         ))}
       </div>
 
-      <SendEmailToOne/>
+      {selectedMethod === "Send to One User" && <SendEmailToOne />}
+      {selectedMethod === "Send to Multiple Users" && <SendBulkEmail />}
     </div>
   );
 };
