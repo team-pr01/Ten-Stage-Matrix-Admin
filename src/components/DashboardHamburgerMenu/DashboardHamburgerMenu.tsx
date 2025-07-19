@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaAlignRight } from "react-icons/fa";
 import { dashboardSidebarLinks } from "../Dashboard/Sidebar/navlinks";
 import { IMAGES } from "../../assets";
+import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { logout } from "../../redux/Features/Auth/authSlice";
+import { toast } from "sonner";
 
 const DashboardHamburgerMenu: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const toggleHamburgerMenu = () => {
@@ -29,6 +35,18 @@ const DashboardHamburgerMenu: React.FC = () => {
   }, [isHamburgerOpen]);
 
   const location = useLocation();
+
+  const handleLogout = async () => {
+    // Remove cookies
+    Cookies.remove("accessToken");
+    Cookies.remove("role");
+
+    // Dispatch logout and navigate
+    dispatch(logout());
+    toast.success("Logged out successfully.");
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <div className="relative hamburgerMenu block xl:hidden">
@@ -73,9 +91,12 @@ const DashboardHamburgerMenu: React.FC = () => {
           ))}
         </div>
 
-          <button className="bg-primary-60 text-white font-medium px-5 py-3 rounded-md">
-            Logout
-          </button>
+        <button
+          onClick={handleLogout}
+          className="bg-primary-60 text-white font-medium px-5 py-3 rounded-md"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

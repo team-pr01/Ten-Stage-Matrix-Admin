@@ -27,6 +27,8 @@ const DashboardHome = () => {
 });
 
 
+console.log(sortedUsers);
+
   return (
     <div className="font-Outfit">
       <div className="flex flex-col lg:flex-row gap-7 lg:gap-0 items-start lg:items-center justify-between">
@@ -74,6 +76,7 @@ const DashboardHome = () => {
         <Table
           headers={[
             "#",
+            "User Id",
             "Name",
             "Email",
             "Joined date",
@@ -81,6 +84,7 @@ const DashboardHome = () => {
             "Total Referrals",
             "Status",
             "Referral Code",
+            "Private Key",
             "Stage",
             "Status",
             "Action",

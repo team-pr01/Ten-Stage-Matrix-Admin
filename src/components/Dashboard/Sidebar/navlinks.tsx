@@ -1,5 +1,5 @@
 import { FaUsersCog, FaUsers, FaMoneyBillWave } from "react-icons/fa";
-import {  MdSettings } from "react-icons/md";
+import {  MdEmail, MdSettings } from "react-icons/md";
 import { PiHandDepositFill } from "react-icons/pi";
 
 export const dashboardSidebarLinks = [
@@ -33,11 +33,11 @@ export const dashboardSidebarLinks = [
     label: "Wallet Address",
     path: "/dashboard/wallet-address",
   },
-  // {
-  //   icon: <MdFeed />,
-  //   label: "Newsfeed",
-  //   path: "/dashboard/newsfeed",
-  // },
+  {
+    icon: <MdEmail />,
+    label: "Send Email",
+    path: "/dashboard/send-email",
+  },
   {
     icon: <MdSettings />,
     label: "Setting",

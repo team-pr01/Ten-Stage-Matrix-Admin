@@ -8,7 +8,8 @@ import type { RootState } from "../store";
 import type { DefinitionType } from "@reduxjs/toolkit/query";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://api.adamocorporationltd.com/api",
+  baseUrl: "https://test.adamocorporationltd.com/api",
+  // baseUrl: "https://api.adamocorporationltd.com/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

@@ -22,7 +22,7 @@ const AllControls = () => {
       title: "USDT",
       subtitle: "Wallet Address",
       description: "Manage USDT Receiving Address",
-      path: "/dashboard/wallet-address",
+      path: "/dashboard/manage-wallet-address",
     },
     {
       icon: ICONS.commission,

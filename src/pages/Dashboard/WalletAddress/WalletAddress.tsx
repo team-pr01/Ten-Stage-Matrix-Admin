@@ -5,7 +5,6 @@ import WalletAddressTable from './WalletAddressTable';
 
 const WalletAddress = () => {
     const {data, isLoading} = useGetAllWalletsQuery({});
-    console.log(data);
     return (
         <div className='flex flex-col gap-7'>
             <Heading

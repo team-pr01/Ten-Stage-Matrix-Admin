@@ -2,9 +2,7 @@
 import Loader from "../../../components/Loader/Loader";
 import { formatDate } from "../../../utile/formatDate";
 
-const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {
-  console.log(data);
-   
+const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) => {   
     const headers = [
     "#",
     "Name",
@@ -58,13 +56,13 @@ const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) =
                   <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
-                      {item?.user_id?.name}
+                      {item?.user_name}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.user_id?.email}
+                      {item?.user_email}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.stage_number}
+                      {item?.stage}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item?.wallet_address}
@@ -76,7 +74,7 @@ const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) =
                       ${item?.amount}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {formatDate(item.createdAt as string)}
+                      {formatDate(item.created_at as string)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <div
