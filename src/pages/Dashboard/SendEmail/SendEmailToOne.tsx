@@ -47,6 +47,12 @@ const SendEmailToOne = () => {
   const { data: allUsers, isLoading: isLoadingUsers } = useGetAllUsersQuery({});
 
   const headers = ["#", "User Id", "Name & Email", "Private Key"];
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredUsers = allUsers?.data?.filter((user: any) =>
+    user._id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className="flex flex-col lg:flex-row gap-10 lg:gap-5 mt-[42px] font-Outfit">
       {/* Form */}
@@ -113,93 +119,94 @@ const SendEmailToOne = () => {
       </div>
 
       {/* User table */}
-      <div className="text-white rounded-lg shadow-md w-full lg:w-[60%]">
-      <div className="overflow-auto max-h-[700px] custom-scrollbar">
-        <table className="w-full text-left border-white/20 bg-neutral-30 rounded-tl-xl  rounded-tr-xl">
-          <thead>
-            <tr className="bg-neutral-30 text-sm">
-              <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tl-xl">
-                Select
-              </th>
-                <th
-                  className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal"
-                >
+      <div className="text-white rounded-lg shadow-md w-full lg:w-[60%] border-white/20 bg-neutral-30 p-5">
+        <div className="flex items-center justify-between">
+          <h1 className="text-white font-medium text-[26px]">Select User</h1>
+          <input
+            type="text"
+            placeholder="Search by user id"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit"
+          />
+        </div>
+        <div className="overflow-auto max-h-[600px] custom-scrollbar mt-5">
+          <table className="w-full text-left 0 rounded-tl-xl  rounded-tr-xl">
+            <thead>
+              <tr className="bg-neutral-30 text-sm">
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tl-xl">
+                  Select
+                </th>
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   #
                 </th>
-                <th
-                  className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal"
-                >
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   User Id
                 </th>
-                <th
-                  className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal"
-                >
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   Name & Email
                 </th>
-                <th
-                  className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl"
-                >
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
                   Private Key
                 </th>
-
-            </tr>
-          </thead>
-          {isLoadingUsers ? (
-            <tbody>
-              <tr>
-                <td colSpan={headers.length + 1} className="py-10">
-                  <div className="flex justify-center items-center">
-                    <Loader size="size-10" />
-                  </div>
-                </td>
               </tr>
-            </tbody>
-          ) : (
-            <tbody>
-              {allUsers?.data?.length < 1 ? (
+            </thead>
+            {isLoadingUsers ? (
+              <tbody>
                 <tr>
-                  <td
-                    colSpan={headers.length + 1}
-                    className="text-center text-gray-400 py-4"
-                  >
-                    No data found.
+                  <td colSpan={headers.length + 1} className="py-10">
+                    <div className="flex justify-center items-center">
+                      <Loader size="size-10" />
+                    </div>
                   </td>
                 </tr>
-              ) : (
-                allUsers?.data?.map((item: any, index: number) => (
-                  <tr
-                    key={item._id}
-                    onClick={() => handleSelect(item._id)}
-                    className="border-t border-gray-700 hover:bg-[#1F1F3D] transition cursor-pointer"
-                  >
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      <input
-                        type="checkbox"
-                        checked={selectedUserId === item._id}
-                        onChange={() => handleSelect(item._id)}
-                      />
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {index + 1}
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap capitalize">
-                      {item?._id}
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap capitalize">
-                      {item?.name}
-                      <p>{item?.email}</p>
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.user_pk}
+              </tbody>
+            ) : (
+              <tbody>
+                {filteredUsers?.length < 1 ? (
+                  <tr>
+                    <td
+                      colSpan={headers.length + 1}
+                      className="text-center text-gray-400 py-4"
+                    >
+                      No data found.
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          )}
-        </table>
+                ) : (
+                  filteredUsers?.map((item: any, index: number) => (
+                    <tr
+                      key={item._id}
+                      onClick={() => handleSelect(item._id)}
+                      className="border-t border-gray-700 hover:bg-[#1F1F3D] transition cursor-pointer"
+                    >
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          checked={selectedUserId === item._id}
+                          onChange={() => handleSelect(item._id)}
+                        />
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {index + 1}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap capitalize">
+                        {item?._id}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap capitalize">
+                        {item?.name}
+                        <p>{item?.email}</p>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {item?.user_pk}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            )}
+          </table>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
