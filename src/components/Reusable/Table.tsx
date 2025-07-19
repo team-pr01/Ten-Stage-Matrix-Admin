@@ -72,6 +72,9 @@ export const Table: React.FC<TableProps> = ({
                   <tr className="border-t border-gray-700 hover:bg-[#1F1F3D] transition">
                     <td className="px-4 py-3 whitespace-nowrap">{index + 1}</td>
                     <td className="px-4 py-3 whitespace-nowrap capitalize">
+                      {item?._id}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap capitalize">
                       {item?.name}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">

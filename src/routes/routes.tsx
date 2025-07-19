@@ -18,6 +18,7 @@ import ManageCharges from "../pages/Dashboard/Settings/ManageCharges/ManageCharg
 import Limitations from "../components/Dashboard/SettingsPage/Limitations/Limitations";
 import WalletAddress from "../pages/Dashboard/WalletAddress/WalletAddress";
 import ManageWalletAddress from "../pages/Dashboard/ManageWalletAddress/ManageWalletAddress";
+import SendEmail from "../pages/Dashboard/SendEmail/SendEmail";
 
 export const router = createBrowserRouter([
   {
@@ -56,10 +57,10 @@ export const router = createBrowserRouter([
         path: "donation-deposits",
         element: <DOnationAndDeposits />,
       },
-      // {
-      //   path: "newsfeed",
-      //   element: <StateManagement/>,
-      // },
+      {
+        path: "send-email",
+        element: <SendEmail/>,
+      },
       {
         path: "setting",
         element: <Settings />,

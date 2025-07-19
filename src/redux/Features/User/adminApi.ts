@@ -86,6 +86,36 @@ const adminApi = baseApi.injectEndpoints({
       providesTags: ["user"],
     }),
 
+    sendEmailToOne: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/email/send-email`,
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    sendBulkEmail: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/email/send-bulk-email`,
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    sendEmailToAll: builder.mutation<any, any>({
+      query: (data) => ({
+        url: `/admin/email/send-all-email`,
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["user"],
+    }),
+
     changeUserStatus: builder.mutation<any, any>({
       query: (data) => ({
         url: `/admin/users/status`,
@@ -125,9 +155,22 @@ const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
-
-    
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllDonationsQuery, useGetAllDepositsQuery, useGetAllWithdrawQuery, useGetAllCommissionsQuery, useGetSettingDetailsQuery, useGetAllWalletsQuery, useChangeUserStatusMutation, useUpdateAdminWalletAddressMutation, usePauseSystemMutation, useUpdateSettingMutation} = adminApi;
+export const {
+  useGetAllUsersQuery,
+  useGetAllDonationsQuery,
+  useGetAllDepositsQuery,
+  useGetAllWithdrawQuery,
+  useGetAllCommissionsQuery,
+  useGetSettingDetailsQuery,
+  useGetAllWalletsQuery,
+  useSendEmailToOneMutation,
+  useSendBulkEmailMutation,
+  useSendEmailToAllMutation,
+  useChangeUserStatusMutation,
+  useUpdateAdminWalletAddressMutation,
+  usePauseSystemMutation,
+  useUpdateSettingMutation,
+} = adminApi;

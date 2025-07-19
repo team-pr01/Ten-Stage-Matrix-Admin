@@ -76,6 +76,7 @@ console.log(sortedUsers);
         <Table
           headers={[
             "#",
+            "User Id",
             "Name",
             "Email",
             "Joined date",
