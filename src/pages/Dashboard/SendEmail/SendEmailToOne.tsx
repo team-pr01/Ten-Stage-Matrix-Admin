@@ -184,7 +184,7 @@ const SendEmailToOne = () => {
                 <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   Private Key
                 </th>
-                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   Stage
                 </th>
                 <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
