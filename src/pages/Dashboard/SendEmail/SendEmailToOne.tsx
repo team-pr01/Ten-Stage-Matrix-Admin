@@ -144,7 +144,7 @@ const SendEmailToOne = () => {
           <select
             value={selectedStage}
             onChange={(e) => setSelectedStage(e.target.value)}
-            className="bg-primary-40 text-white border border-white rounded-full px-5 py-3 w-full xl:w-fit"
+            className="bg-primary-40 text-white border border-white focus:outline-none rounded-full px-5 py-3 w-full xl:w-fit"
           >
             <option>All Stages</option>
             {stages.map((stage) => (
@@ -157,7 +157,7 @@ const SendEmailToOne = () => {
            <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="bg-primary-40 text-white border border-white rounded-full px-5 py-3 w-full md:w-fit"
+            className="bg-primary-40 text-white border border-white focus:outline-none rounded-full px-5 py-3 w-full md:w-fit"
           >
             <option>All</option>
             <option value={"active"}>Active</option>
