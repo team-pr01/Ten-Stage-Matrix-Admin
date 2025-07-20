@@ -74,7 +74,13 @@ const SendBulkEmail = () => {
     );
   };
 
-  const { data: allUsers, isLoading: isLoadingUsers } = useGetAllUsersQuery({});
+  const [selectedStage, setSelectedStage] = useState("All Stages");
+  const [selectedStatus, setSelectedStatus] = useState("All");
+  const {
+    data: allUsers,
+    isLoading: isLoadingUsers,
+    isFetching,
+  } = useGetAllUsersQuery({ stage: selectedStage, status: selectedStatus });
 
   const headers = ["#", "User Id", "Name & Email", "Private Key"];
 
@@ -83,6 +89,8 @@ const SendBulkEmail = () => {
   const filteredUsers = allUsers?.data?.filter((user: any) =>
     user._id.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   return (
     <div className="mt-[42px] flex flex-col lg:flex-row gap-10 lg:gap-5 font-Outfit">
@@ -175,12 +183,12 @@ const SendBulkEmail = () => {
       {/* User table */}
       <div className="text-white rounded-lg shadow-md w-full lg:w-[60%] border-white/20 bg-neutral-30 p-5">
         {/* Header */}
-        <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-center justify-between">
+        <div className="flex flex-col gap-4">
           <h1 className="text-white font-medium text-[26px]">Select Users</h1>
-          <div className="flex flex-col md:flex-row gap-4 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 items-center w-full">
             <button
               onClick={() => setSelectedUserIds([])}
-              className="px-4 py-4 bg-neutral-30 text-white rounded-full w-full md:w-[210px] cursor-pointer"
+              className="px-4 py-4 bg-neutral-30 text-white rounded-full w-full cursor-pointer"
             >
               Deselect All
             </button>
@@ -189,8 +197,30 @@ const SendBulkEmail = () => {
               placeholder="Search by user id"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit"
+              className="text-white border border-white rounded-full px-5 py-3 focus:outline-none"
             />
+            <select
+              value={selectedStage}
+              onChange={(e) => setSelectedStage(e.target.value)}
+              className="bg-primary-40 text-white border border-white rounded-full px-5 py-3"
+            >
+              <option>All Stages</option>
+              {stages.map((stage) => (
+                <option key={stage} className="">
+                  {stage}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="bg-primary-40 text-white border border-white rounded-full px-5 py-3"
+            >
+              <option>All</option>
+              <option value={"active"}>Active</option>
+              <option value={"inactive"}>Inactive</option>
+            </select>
           </div>
         </div>
         <div className="overflow-auto max-h-[600px] custom-scrollbar mt-5">
@@ -212,9 +242,15 @@ const SendBulkEmail = () => {
                 <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
                   Private Key
                 </th>
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
+                  Stage
+                </th>
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
+                  Status
+                </th>
               </tr>
             </thead>
-            {isLoadingUsers ? (
+            {isLoadingUsers || isFetching ? (
               <tbody>
                 <tr>
                   <td colSpan={headers.length + 1} className="py-10">
@@ -248,7 +284,7 @@ const SendBulkEmail = () => {
                       >
                         <td
                           className="px-4 py-3 whitespace-nowrap"
-                          onClick={(e) => e.stopPropagation()} // prevent row click from double toggling
+                          onClick={(e) => e.stopPropagation()}
                         >
                           <input
                             type="checkbox"
@@ -268,6 +304,12 @@ const SendBulkEmail = () => {
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap">
                           {item?.user_pk}
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          {item?.stage}
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          {item?.status}
                         </td>
                       </tr>
                     );

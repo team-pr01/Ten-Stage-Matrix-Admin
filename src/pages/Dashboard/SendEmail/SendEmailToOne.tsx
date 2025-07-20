@@ -50,7 +50,9 @@ const SendEmailToOne = () => {
     }
   };
 
-  const { data: allUsers, isLoading: isLoadingUsers } = useGetAllUsersQuery({});
+  const [selectedStage, setSelectedStage] = useState("All Stages");
+  const [selectedStatus, setSelectedStatus] = useState("All");
+  const { data: allUsers, isLoading: isLoadingUsers, isFetching } = useGetAllUsersQuery({stage: selectedStage, status: selectedStatus,});
 
   const headers = ["#", "User Id", "Name & Email", "Private Key"];
 
@@ -59,6 +61,9 @@ const SendEmailToOne = () => {
   const filteredUsers = allUsers?.data?.filter((user: any) =>
     user._id.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+
+   const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
     <div className="flex flex-col lg:flex-row gap-10 lg:gap-5 mt-[42px] font-Outfit">
       {/* Form */}
@@ -126,15 +131,39 @@ const SendEmailToOne = () => {
 
       {/* User table */}
       <div className="text-white rounded-lg shadow-md w-full lg:w-[60%] border-white/20 bg-neutral-30 p-5">
-        <div className="flex items-center justify-between">
-          <h1 className="text-white font-medium text-[26px]">Select User</h1>
-          <input
+        <div className="flex flex-col 2xl:flex-row gap-5 2xl:gap-0 items-start 2xl:items-center justify-between">
+          <h1 className="text-white font-medium text-[26px] text-start">Select User</h1>
+          <div className="flex flex-col md:flex-row items-center gap-3 w-full xl:w-fit">
+            <input
             type="text"
             placeholder="Search by user id"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full md:w-fit"
+            className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full xl:w-fit"
           />
+          <select
+            value={selectedStage}
+            onChange={(e) => setSelectedStage(e.target.value)}
+            className="bg-primary-40 text-white border border-white rounded-full px-5 py-3 w-full xl:w-fit"
+          >
+            <option>All Stages</option>
+            {stages.map((stage) => (
+              <option key={stage} className="">
+                {stage}
+              </option>
+            ))}
+          </select>
+
+           <select
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+            className="bg-primary-40 text-white border border-white rounded-full px-5 py-3 w-full md:w-fit"
+          >
+            <option>All</option>
+            <option value={"active"}>Active</option>
+            <option value={"inactive"}>Inactive</option>
+          </select>
+          </div>
         </div>
         <div className="overflow-auto max-h-[600px] custom-scrollbar mt-5">
           <table className="w-full text-left 0 rounded-tl-xl  rounded-tr-xl">
@@ -152,12 +181,18 @@ const SendEmailToOne = () => {
                 <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   Name & Email
                 </th>
-                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal">
                   Private Key
+                </th>
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
+                  Stage
+                </th>
+                <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tr-xl">
+                  Status
                 </th>
               </tr>
             </thead>
-            {isLoadingUsers ? (
+            {isLoadingUsers || isFetching ? (
               <tbody>
                 <tr>
                   <td colSpan={headers.length + 1} className="py-10">
@@ -204,6 +239,12 @@ const SendEmailToOne = () => {
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         {item?.user_pk}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {item?.stage}
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap capitalize">
+                        {item?.status}
                       </td>
                     </tr>
                   ))
