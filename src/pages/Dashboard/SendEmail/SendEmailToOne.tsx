@@ -30,7 +30,7 @@ const SendEmailToOne = () => {
   const handleSendEmailToOne = async (data: TFormValues) => {
     try {
       const payload = {
-        user_id: data.user_id,
+        user_id: selectedUserId,
         subject: data.subject,
         content: data.content,
       };
@@ -40,7 +40,13 @@ const SendEmailToOne = () => {
         reset();
       }
     } catch (error) {
-      console.log(error);
+      const errorMessage =
+        (typeof error === "object" &&
+          error !== null &&
+          "data" in error &&
+          (error as any).data?.message) ||
+        "Failed to send email";
+      toast.error(errorMessage);
     }
   };
 

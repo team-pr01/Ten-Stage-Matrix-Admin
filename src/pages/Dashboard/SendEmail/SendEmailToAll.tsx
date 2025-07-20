@@ -29,6 +29,7 @@ const SendEmailToAll = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to send email.");
     }
   };
   return (
