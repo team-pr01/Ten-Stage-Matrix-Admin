@@ -308,7 +308,7 @@ const SendBulkEmail = () => {
                         <td className="px-4 py-3 whitespace-nowrap">
                           {item?.stage}
                         </td>
-                        <td className="px-4 py-3 whitespace-nowrap">
+                        <td className="px-4 py-3 whitespace-nowrap capitalize">
                           {item?.status}
                         </td>
                       </tr>
