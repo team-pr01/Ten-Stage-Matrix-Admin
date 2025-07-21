@@ -86,6 +86,8 @@ console.log(sortedUsers);
             "Referral Code",
             "Private Key",
             "Stage",
+            "Remaining Balance",
+            "Withdrawable Balance",
             "Status",
             "Action",
           ]}

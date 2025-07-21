@@ -104,6 +104,16 @@ export const Table: React.FC<TableProps> = ({
                       {item?.stage}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
+                      {typeof item?.deposit_balance === "number"
+                        ? `$${item.deposit_balance.toFixed(5)}`
+                        : `$${item?.deposit_balance ?? 0}`}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                     ${typeof item?.balance === "number"
+                        ? item.balance.toFixed(5)
+                        : item?.balance}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">
                       <div
                         className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize ${
                           item?.user_account_status === "active"

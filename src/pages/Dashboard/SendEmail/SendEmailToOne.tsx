@@ -6,7 +6,8 @@ import {
   useGetAllUsersQuery,
   useSendEmailToOneMutation,
 } from "../../../redux/Features/User/adminApi";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import JoditEditor from "jodit-react";
 
 type TFormValues = {
   user_id: string;
@@ -22,6 +23,21 @@ const SendEmailToOne = () => {
   } = useForm<TFormValues>();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
+  const [contentError, setContentError] = useState("");
+  useEffect(() => {
+    setContentError("");
+    if (content?.length === 0) {
+      setContentError("");
+    } else if (content?.length < 1) {
+      setContentError("Content is required");
+    } else {
+      setContentError("");
+    }
+  }, [content]);
+
+
   const handleSelect = (userId: string) => {
     setSelectedUserId(userId);
   };
@@ -32,12 +48,14 @@ const SendEmailToOne = () => {
       const payload = {
         user_id: selectedUserId,
         subject: data.subject,
-        content: data.content,
+        content: content,
       };
       const response = await sendEmailToOne(payload).unwrap();
       if (response?.data) {
         toast.success("Email sent successfully");
         reset();
+        setContent("");
+        setSelectedUserId(null);
       }
     } catch (error) {
       const errorMessage =
@@ -52,7 +70,11 @@ const SendEmailToOne = () => {
 
   const [selectedStage, setSelectedStage] = useState("All Stages");
   const [selectedStatus, setSelectedStatus] = useState("All");
-  const { data: allUsers, isLoading: isLoadingUsers, isFetching } = useGetAllUsersQuery({stage: selectedStage, status: selectedStatus,});
+  const {
+    data: allUsers,
+    isLoading: isLoadingUsers,
+    isFetching,
+  } = useGetAllUsersQuery({ stage: selectedStage, status: selectedStatus });
 
   const headers = ["#", "User Id", "Name & Email", "Private Key"];
 
@@ -62,8 +84,7 @@ const SendEmailToOne = () => {
     user._id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-
-   const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const stages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
     <div className="flex flex-col lg:flex-row gap-10 lg:gap-5 mt-[42px] font-Outfit">
       {/* Form */}
@@ -108,14 +129,15 @@ const SendEmailToOne = () => {
             <label htmlFor="" className="text-neutral-85">
               Content
             </label>
-            <textarea
-              rows={10}
-              placeholder="Enter content"
-              {...register("content")}
-              className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
-                errors?.content ? "border-red-500" : "border-neutral-90"
-              }`}
+            <JoditEditor
+              ref={editor}
+              value={content}
+              onChange={(newContent) => setContent(newContent)}
             />
+
+            {contentError && (
+              <span className="text-warning-10 text-start">{contentError}</span>
+            )}
           </div>
 
           <div className="flex justify-end">
@@ -132,40 +154,42 @@ const SendEmailToOne = () => {
       {/* User table */}
       <div className="text-white rounded-lg shadow-md w-full lg:w-[60%] border-white/20 bg-neutral-30 p-5">
         <div className="flex flex-col 2xl:flex-row gap-5 2xl:gap-0 items-start 2xl:items-center justify-between">
-          <h1 className="text-white font-medium text-[26px] text-start">Select User</h1>
+          <h1 className="text-white font-medium text-[26px] text-start">
+            Select User
+          </h1>
           <div className="flex flex-col md:flex-row items-center gap-3 w-full xl:w-fit">
             <input
-            type="text"
-            placeholder="Search by user id"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full xl:w-fit"
-          />
-          <select
-            value={selectedStage}
-            onChange={(e) => setSelectedStage(e.target.value)}
-            className="bg-primary-40 text-white border border-white focus:outline-none rounded-full px-5 py-3 w-full xl:w-fit"
-          >
-            <option>All Stages</option>
-            {stages.map((stage) => (
-              <option key={stage} className="">
-                {stage}
-              </option>
-            ))}
-          </select>
+              type="text"
+              placeholder="Search by user id"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="text-white border border-white rounded-full px-5 py-3 focus:outline-none w-full xl:w-fit"
+            />
+            <select
+              value={selectedStage}
+              onChange={(e) => setSelectedStage(e.target.value)}
+              className="bg-primary-40 text-white border border-white focus:outline-none rounded-full px-5 py-3 w-full xl:w-fit"
+            >
+              <option>All Stages</option>
+              {stages.map((stage) => (
+                <option key={stage} className="">
+                  {stage}
+                </option>
+              ))}
+            </select>
 
-           <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="bg-primary-40 text-white border border-white focus:outline-none rounded-full px-5 py-3 w-full md:w-fit"
-          >
-            <option>All</option>
-            <option value={"active"}>Active</option>
-            <option value={"inactive"}>Inactive</option>
-          </select>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="bg-primary-40 text-white border border-white focus:outline-none rounded-full px-5 py-3 w-full md:w-fit"
+            >
+              <option>All</option>
+              <option value={"active"}>Active</option>
+              <option value={"inactive"}>Inactive</option>
+            </select>
           </div>
         </div>
-        <div className="overflow-auto max-h-[600px] custom-scrollbar mt-5">
+        <div className="overflow-auto max-h-[500px] custom-scrollbar mt-5">
           <table className="w-full text-left 0 rounded-tl-xl  rounded-tr-xl">
             <thead>
               <tr className="bg-neutral-30 text-sm">

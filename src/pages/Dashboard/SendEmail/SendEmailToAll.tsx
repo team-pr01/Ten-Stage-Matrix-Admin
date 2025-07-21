@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Loader from "../../../components/Loader/Loader";
 import { useSendEmailToAllMutation } from "../../../redux/Features/User/adminApi";
+import JoditEditor from "jodit-react";
+import { useEffect, useRef, useState } from "react";
 
 type TFormValues = {
   subject: string;
@@ -15,12 +17,27 @@ const SendEmailToAll = () => {
     formState: { errors },
   } = useForm<TFormValues>();
 
+   const editor = useRef(null);
+    const [content, setContent] = useState("");
+    const [contentError, setContentError] = useState("");
+    useEffect(() => {
+      setContentError("");
+      if (content?.length === 0) {
+        setContentError("");
+      } else if (content?.length < 1) {
+        setContentError("Content is required");
+      } else {
+        setContentError("");
+      }
+    }, [content]);
+
+
   const [sendEmailToAll, { isLoading }] = useSendEmailToAllMutation();
   const handleSendEmailToAll = async (data: TFormValues) => {
     try {
       const payload = {
         subject: data.subject,
-        content: data.content,
+        content: content,
       };
       const response = await sendEmailToAll(payload).unwrap();
       if (response?.data) {
@@ -55,19 +72,20 @@ const SendEmailToAll = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2 w-full">
-          <label htmlFor="" className="text-neutral-85">
-            Content
-          </label>
-          <textarea
-            rows={10}
-            placeholder="Enter content"
-            {...register("content")}
-            className={`w-full p-4 rounded-[8px] border border-neutral-90 focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85 ${
-              errors?.content ? "border-red-500" : "border-neutral-90"
-            }`}
-          />
-        </div>
+         <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="" className="text-neutral-85">
+              Content
+            </label>
+            <JoditEditor
+              ref={editor}
+              value={content}
+              onChange={(newContent) => setContent(newContent)}
+            />
+
+            {contentError && (
+              <span className="text-warning-10 text-start">{contentError}</span>
+            )}
+          </div>
 
         <div className="flex justify-end">
           <button

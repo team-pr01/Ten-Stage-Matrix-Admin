@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Loader from "../../../components/Loader/Loader";
 import {
@@ -8,6 +8,7 @@ import {
   useSendBulkEmailMutation,
 } from "../../../redux/Features/User/adminApi";
 import { RxCross1 } from "react-icons/rx";
+import JoditEditor from "jodit-react";
 
 type TFormValues = {
   subject: string;
@@ -17,6 +18,21 @@ type TFormValues = {
 const SendBulkEmail = () => {
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   const [tempUserId, setTempUserId] = useState<string>("");
+
+   const editor = useRef(null);
+    const [content, setContent] = useState("");
+    const [contentError, setContentError] = useState("");
+    useEffect(() => {
+      setContentError("");
+      if (content?.length === 0) {
+        setContentError("");
+      } else if (content?.length < 1) {
+        setContentError("Content is required");
+      } else {
+        setContentError("");
+      }
+    }, [content]);
+
 
   const {
     register,
@@ -46,6 +62,7 @@ const SendBulkEmail = () => {
         reset();
         setSelectedUserIds([]);
         setTempUserId("");
+        setContent("");
       }
     } catch (error) {
       console.log(error);
@@ -154,18 +171,18 @@ const SendBulkEmail = () => {
 
           {/* Content */}
           <div className="flex flex-col gap-2 w-full">
-            <label htmlFor="content" className="text-neutral-85">
+            <label htmlFor="" className="text-neutral-85">
               Content
             </label>
-            <textarea
-              id="content"
-              rows={10}
-              placeholder="Enter content"
-              {...register("content", { required: true })}
-              className={`w-full p-4 rounded-[8px] border ${
-                errors?.content ? "border-red-500" : "border-neutral-90"
-              } focus:outline-none focus:border-primary-10/50 transition duration-300 text-neutral-85`}
+            <JoditEditor
+              ref={editor}
+              value={content}
+              onChange={(newContent) => setContent(newContent)}
             />
+
+            {contentError && (
+              <span className="text-warning-10 text-start">{contentError}</span>
+            )}
           </div>
 
           {/* Submit Button */}
@@ -181,7 +198,7 @@ const SendBulkEmail = () => {
       </div>
 
       {/* User table */}
-      <div className="text-white rounded-lg shadow-md w-full lg:w-[60%] border-white/20 bg-neutral-30 p-5">
+      <div className="text-white rounded-lg shadow-md w-full lg:w-[60%] border-white/20 bg-neutral-30 p-5 ">
         {/* Header */}
         <div className="flex flex-col gap-4">
           <h1 className="text-white font-medium text-[26px]">Select Users</h1>
@@ -223,8 +240,8 @@ const SendBulkEmail = () => {
             </select>
           </div>
         </div>
-        <div className="overflow-auto max-h-[600px] custom-scrollbar mt-5">
-          <table className="w-full text-left 0 rounded-tl-xl  rounded-tr-xl">
+        <div className="overflow-auto max-h-[500px] custom-scrollbar mt-5">
+          <table className="w-full text-left 0 rounded-tl-xl rounded-tr-xl">
             <thead>
               <tr className="bg-neutral-30 text-sm">
                 <th className="px-4 py-3 whitespace-nowrap text-lg text-white font-normal rounded-tl-xl">
