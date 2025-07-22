@@ -26,9 +26,6 @@ const DashboardHome = () => {
   return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
 });
 
-
-console.log(sortedUsers);
-
   return (
     <div className="font-Outfit">
       <div className="flex flex-col lg:flex-row gap-7 lg:gap-0 items-start lg:items-center justify-between">

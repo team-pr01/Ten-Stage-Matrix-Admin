@@ -12,24 +12,20 @@ interface TableProps {
   onReject?: (row: TableRow) => void;
 }
 
-export const Table: React.FC<TableProps> = ({
-  headers,
-  data,
-  isLoading,
-}) => {
+export const Table: React.FC<TableProps> = ({ headers, data, isLoading }) => {
   const [changeUserStatus] = useChangeUserStatusMutation();
-  const handleChangeUserStatus = async (status:string, id:string) => {
-    try{
+  const handleChangeUserStatus = async (status: string, id: string) => {
+    try {
       const payload = {
-        user_id : id,
+        user_id: id,
         status,
-      }
+      };
       const response = await changeUserStatus(payload).unwrap();
       console.log(response);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   return (
     <div className="text-white rounded-lg shadow-md font-Outfit">
       <div className="overflow-auto max-h-[700px] custom-scrollbar">
@@ -104,12 +100,17 @@ export const Table: React.FC<TableProps> = ({
                       {item?.stage}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {typeof item?.deposit_balance === "number"
-                        ? `$${item.deposit_balance.toFixed(5)}`
-                        : `$${item?.deposit_balance ?? 0}`}
+                      $
+                      {Math.max(
+                        0,
+                        (Number(item?.last_donation) || 0) *
+                          (Number(item?.earning_multiplier) || 0) -
+                          (Number(item?.stage_balance) || 0)
+                      ).toFixed(5)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                     ${typeof item?.balance === "number"
+                      $
+                      {typeof item?.balance === "number"
                         ? item.balance.toFixed(5)
                         : item?.balance}
                     </td>
@@ -121,39 +122,58 @@ export const Table: React.FC<TableProps> = ({
                             : "bg-red-600 text-white"
                         }`}
                       >
-                        {item?.user_account_status === "active" ? "✓" : "✕"} {item.user_account_status}
+                        {item?.user_account_status === "active" ? "✓" : "✕"}{" "}
+                        {item.user_account_status}
                       </div>
                     </td>
-                    {
-                      item?.user_account_status === "suspended" ?
-                      <td onClick={() => handleChangeUserStatus("active", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
-                      <div
-                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                    {item?.user_account_status === "suspended" ? (
+                      <td
+                        onClick={() =>
+                          handleChangeUserStatus("active", item?._id as string)
+                        }
+                        className="px-4 py-3 whitespace-nowrap cursor-pointer"
                       >
-                         Withdraw Suspension
-                      </div>
-                    </td>
-                    :
-                    item?.user_account_status === "active"
-                    ?
-                    <td onClick={() => handleChangeUserStatus("suspended", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
-                      <div
-                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                        <div
+                          className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                        >
+                          Withdraw Suspension
+                        </div>
+                      </td>
+                    ) : item?.user_account_status === "active" ? (
+                      <td
+                        onClick={() =>
+                          handleChangeUserStatus(
+                            "suspended",
+                            item?._id as string
+                          )
+                        }
+                        className="px-4 py-3 whitespace-nowrap cursor-pointer"
                       >
-                         Suspend User
-                      </div>
-                    </td>
-                    :
-                    item?.user_account_status === "inactive" &&
-                    <td onClick={() => handleChangeUserStatus("active", item?._id as string)} className="px-4 py-3 whitespace-nowrap cursor-pointer">
-                      <div
-                        className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-green-600 text-white`}
-                      >
-                         Active User
-                      </div>
-                    </td>
-
-                    }
+                        <div
+                          className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-yellow-600 text-white`}
+                        >
+                          Suspend User
+                        </div>
+                      </td>
+                    ) : (
+                      item?.user_account_status === "inactive" && (
+                        <td
+                          onClick={() =>
+                            handleChangeUserStatus(
+                              "active",
+                              item?._id as string
+                            )
+                          }
+                          className="px-4 py-3 whitespace-nowrap cursor-pointer"
+                        >
+                          <div
+                            className={`px-3 py-1 text-sm rounded-full font-medium text-center w-fit text-nowrap capitalize bg-green-600 text-white`}
+                          >
+                            Active User
+                          </div>
+                        </td>
+                      )
+                    )}
                   </tr>
                 ))
               )}

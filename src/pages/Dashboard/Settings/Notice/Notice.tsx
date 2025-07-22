@@ -1,17 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
-import { useUpdateSettingMutation } from "../../../../redux/Features/User/adminApi";
+import { useGetSettingDetailsQuery, useUpdateSettingMutation } from "../../../../redux/Features/User/adminApi";
 import { toast } from "sonner";
 import Loader from "../../../../components/Loader/Loader";
 
 const Notice = () => {
+  const {data} = useGetSettingDetailsQuery({});
+  console.log(data);
   const [updateSetting, { isLoading }] = useUpdateSettingMutation();
   const { register, handleSubmit, reset } = useForm<any>();
 
   const handleUpdateCharges = async (data: any) => {
     try {
+      if(!data?.data?.notice?.enabled){
+        toast.error("Please enable the notice before updating it");
+        return;
+      }
       const payload = {
-        notice: data.notice,
+        notice: {
+          message: data.notice,
+        },
       };
 
       const response = await updateSetting(payload).unwrap();
@@ -25,9 +33,40 @@ const Notice = () => {
       console.log(error);
     }
   };
+
+
+  const [pauseSystem, {isLoading:isUpdatingSetting}] = useUpdateSettingMutation();
+  
+    const handleManageNotice = async () => {
+      try {
+        const payload = {
+          notice : {
+            enabled : data?.data?.notice?.enabled ? false : true
+          }
+        };
+        const response = await pauseSystem(payload).unwrap();
+        if(response?.message) {
+          toast.success(response?.message || "Notice updated successfully");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   return (
     <div className="flex flex-col gap-[18px]">
-      <h1 className="text-white font-medium text-[26px]">Update Notice</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-white font-medium text-[26px]">Update Notice</h1>
+      <button onClick={handleManageNotice} className="bg-primary-10 text-white px-10 py-3 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit cursor-pointer">
+        {
+          isUpdatingSetting 
+          ?
+          <Loader size="size-6" />
+          :
+          data?.data?.notice?.enabled ? "Disable Notice" : "Enable Notice"
+        }
+      </button>
+      </div>
 
       <form
         onSubmit={handleSubmit(handleUpdateCharges)}
