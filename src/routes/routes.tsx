@@ -20,6 +20,7 @@ import WalletAddress from "../pages/Dashboard/WalletAddress/WalletAddress";
 import ManageWalletAddress from "../pages/Dashboard/ManageWalletAddress/ManageWalletAddress";
 import SendEmail from "../pages/Dashboard/SendEmail/SendEmail";
 import Levels from "../pages/Dashboard/Levels/Levels";
+import Notice from "../pages/Dashboard/Settings/Notice/Notice";
 
 export const router = createBrowserRouter([
   {
@@ -109,6 +110,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-charges",
         element: <ManageCharges />,
+      },
+      {
+        path: "manage-notice",
+        element: <Notice />,
       },
     ],
   },

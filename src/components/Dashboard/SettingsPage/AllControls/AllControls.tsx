@@ -10,13 +10,7 @@ const AllControls = () => {
     //   description: "Configure Commission Rates For Each Stage.",
     //   path: "/dashboard/user-management",
     // },
-    // {
-    //   icon: ICONS.charges,
-    //   title: "Charges",
-    //   subtitle: "Withdrawal & Transfer",
-    //   description: "Configure Commission Rates For Each Stage.",
-    //   path: "/dashboard/charges-overview",
-    // },
+   
     {
       icon: ICONS.usdt,
       title: "USDT",
@@ -45,13 +39,13 @@ const AllControls = () => {
       description: "Set max/min limitations",
       path: "/dashboard/limitations",
     },
-    // {
-    //   icon: ICONS.reDonation,
-    //   title: "Re-Donation",
-    //   subtitle: "Rules",
-    //   description: "Update Minimum Re-Donation Per Stage.",
-    //   path: "/dashboard/re-donation-rules",
-    // },
+     {
+      icon: ICONS.charges,
+      title: "Notice",
+      subtitle: "Notice Board",
+      description: "Update Notice Board",
+      path: "/dashboard/manage-notice",
+    },
   ];
 
   return (
