@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
-import { useGetSettingDetailsQuery, useUpdateSettingMutation } from "../../../../redux/Features/User/adminApi";
+import {
+  useGetSettingDetailsQuery,
+  useUpdateSettingMutation,
+} from "../../../../redux/Features/User/adminApi";
 import { toast } from "sonner";
 import Loader from "../../../../components/Loader/Loader";
 
 const Notice = () => {
-  const {data} = useGetSettingDetailsQuery({});
-  console.log(data);
+  const { data: setting } = useGetSettingDetailsQuery({});
+  console.log(setting);
   const [updateSetting, { isLoading }] = useUpdateSettingMutation();
   const { register, handleSubmit, reset } = useForm<any>();
 
   const handleUpdateCharges = async (data: any) => {
     try {
-      if(!data?.data?.notice?.enabled){
+      if (!setting?.data?.notice?.enabled) {
         toast.error("Please enable the notice before updating it");
         return;
       }
@@ -23,7 +26,6 @@ const Notice = () => {
       };
 
       const response = await updateSetting(payload).unwrap();
-      console.log(response);
       if (response?.message) {
         toast.success(response?.message);
         reset();
@@ -34,38 +36,41 @@ const Notice = () => {
     }
   };
 
+  const [pauseSystem, { isLoading: isUpdatingSetting }] =
+    useUpdateSettingMutation();
 
-  const [pauseSystem, {isLoading:isUpdatingSetting}] = useUpdateSettingMutation();
-  
-    const handleManageNotice = async () => {
-      try {
-        const payload = {
-          notice : {
-            enabled : data?.data?.notice?.enabled ? false : true
-          }
-        };
-        const response = await pauseSystem(payload).unwrap();
-        if(response?.message) {
-          toast.success(response?.message || "Notice updated successfully");
-        }
-      } catch (error) {
-        console.log(error);
+  const handleManageNotice = async () => {
+    try {
+      const payload = {
+        notice: {
+          enabled: setting?.data?.notice?.enabled ? false : true,
+        },
+      };
+      const response = await pauseSystem(payload).unwrap();
+      if (response?.message) {
+        toast.success(response?.message || "Notice updated successfully");
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-[18px]">
       <div className="flex items-center justify-between">
         <h1 className="text-white font-medium text-[26px]">Update Notice</h1>
-      <button onClick={handleManageNotice} className="bg-primary-10 text-white px-10 py-3 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit cursor-pointer">
-        {
-          isUpdatingSetting 
-          ?
-          <Loader size="size-6" />
-          :
-          data?.data?.notice?.enabled ? "Disable Notice" : "Enable Notice"
-        }
-      </button>
+        <button
+          onClick={handleManageNotice}
+          className="bg-primary-10 text-white px-10 py-3 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit cursor-pointer"
+        >
+          {isUpdatingSetting ? (
+            <Loader size="size-6" />
+          ) : setting?.data?.notice?.enabled ? (
+            "Disable Notice"
+          ) : (
+            "Enable Notice"
+          )}
+        </button>
       </div>
 
       <form
