@@ -10,8 +10,6 @@ import { format } from "date-fns";
 const Withdrawals = () => {
   const { data, isLoading } = useGetAllWithdrawalsQuery({});
 
-  console.log(data);
-
   const [selectedDonationDate, setSelectedDonationDate] = useState<Date | null>(
     null
   );
@@ -22,7 +20,7 @@ const Withdrawals = () => {
 
   const filteredWithdrawData = formattedWithdrawDate
     ? data?.data?.filter((item: any) => {
-        const itemDate = format(new Date(item.createdAt), "yyyy-MM-dd");
+        const itemDate = format(new Date(item.created_at), "yyyy-MM-dd");
         return itemDate === formattedWithdrawDate;
       })
     : data?.data;
