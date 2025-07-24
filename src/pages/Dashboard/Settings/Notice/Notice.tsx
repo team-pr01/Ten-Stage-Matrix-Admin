@@ -22,6 +22,7 @@ const Notice = () => {
       const payload = {
         notice: {
           message: data.notice,
+          enabled: setting?.data?.notice?.enabled,
         },
       };
 
@@ -58,10 +59,11 @@ const Notice = () => {
   return (
     <div className="flex flex-col gap-[18px]">
       <div className="flex items-center justify-between">
-        <h1 className="text-white font-medium text-[26px]">Update Notice</h1>
+        <h1 className="text-white font-medium text-lg md:text-[26px]">Update Notice</h1>
         <button
           onClick={handleManageNotice}
-          className="bg-primary-10 text-white px-10 py-3 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit cursor-pointer"
+        
+          className="bg-primary-10 text-white px-10 py-3 rounded-full text-sm hover:bg-primary-10/60 transition duration-300 w-fit cursor-pointer text-nowrap"
         >
           {isUpdatingSetting ? (
             <Loader size="size-6" />
