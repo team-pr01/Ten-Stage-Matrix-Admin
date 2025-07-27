@@ -62,7 +62,7 @@ const DepositDataTable = ({data, isLoading} : {data: any, isLoading: boolean}) =
                       {item?.user_email}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.stage}
+                      {item?.stage || "N/A"}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item?.wallet_address}

@@ -22,7 +22,6 @@ export const WithdrawDataTable = ({
   isLoading: boolean;
   totalWithdrawals: number;
 }) => {
-  console.log(data);
   const [approveWithdraw] = useApproveWithdrawMutation();
   const [rejectWithdraw] = useRejectWithdrawMutation();
 
@@ -121,10 +120,10 @@ export const WithdrawDataTable = ({
                       {item?.user_email}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.stage_number}
+                      {item?.stage || "N/A"}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      {item?.wallet_address}
+                      {item?.wallet_address || "N/A"}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {item?.withdrawal_address}
