@@ -8,8 +8,8 @@ import type { RootState } from "../store";
 import type { DefinitionType } from "@reduxjs/toolkit/query";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://api.tsmnews.com/api",
-  // baseUrl: "https://test.adamocorporationltd.com/api",
+  // baseUrl: "https://api.tsmnews.com/api",
+  baseUrl: "https://test.adamocorporationltd.com/api",
   // baseUrl: "https://api.adamocorporationltd.com/api",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
@@ -32,7 +32,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
   if (result.error?.status === 401) {
     const res = await fetch(
-      "https://api.tsmnews.com/api/v1/auth/refresh-token",
+      "https://test.adamocorporationltd.com/api/v1/auth/refresh-token",
       {
         credentials: "include",
       }
